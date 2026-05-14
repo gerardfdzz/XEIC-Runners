@@ -102,16 +102,20 @@ export class EsdevenimentsComponent implements OnInit {
       location: e.address || 'La Sénia',
       type: typeMap[e.activity_type] ?? 'social',
       difficulty: 'Iniciació',
-      tags: [this.mapActivityTag(e.activity_type)],
+      tags: [this.mapActivityTag(e.activity_type, e.title)],
       imageUrl: CLUB_IMAGE,
       description: e.description || undefined,
     };
   }
 
-  private mapActivityTag(activityType: string): string {
+  private mapActivityTag(activityType: string, title: string): string {
+    const t = title.toLowerCase();
+    if (t.includes('trail')) return 'Trail';
+    if (t.includes('senderisme') || t.includes('hike')) return 'Senderisme';
+    if (t.includes('caminada') || t.includes('walk')) return 'Caminada';
+
     const map: Record<string, string> = {
       Run: 'Cursa',
-      TrailRun: 'Trail',
       Walk: 'Caminada',
       Hike: 'Senderisme',
     };
