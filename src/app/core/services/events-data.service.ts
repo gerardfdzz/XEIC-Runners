@@ -14,8 +14,10 @@ export class EventsDataService {
       type: 'training',
       difficulty: 'Iniciació',
       tags: ['Iniciació', 'Asfalt'],
-      imageUrl: 'https://apropebre.cat/wp-content/uploads/2026/04/DSC09088-1024x683.jpg',
-      description: 'Quedada setmanal de dimarts. Ritme suau, apta per a tothom.',
+      imageUrl:
+        'https://apropebre.cat/wp-content/uploads/2026/04/DSC09088-1024x683.jpg',
+      description:
+        'Quedada setmanal de dimarts. Ritme suau, apta per a tothom.',
     },
     {
       id: 'sortida-estrets',
@@ -28,7 +30,8 @@ export class EventsDataService {
       type: 'race',
       difficulty: 'Xeic!',
       tags: ['Xeic!', 'Muntanya'],
-      imageUrl: 'https://apropebre.cat/wp-content/uploads/2026/04/DSC09145-1024x683.jpg',
+      imageUrl:
+        'https://apropebre.cat/wp-content/uploads/2026/04/DSC09145-1024x683.jpg',
       description: 'Sortida als espectaculars Estrets del riu Sénia.',
     },
     {
@@ -36,12 +39,13 @@ export class EventsDataService {
       title: 'Entrenament Pista',
       date: new Date('2025-06-24'),
       time: '19:30',
-      location: 'Pistes d\'Atletisme',
+      location: "Pistes d'Atletisme",
       type: 'track',
       difficulty: 'Mitjà',
       tags: ['Mitjà', 'Social'],
-      imageUrl: 'https://apropebre.cat/wp-content/uploads/2026/04/DSC09094-1024x683.jpg',
-      description: 'Sèries en grup a les pistes d\'atletisme.',
+      imageUrl:
+        'https://apropebre.cat/wp-content/uploads/2026/04/DSC09094-1024x683.jpg',
+      description: "Sèries en grup a les pistes d'atletisme.",
     },
     {
       id: 'volta-olivers',
@@ -54,7 +58,8 @@ export class EventsDataService {
       type: 'social',
       difficulty: 'Iniciació',
       tags: ['Iniciació', 'Asfalt'],
-      imageUrl: 'https://apropebre.cat/wp-content/uploads/2026/04/DSC09104-1024x683.jpg',
+      imageUrl:
+        'https://apropebre.cat/wp-content/uploads/2026/04/DSC09104-1024x683.jpg',
       description: 'Recorregut familiar pels olivers mil·lenaris de la Sénia.',
     },
     {
@@ -68,20 +73,23 @@ export class EventsDataService {
       type: 'race',
       difficulty: 'Xeic!',
       tags: ['Xeic!', 'Muntanya'],
-      imageUrl: 'https://apropebre.cat/wp-content/uploads/2026/04/DSC09152-1024x683.jpg',
+      imageUrl:
+        'https://apropebre.cat/wp-content/uploads/2026/04/DSC09152-1024x683.jpg',
       description: 'Ascensió al cim més emblemàtic dels Ports de Beseit.',
     },
     {
       id: 'sopar-runner',
-      title: 'Sopar de l\'Estiu Xeic',
+      title: "Sopar de l'Estiu Xeic",
       date: new Date('2025-07-19'),
       time: '21:00',
       location: 'Casal de la Sénia',
       type: 'social',
       difficulty: 'Iniciació',
       tags: ['Social', 'Comunitat'],
-      imageUrl: 'https://apropebre.cat/wp-content/uploads/2026/04/DSC09169-1024x683.jpg',
-      description: 'Sopar de germanor per celebrar la temporada. Tothom és benvingut!',
+      imageUrl:
+        'https://apropebre.cat/wp-content/uploads/2026/04/DSC09169-1024x683.jpg',
+      description:
+        'Sopar de germanor per celebrar la temporada. Tothom és benvingut!',
     },
   ];
 
@@ -122,10 +130,7 @@ export class EventsDataService {
       isCustom: true,
     };
     const existing = this.getCustom();
-    localStorage.setItem(
-      this.LS_KEY,
-      JSON.stringify([...existing, newEvent])
-    );
+    localStorage.setItem(this.LS_KEY, JSON.stringify([...existing, newEvent]));
     return newEvent;
   }
 

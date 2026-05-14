@@ -1,19 +1,6 @@
-/**
- * Vercel serverless function — Instagram Highlights proxy
- * GET /api/instagram → { items: [{ id, imageUrl, takenAt }] }
- *
- * Required environment variable (Vercel → Settings → Environment Variables):
- *   INSTAGRAM_SESSION_ID → sessionid cookie from a logged-in @xeicrunners browser session
- *
- * How to get it:
- *   1. Open Chrome logged in as @xeicrunners at instagram.com
- *   2. DevTools → Application → Cookies → https://www.instagram.com
- *   3. Copy the value of "sessionid"
- */
-
 const HIGHLIGHT_ID = '18071980868164936';
 const IG_API       = `https://i.instagram.com/api/v1/feed/reels_media/?reel_ids=highlight:${HIGHLIGHT_ID}`;
-const CACHE_TTL    = 30 * 60 * 1000; // 30 min (Instagram CDN URLs expire)
+const CACHE_TTL    = 30 * 60 * 1000;
 
 let _cache       = null;
 let _cacheExpiry = 0;

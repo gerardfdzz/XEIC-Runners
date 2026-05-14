@@ -1,7 +1,10 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, shareReplay, catchError, of, map } from 'rxjs';
-import { InstagramItem, InstagramHighlightsResponse } from '../models/instagram.model';
+import {
+  InstagramItem,
+  InstagramHighlightsResponse,
+} from '../models/instagram.model';
 
 @Injectable({ providedIn: 'root' })
 export class InstagramService {
@@ -13,9 +16,12 @@ export class InstagramService {
       map((res) => res.items ?? []),
       shareReplay(1),
       catchError((err) => {
-        console.warn('[InstagramService] No s\'han pogut obtenir les highlights:', err.message);
+        console.warn(
+          "[InstagramService] No s'han pogut obtenir les highlights:",
+          err.message,
+        );
         return of<InstagramItem[]>([]);
-      })
+      }),
     );
 
   getHighlights(): Observable<InstagramItem[]> {

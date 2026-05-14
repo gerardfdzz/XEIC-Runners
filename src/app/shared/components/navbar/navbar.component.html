@@ -1,41 +1,62 @@
 <header class="navbar" [class.navbar--scrolled]="scrolled()">
   <nav class="navbar__inner">
-
     <a routerLink="/" class="navbar__logo">XEIC RUNNERS</a>
 
     <ul class="navbar__links">
       <li>
-        <a routerLink="/" routerLinkActive="navbar__link--active"
-           [routerLinkActiveOptions]="{ exact: true }" class="navbar__link">
-          {{ i18n.t('nav.home') }}
+        <a
+          routerLink="/"
+          routerLinkActive="navbar__link--active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="navbar__link"
+        >
+          {{ i18n.t("nav.home") }}
         </a>
       </li>
       <li>
-        <a routerLink="/fundadors" routerLinkActive="navbar__link--active" class="navbar__link">
-          {{ i18n.t('nav.founders') }}
+        <a
+          routerLink="/fundadors"
+          routerLinkActive="navbar__link--active"
+          class="navbar__link"
+        >
+          {{ i18n.t("nav.founders") }}
         </a>
       </li>
       <li>
-        <a routerLink="/esdeveniments" routerLinkActive="navbar__link--active" class="navbar__link">
-          {{ i18n.t('nav.events') }}
+        <a
+          routerLink="/esdeveniments"
+          routerLinkActive="navbar__link--active"
+          class="navbar__link"
+        >
+          {{ i18n.t("nav.events") }}
         </a>
       </li>
       <li>
-        <a routerLink="/rutes" routerLinkActive="navbar__link--active" class="navbar__link">
-          {{ i18n.t('nav.routes') }}
+        <a
+          routerLink="/rutes"
+          routerLinkActive="navbar__link--active"
+          class="navbar__link"
+        >
+          {{ i18n.t("nav.routes") }}
         </a>
       </li>
       <li>
-        <a routerLink="/comunitat" routerLinkActive="navbar__link--active" class="navbar__link">
-          {{ i18n.t('nav.community') }}
+        <a
+          routerLink="/comunitat"
+          routerLinkActive="navbar__link--active"
+          class="navbar__link"
+        >
+          {{ i18n.t("nav.community") }}
         </a>
       </li>
     </ul>
 
     <div class="navbar__actions">
-
       <div class="navbar__lang">
-        <button class="navbar__lang-toggle" (click)="langMenuOpen.set(!langMenuOpen())">
+        <button
+          class="navbar__lang-toggle"
+          (click)="langMenuOpen.set(!langMenuOpen())"
+        >
           {{ i18n.langLabel() }}
           <span class="material-symbols-outlined">expand_more</span>
         </button>
@@ -44,8 +65,11 @@
             @for (lang of langs; track lang.code) {
               <button
                 class="navbar__lang-option"
-                [class.navbar__lang-option--active]="i18n.currentLang() === lang.code"
-                (click)="setLang(lang.code)">
+                [class.navbar__lang-option--active]="
+                  i18n.currentLang() === lang.code
+                "
+                (click)="setLang(lang.code)"
+              >
                 {{ lang.label }}
               </button>
             }
@@ -53,23 +77,54 @@
         }
       </div>
 
-      <button class="btn-pill navbar__join">{{ i18n.t('nav.join') }}</button>
+      <button class="btn-pill navbar__join">{{ i18n.t("nav.join") }}</button>
 
-      <button class="navbar__mobile-toggle" (click)="mobileMenuOpen.set(!mobileMenuOpen())">
-        <span class="material-symbols-outlined">{{ mobileMenuOpen() ? 'close' : 'menu' }}</span>
+      <button
+        class="navbar__mobile-toggle"
+        (click)="mobileMenuOpen.set(!mobileMenuOpen())"
+      >
+        <span class="material-symbols-outlined">{{
+          mobileMenuOpen() ? "close" : "menu"
+        }}</span>
       </button>
-
     </div>
   </nav>
 
   @if (mobileMenuOpen()) {
     <div class="navbar__mobile-menu">
-      <a routerLink="/" (click)="mobileMenuOpen.set(false)" class="navbar__mobile-link">{{ i18n.t('nav.home') }}</a>
-      <a routerLink="/fundadors" (click)="mobileMenuOpen.set(false)" class="navbar__mobile-link">{{ i18n.t('nav.founders') }}</a>
-      <a routerLink="/esdeveniments" (click)="mobileMenuOpen.set(false)" class="navbar__mobile-link">{{ i18n.t('nav.events') }}</a>
-      <a routerLink="/rutes" (click)="mobileMenuOpen.set(false)" class="navbar__mobile-link">{{ i18n.t('nav.routes') }}</a>
-      <a routerLink="/comunitat" (click)="mobileMenuOpen.set(false)" class="navbar__mobile-link">{{ i18n.t('nav.community') }}</a>
-      <button class="btn-pill navbar__mobile-join">{{ i18n.t('nav.join') }}</button>
+      <a
+        routerLink="/"
+        (click)="mobileMenuOpen.set(false)"
+        class="navbar__mobile-link"
+        >{{ i18n.t("nav.home") }}</a
+      >
+      <a
+        routerLink="/fundadors"
+        (click)="mobileMenuOpen.set(false)"
+        class="navbar__mobile-link"
+        >{{ i18n.t("nav.founders") }}</a
+      >
+      <a
+        routerLink="/esdeveniments"
+        (click)="mobileMenuOpen.set(false)"
+        class="navbar__mobile-link"
+        >{{ i18n.t("nav.events") }}</a
+      >
+      <a
+        routerLink="/rutes"
+        (click)="mobileMenuOpen.set(false)"
+        class="navbar__mobile-link"
+        >{{ i18n.t("nav.routes") }}</a
+      >
+      <a
+        routerLink="/comunitat"
+        (click)="mobileMenuOpen.set(false)"
+        class="navbar__mobile-link"
+        >{{ i18n.t("nav.community") }}</a
+      >
+      <button class="btn-pill navbar__mobile-join">
+        {{ i18n.t("nav.join") }}
+      </button>
     </div>
   }
 </header>

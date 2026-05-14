@@ -1,19 +1,9 @@
-/**
- * Vercel serverless function — Strava proxy
- * GET /api/strava → { club, activities, groupEvents }
- *
- * Required environment variables (Vercel → Settings → Environment Variables):
- *   STRAVA_CLIENT_ID
- *   STRAVA_CLIENT_SECRET
- *   STRAVA_REFRESH_TOKEN
- */
-
 const CLUB_ID   = 1576309;
 const TOKEN_URL = 'https://www.strava.com/oauth/token';
 const API_BASE  = 'https://www.strava.com/api/v3';
-const CACHE_TTL = 5 * 60 * 1000; // 5 min
+const CACHE_TTL = 5 * 60 * 1000;
 
-let _cache       = null;
+let _cache = null;
 let _cacheExpiry = 0;
 
 async function getAccessToken() {

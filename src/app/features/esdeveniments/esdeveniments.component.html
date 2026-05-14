@@ -2,16 +2,17 @@
   <div class="events-hero__blob"></div>
   <div class="events-hero__inner">
     <span class="events-hero__badge">Calendari</span>
-    <h1 class="events-hero__title">{{ i18n.t('events.title') }}</h1>
-    <p class="events-hero__subtitle">{{ i18n.t('events.subtitle') }}</p>
+    <h1 class="events-hero__title">{{ i18n.t("events.title") }}</h1>
+    <p class="events-hero__subtitle">{{ i18n.t("events.subtitle") }}</p>
   </div>
 </section>
 
 <section class="events-list">
   <div class="events-list__inner">
-
     <h2 class="events-list__section-title">
-      <span class="material-symbols-outlined events-list__section-icon">upcoming</span>
+      <span class="material-symbols-outlined events-list__section-icon"
+        >upcoming</span
+      >
       Pròxims esdeveniments
     </h2>
 
@@ -44,7 +45,10 @@
 
     @if (past.length > 0) {
       <h2 class="events-list__section-title events-list__section-title--past">
-        <span class="material-symbols-outlined events-list__section-icon events-list__section-icon--past">history</span>
+        <span
+          class="material-symbols-outlined events-list__section-icon events-list__section-icon--past"
+          >history</span
+        >
         Sortides passades
       </h2>
       <div class="events-list__grid events-list__grid--past">
@@ -53,7 +57,6 @@
         }
       </div>
     }
-
   </div>
 </section>
 
@@ -61,7 +64,8 @@
   <div class="events-cta__inner">
     <h2 class="events-cta__title">No et perdis cap sortida</h2>
     <p class="events-cta__subtitle">
-      Uneix-te al grup de WhatsApp per rebre totes les notificacions dels propers events.
+      Uneix-te al grup de WhatsApp per rebre totes les notificacions dels
+      propers events.
     </p>
     <a
       href="https://wa.me/?text=Hola!%20Vull%20unir-me%20als%20XEIC%20RUNNERS"

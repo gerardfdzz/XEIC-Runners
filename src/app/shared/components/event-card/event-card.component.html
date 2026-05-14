@@ -1,9 +1,14 @@
 <div class="event-card">
   <div class="event-card__image-wrapper">
-    <img [src]="event.imageUrl" [alt]="event.title" class="event-card__image" loading="lazy" />
+    <img
+      [src]="event.imageUrl"
+      [alt]="event.title"
+      class="event-card__image"
+      loading="lazy"
+    />
     <div class="event-card__date-badge">
-      <span class="event-card__date-month">{{ event.date | date:'MMM' }}</span>
-      <span class="event-card__date-day">{{ event.date | date:'d' }}</span>
+      <span class="event-card__date-month">{{ event.date | date: "MMM" }}</span>
+      <span class="event-card__date-day">{{ event.date | date: "d" }}</span>
     </div>
   </div>
 
@@ -24,7 +29,8 @@
       @if (event.distance) {
         <div class="event-card__meta-item">
           <span class="material-symbols-outlined">distance</span>
-          {{ event.distance }}{{ event.elevationGain ? ' · ' + event.elevationGain : '' }}
+          {{ event.distance
+          }}{{ event.elevationGain ? " · " + event.elevationGain : "" }}
         </div>
       }
     </div>

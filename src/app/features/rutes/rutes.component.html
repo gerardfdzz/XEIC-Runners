@@ -8,11 +8,15 @@
   </div>
   <div class="rutes-hero__inner">
     <div class="rutes-hero__strava">
-      <img src="assets/images/strava-icon.png" alt="Strava" class="rutes-hero__strava-icon" />
+      <img
+        src="assets/images/strava-icon.png"
+        alt="Strava"
+        class="rutes-hero__strava-icon"
+      />
       <span class="rutes-hero__strava-label">Connectat amb Strava</span>
     </div>
-    <h1 class="rutes-hero__title">{{ i18n.t('routes.heroTitle') }}</h1>
-    <p class="rutes-hero__subtitle">{{ i18n.t('routes.heroSubtitle') }}</p>
+    <h1 class="rutes-hero__title">{{ i18n.t("routes.heroTitle") }}</h1>
+    <p class="rutes-hero__subtitle">{{ i18n.t("routes.heroSubtitle") }}</p>
   </div>
 </section>
 
@@ -20,7 +24,9 @@
   <div class="rutes-filters__inner">
     <div class="rutes-filters__search-row">
       <div class="rutes-filters__search">
-        <span class="material-symbols-outlined rutes-filters__search-icon">search</span>
+        <span class="material-symbols-outlined rutes-filters__search-icon"
+          >search</span
+        >
         <input
           [(ngModel)]="searchQuery"
           (ngModelChange)="onSearch($event)"
@@ -34,7 +40,9 @@
           <button
             (click)="setFilter(filter.key)"
             [class]="filterClass(filter.key)"
-          >{{ i18n.t('routes.filters.' + filter.translationKey) }}</button>
+          >
+            {{ i18n.t("routes.filters." + filter.translationKey) }}
+          </button>
         }
       </div>
     </div>
@@ -43,7 +51,9 @@
 
 <div class="rutes-results-count">
   <div class="rutes-results-count__inner">
-    <p class="rutes-results-count__text">{{ filteredRoutes().length }} rutes trobades</p>
+    <p class="rutes-results-count__text">
+      {{ filteredRoutes().length }} rutes trobades
+    </p>
   </div>
 </div>
 
@@ -51,7 +61,9 @@
   <div class="rutes-grid__inner">
     @if (filteredRoutes().length === 0) {
       <div class="rutes-grid__empty">
-        <span class="material-symbols-outlined rutes-grid__empty-icon">search_off</span>
+        <span class="material-symbols-outlined rutes-grid__empty-icon"
+          >search_off</span
+        >
         <p class="rutes-grid__empty-title">Cap ruta trobada</p>
         <p class="rutes-grid__empty-text">Prova amb un altre filtre o cerca</p>
       </div>
@@ -69,10 +81,17 @@
   <div class="rutes-strava-cta__inner">
     <div class="rutes-strava-cta__card grainy-gradient">
       <div class="rutes-strava-cta__content">
-        <img src="assets/images/strava-icon.png" alt="Strava" class="rutes-strava-cta__icon" />
-        <h3 class="rutes-strava-cta__title">{{ i18n.t('routes.stravaFollow') }}</h3>
+        <img
+          src="assets/images/strava-icon.png"
+          alt="Strava"
+          class="rutes-strava-cta__icon"
+        />
+        <h3 class="rutes-strava-cta__title">
+          {{ i18n.t("routes.stravaFollow") }}
+        </h3>
         <p class="rutes-strava-cta__text">
-          Uneix-te al nostre club de Strava per veure totes les activitats, rutes i reptes de la comunitat XEIC.
+          Uneix-te al nostre club de Strava per veure totes les activitats,
+          rutes i reptes de la comunitat XEIC.
         </p>
         <a
           href="https://www.strava.com/clubs/1576309"
@@ -95,6 +114,10 @@
     class="rutes-fab__btn"
     aria-label="Strava"
   >
-    <img src="assets/images/strava-icon.png" alt="Strava" class="rutes-fab__icon" />
+    <img
+      src="assets/images/strava-icon.png"
+      alt="Strava"
+      class="rutes-fab__icon"
+    />
   </a>
 </div>

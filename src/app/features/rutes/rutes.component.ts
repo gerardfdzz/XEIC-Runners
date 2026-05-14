@@ -6,7 +6,14 @@ import { RoutesDataService } from '../../core/services/routes-data.service';
 import { RouteCardComponent } from '../../shared/components/route-card/route-card.component';
 import { XeicRoute } from '../../core/models/route.model';
 
-type FilterType = 'all' | 'mountain' | 'road' | 'mixed' | 'easy' | 'medium' | 'xeic';
+type FilterType =
+  | 'all'
+  | 'mountain'
+  | 'road'
+  | 'mixed'
+  | 'easy'
+  | 'medium'
+  | 'xeic';
 
 @Component({
   selector: 'app-rutes',

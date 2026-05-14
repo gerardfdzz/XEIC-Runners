@@ -1,6 +1,11 @@
 <article class="route-card">
   <div class="route-card__image-wrapper">
-    <img [src]="route.imageUrl" [alt]="route.name" class="route-card__image" loading="lazy" />
+    <img
+      [src]="route.imageUrl"
+      [alt]="route.name"
+      class="route-card__image"
+      loading="lazy"
+    />
     <div class="route-card__image-overlay"></div>
 
     <div class="route-card__tags">
@@ -9,7 +14,11 @@
     </div>
 
     @if (route.stravaUrl) {
-      <img src="assets/images/strava-icon.png" alt="Strava" class="route-card__strava-badge" />
+      <img
+        src="assets/images/strava-icon.png"
+        alt="Strava"
+        class="route-card__strava-badge"
+      />
     }
   </div>
 
@@ -19,22 +28,39 @@
 
     <div class="route-card__stats">
       <div class="route-card__stat">
-        <span class="route-card__stat-label">{{ i18n.t('routes.stats.distance') }}</span>
-        <span class="route-card__stat-value">{{ route.distance }}<small>km</small></span>
+        <span class="route-card__stat-label">{{
+          i18n.t("routes.stats.distance")
+        }}</span>
+        <span class="route-card__stat-value"
+          >{{ route.distance }}<small>km</small></span
+        >
       </div>
       <div class="route-card__stat route-card__stat--bordered">
-        <span class="route-card__stat-label">{{ i18n.t('routes.stats.elevation') }}</span>
-        <span class="route-card__stat-value">{{ route.elevationGain }}<small>m</small></span>
+        <span class="route-card__stat-label">{{
+          i18n.t("routes.stats.elevation")
+        }}</span>
+        <span class="route-card__stat-value"
+          >{{ route.elevationGain }}<small>m</small></span
+        >
       </div>
       <div class="route-card__stat">
-        <span class="route-card__stat-label">{{ i18n.t('routes.stats.time') }}</span>
-        <span class="route-card__stat-value">{{ route.estimatedTime }}<small>h</small></span>
+        <span class="route-card__stat-label">{{
+          i18n.t("routes.stats.time")
+        }}</span>
+        <span class="route-card__stat-value"
+          >{{ route.estimatedTime }}<small>h</small></span
+        >
       </div>
     </div>
 
     @if (route.stravaUrl) {
-      <a [href]="route.stravaUrl" target="_blank" rel="noopener noreferrer" class="route-card__strava-btn grainy-gradient">
-        <span>{{ i18n.t('routes.viewOnStrava') }}</span>
+      <a
+        [href]="route.stravaUrl"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="route-card__strava-btn grainy-gradient"
+      >
+        <span>{{ i18n.t("routes.viewOnStrava") }}</span>
         <span class="material-symbols-outlined">open_in_new</span>
       </a>
     }

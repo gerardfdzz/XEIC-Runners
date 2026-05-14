@@ -5,15 +5,17 @@
 
   <div class="hero__inner">
     <div class="hero__content">
-      <span class="hero__badge">{{ i18n.t('home.hero.badge') }}</span>
+      <span class="hero__badge">{{ i18n.t("home.hero.badge") }}</span>
       <h1 class="hero__title">
-        {{ i18n.t('home.hero.title') }}
-        <span class="hero__title-highlight text-gradient">{{ i18n.t('home.hero.titleHighlight') }}</span>
+        {{ i18n.t("home.hero.title") }}
+        <span class="hero__title-highlight text-gradient">{{
+          i18n.t("home.hero.titleHighlight")
+        }}</span>
       </h1>
-      <p class="hero__subtitle">{{ i18n.t('home.hero.subtitle') }}</p>
+      <p class="hero__subtitle">{{ i18n.t("home.hero.subtitle") }}</p>
       <div class="hero__actions">
-        <button class="btn-primary">{{ i18n.t('home.hero.cta1') }}</button>
-        <button class="btn-ghost">{{ i18n.t('home.hero.cta2') }}</button>
+        <button class="btn-primary">{{ i18n.t("home.hero.cta1") }}</button>
+        <button class="btn-ghost">{{ i18n.t("home.hero.cta2") }}</button>
       </div>
       <div class="hero__stats">
         <div class="hero__stat">
@@ -42,7 +44,11 @@
         />
       </div>
       <div class="hero__strava-card">
-        <img src="assets/images/strava-icon.png" alt="Strava" class="hero__strava-icon" />
+        <img
+          src="assets/images/strava-icon.png"
+          alt="Strava"
+          class="hero__strava-icon"
+        />
         <div>
           <p class="hero__strava-title">Strava Club</p>
           <p class="hero__strava-sub">XEIC Runners</p>
@@ -55,25 +61,42 @@
 <section class="founders-preview">
   <div class="founders-preview__inner">
     <div class="founders-preview__main">
-      <h2 class="founders-preview__title">{{ i18n.t('home.founders.title') }}</h2>
+      <h2 class="founders-preview__title">
+        {{ i18n.t("home.founders.title") }}
+      </h2>
       <div class="founders-preview__grid">
         <div class="founders-preview__block">
-          <h3 class="founders-preview__block-title">{{ i18n.t('home.founders.who') }}</h3>
-          <p class="founders-preview__block-text">{{ i18n.t('home.founders.whoText') }}</p>
+          <h3 class="founders-preview__block-title">
+            {{ i18n.t("home.founders.who") }}
+          </h3>
+          <p class="founders-preview__block-text">
+            {{ i18n.t("home.founders.whoText") }}
+          </p>
         </div>
         <div class="founders-preview__block">
-          <h3 class="founders-preview__block-title">{{ i18n.t('home.founders.why') }}</h3>
-          <p class="founders-preview__block-text">{{ i18n.t('home.founders.whyText') }}</p>
+          <h3 class="founders-preview__block-title">
+            {{ i18n.t("home.founders.why") }}
+          </h3>
+          <p class="founders-preview__block-text">
+            {{ i18n.t("home.founders.whyText") }}
+          </p>
         </div>
       </div>
       <a routerLink="/fundadors" class="founders-preview__link">
-        Coneix l'equip <span class="material-symbols-outlined">arrow_forward</span>
+        Coneix l'equip
+        <span class="material-symbols-outlined">arrow_forward</span>
       </a>
     </div>
     <div class="founders-preview__community grainy-gradient">
-      <span class="material-symbols-outlined founders-preview__community-icon">favorite</span>
-      <h3 class="founders-preview__community-title">{{ i18n.t('home.founders.community') }}</h3>
-      <p class="founders-preview__community-text">{{ i18n.t('home.founders.communityText') }}</p>
+      <span class="material-symbols-outlined founders-preview__community-icon"
+        >favorite</span
+      >
+      <h3 class="founders-preview__community-title">
+        {{ i18n.t("home.founders.community") }}
+      </h3>
+      <p class="founders-preview__community-text">
+        {{ i18n.t("home.founders.communityText") }}
+      </p>
     </div>
   </div>
 </section>
@@ -82,11 +105,14 @@
   <div class="events-preview__inner">
     <div class="events-preview__header">
       <div>
-        <h2 class="events-preview__title">{{ i18n.t('home.events.title') }}</h2>
-        <p class="events-preview__subtitle">{{ i18n.t('home.events.subtitle') }}</p>
+        <h2 class="events-preview__title">{{ i18n.t("home.events.title") }}</h2>
+        <p class="events-preview__subtitle">
+          {{ i18n.t("home.events.subtitle") }}
+        </p>
       </div>
       <a routerLink="/esdeveniments" class="events-preview__link">
-        {{ i18n.t('home.events.viewAll') }} <span class="material-symbols-outlined">arrow_forward</span>
+        {{ i18n.t("home.events.viewAll") }}
+        <span class="material-symbols-outlined">arrow_forward</span>
       </a>
     </div>
     <div class="events-preview__grid">
@@ -101,30 +127,46 @@
   <div class="routes-preview__inner">
     <div class="routes-preview__content">
       <div class="routes-preview__heading">
-        <img src="assets/images/strava-icon.png" alt="Strava" class="routes-preview__strava-icon" />
-        <h2 class="routes-preview__title">{{ i18n.t('home.routes.title') }}</h2>
+        <img
+          src="assets/images/strava-icon.png"
+          alt="Strava"
+          class="routes-preview__strava-icon"
+        />
+        <h2 class="routes-preview__title">{{ i18n.t("home.routes.title") }}</h2>
       </div>
-      <p class="routes-preview__subtitle">{{ i18n.t('home.routes.subtitle') }}</p>
+      <p class="routes-preview__subtitle">
+        {{ i18n.t("home.routes.subtitle") }}
+      </p>
 
       <div class="routes-preview__list">
         @for (route of featuredRoutes(); track route.id) {
-          <a [href]="route.stravaUrl" target="_blank" rel="noopener noreferrer" class="routes-preview__item">
+          <a
+            [href]="route.stravaUrl"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="routes-preview__item"
+          >
             <div class="routes-preview__item-left">
               <div class="routes-preview__item-icon">
                 <span class="material-symbols-outlined">route</span>
               </div>
               <div>
                 <p class="routes-preview__item-name">{{ route.name }}</p>
-                <p class="routes-preview__item-meta">{{ route.distance }} km · {{ route.elevationGain }}m+</p>
+                <p class="routes-preview__item-meta">
+                  {{ route.distance }} km · {{ route.elevationGain }}m+
+                </p>
               </div>
             </div>
-            <span class="material-symbols-outlined routes-preview__item-arrow">open_in_new</span>
+            <span class="material-symbols-outlined routes-preview__item-arrow"
+              >open_in_new</span
+            >
           </a>
         }
       </div>
 
       <a routerLink="/rutes" class="routes-preview__all-link">
-        Veure totes les rutes <span class="material-symbols-outlined">arrow_forward</span>
+        Veure totes les rutes
+        <span class="material-symbols-outlined">arrow_forward</span>
       </a>
     </div>
 
@@ -147,51 +189,82 @@
 <section class="community-preview">
   <div class="community-preview__inner">
     <h2 class="community-preview__title">
-      {{ i18n.t('home.community.title') }}
-      <span class="text-gradient">{{ i18n.t('home.community.titleHighlight') }}</span>
+      {{ i18n.t("home.community.title") }}
+      <span class="text-gradient">{{
+        i18n.t("home.community.titleHighlight")
+      }}</span>
     </h2>
-    <p class="community-preview__subtitle">{{ i18n.t('home.community.subtitle') }}</p>
+    <p class="community-preview__subtitle">
+      {{ i18n.t("home.community.subtitle") }}
+    </p>
 
     <div class="community-preview__masonry">
       <div class="community-preview__item">
-        <img src="https://apropebre.cat/wp-content/uploads/2026/04/DSC09088-1024x683.jpg" alt="XEIC Runners comunitat" class="community-preview__photo" loading="lazy"/>
+        <img
+          src="https://apropebre.cat/wp-content/uploads/2026/04/DSC09088-1024x683.jpg"
+          alt="XEIC Runners comunitat"
+          class="community-preview__photo"
+          loading="lazy"
+        />
       </div>
-      <div class="community-preview__item community-preview__item--quote grainy-gradient">
-        <p class="community-preview__quote">"Més que quilòmetres, sumem moments inolvidables."</p>
+      <div
+        class="community-preview__item community-preview__item--quote grainy-gradient"
+      >
+        <p class="community-preview__quote">
+          "Més que quilòmetres, sumem moments inolvidables."
+        </p>
         <p class="community-preview__quote-author">— Membre XEIC</p>
       </div>
       <div class="community-preview__item">
-        <img src="https://apropebre.cat/wp-content/uploads/2026/04/DSC09145-1024x683.jpg" alt="XEIC Runners sortida" class="community-preview__photo" loading="lazy"/>
+        <img
+          src="https://apropebre.cat/wp-content/uploads/2026/04/DSC09145-1024x683.jpg"
+          alt="XEIC Runners sortida"
+          class="community-preview__photo"
+          loading="lazy"
+        />
       </div>
       <div class="community-preview__item">
-        <img src="https://apropebre.cat/wp-content/uploads/2026/04/DSC09104-1024x683.jpg" alt="XEIC Runners muntanya" class="community-preview__photo" loading="lazy"/>
+        <img
+          src="https://apropebre.cat/wp-content/uploads/2026/04/DSC09104-1024x683.jpg"
+          alt="XEIC Runners muntanya"
+          class="community-preview__photo"
+          loading="lazy"
+        />
       </div>
       <div class="community-preview__item">
-        <img src="https://apropebre.cat/wp-content/uploads/2026/04/DSC09152-1024x683.jpg" alt="XEIC Runners Ports Beseit" class="community-preview__photo" loading="lazy"/>
+        <img
+          src="https://apropebre.cat/wp-content/uploads/2026/04/DSC09152-1024x683.jpg"
+          alt="XEIC Runners Ports Beseit"
+          class="community-preview__photo"
+          loading="lazy"
+        />
       </div>
       <div class="community-preview__item community-preview__item--stat">
         <h4 class="community-preview__stat-value">+130</h4>
-        <p class="community-preview__stat-label">{{ i18n.t('home.community.activeMembers') }}</p>
+        <p class="community-preview__stat-label">
+          {{ i18n.t("home.community.activeMembers") }}
+        </p>
       </div>
     </div>
 
     <a routerLink="/comunitat" class="community-preview__link">
-      Veure la comunitat <span class="material-symbols-outlined">arrow_forward</span>
+      Veure la comunitat
+      <span class="material-symbols-outlined">arrow_forward</span>
     </a>
   </div>
 </section>
 
 <section class="home-cta grainy-gradient">
   <div class="home-cta__inner">
-    <h2 class="home-cta__title">{{ i18n.t('home.cta.title') }}</h2>
-    <p class="home-cta__subtitle">{{ i18n.t('home.cta.subtitle') }}</p>
+    <h2 class="home-cta__title">{{ i18n.t("home.cta.title") }}</h2>
+    <p class="home-cta__subtitle">{{ i18n.t("home.cta.subtitle") }}</p>
     <a
       href="https://l.instagram.com/?u=https%3A%2F%2Fchat.whatsapp.com%2FGQj4ET5Bt84IgBLtLKwpwx%3Futm_source%3Dig%26utm_medium%3Dsocial%26utm_content%3Dlink_in_bio%26fbclid%3DPAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGnKd7sPoE0vTyuDSB9EPkVs4ti6VCRllaP7Lct_NWwRlvSLzenUVo3zSKQzCk_aem_YWdncwAHly7eL8qRLTEKA1Srrmuj%26brid%3DYWdncwGtzjwMWKnJyEW9K7Aw3wti&e=AUCH4kWhwFM-dO9DXmuHWpf87OHjCm-_J9BEET_lwZHwntoz8dZ5wfvfWprQnaa4Og5zLl4oypJ7X1-Zebi0GMMpEI77v0BQcZV-UPSBuA"
       target="_blank"
       rel="noopener noreferrer"
       class="home-cta__btn"
     >
-      {{ i18n.t('home.cta.button') }}
+      {{ i18n.t("home.cta.button") }}
     </a>
   </div>
 </section>

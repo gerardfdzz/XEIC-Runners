@@ -4,14 +4,14 @@ Official website of the XEIC RUNNERS running club from La Sénia (Terres de l'Eb
 
 ## Tech stack
 
-| Tool | Version | Purpose |
-|---|---|---|
-| Angular | 17.3 | Main framework (standalone components, `@for`/`@if` control flow) |
-| TypeScript | 5.4 | Language |
-| SCSS + BEM | — | Component styles |
-| Angular Router | built-in | Lazy-loaded routes |
-| RxJS | 7.8 | Async streams (`forkJoin`, `shareReplay`, `catchError`) |
-| Vercel Functions | Node.js | Serverless API proxy (Strava + Instagram) |
+| Tool             | Version  | Purpose                                                           |
+| ---------------- | -------- | ----------------------------------------------------------------- |
+| Angular          | 17.3     | Main framework (standalone components, `@for`/`@if` control flow) |
+| TypeScript       | 5.4      | Language                                                          |
+| SCSS + BEM       | —        | Component styles                                                  |
+| Angular Router   | built-in | Lazy-loaded routes                                                |
+| RxJS             | 7.8      | Async streams (`forkJoin`, `shareReplay`, `catchError`)           |
+| Vercel Functions | Node.js  | Serverless API proxy (Strava + Instagram)                         |
 
 ---
 
@@ -47,7 +47,7 @@ STRAVA_REFRESH_TOKEN=your_refresh_token   # obtained via: npm run strava:auth
 INSTAGRAM_SESSION_ID=your_session_id     # from browser DevTools → Cookies → instagram.com
 ```
 
-For **Vercel deployment**, add the same keys under *Project → Settings → Environment Variables*.
+For **Vercel deployment**, add the same keys under _Project → Settings → Environment Variables_.
 
 ---
 
@@ -62,11 +62,13 @@ GET /api/strava → { club, activities, groupEvents }
 ```
 
 **Endpoints fetched from Strava:**
+
 - `/clubs/{id}` — member count, name, sport type
 - `/clubs/{id}/activities?per_page=30` — recent member activities (Community page)
 - `/clubs/{id}/group_events` — organised club events (Events page, upcoming section)
 
 **To get a refresh token:**
+
 ```bash
 npm run strava:auth   # follow the prompts → prints STRAVA_REFRESH_TOKEN
 ```
@@ -84,6 +86,7 @@ GET /api/instagram → { items: [{ id, imageUrl, takenAt }] }
 ```
 
 **How to get the session ID:**
+
 1. Open Chrome, log in as `@xeicrunners` at instagram.com
 2. DevTools → Application → Cookies → `https://www.instagram.com`
 3. Copy the value of `sessionid` → set as `INSTAGRAM_SESSION_ID`
@@ -99,7 +102,7 @@ Past events with full metadata (title, date, distance, elevation, photo, descrip
 **Sheet columns** (row 1 = exact header names):
 
 | title | date | time | location | type | difficulty | tags | imageUrl | distance | elevationGain | description | registrationUrl |
-|---|---|---|---|---|---|---|---|---|---|---|---|
+| ----- | ---- | ---- | -------- | ---- | ---------- | ---- | -------- | -------- | ------------- | ----------- | --------------- |
 
 - `date` → `DD/MM/YYYY`
 - `type` → `training` / `race` / `social` / `track`
@@ -108,10 +111,12 @@ Past events with full metadata (title, date, distance, elevation, photo, descrip
 - `imageUrl` → direct image URL (any CDN)
 
 **To activate:**
-1. *File → Share → Publish to web → Sheet1 → CSV → Publish*
+
+1. _File → Share → Publish to web → Sheet1 → CSV → Publish_
 2. Paste the URL in `src/app/core/services/events-sheet.service.ts`:
+
 ```ts
-const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/.../pub?output=csv';
+const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/.../pub?output=csv";
 ```
 
 ---
@@ -120,10 +125,10 @@ const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/.../pub?output=csv
 
 All sources are fetched in parallel with `forkJoin`. Any failure silently falls through to the next source.
 
-| Section | Priority 1 | Priority 2 | Priority 3 |
-|---|---|---|---|
-| **Upcoming** | Strava group events | Google Sheet (future rows) | Hardcoded local data |
-| **Past** | Instagram highlights | Google Sheet (past rows) | Hardcoded local data |
+| Section      | Priority 1           | Priority 2                 | Priority 3           |
+| ------------ | -------------------- | -------------------------- | -------------------- |
+| **Upcoming** | Strava group events  | Google Sheet (future rows) | Hardcoded local data |
+| **Past**     | Instagram highlights | Google Sheet (past rows)   | Hardcoded local data |
 
 ---
 
@@ -200,14 +205,14 @@ xeic-runners/
 
 ## Routes
 
-| Path | Component | Lazy |
-|---|---|---|
-| `/` | `HomeComponent` | ✅ |
-| `/fundadors` | `FundadorsComponent` | ✅ |
-| `/esdeveniments` | `EsdevenimentsComponent` | ✅ |
-| `/rutes` | `RutesComponent` | ✅ |
-| `/comunitat` | `ComunitatComponent` | ✅ |
-| `/**` | redirect → `/` | — |
+| Path             | Component                | Lazy |
+| ---------------- | ------------------------ | ---- |
+| `/`              | `HomeComponent`          | ✅   |
+| `/fundadors`     | `FundadorsComponent`     | ✅   |
+| `/esdeveniments` | `EsdevenimentsComponent` | ✅   |
+| `/rutes`         | `RutesComponent`         | ✅   |
+| `/comunitat`     | `ComunitatComponent`     | ✅   |
+| `/**`            | redirect → `/`           | —    |
 
 The router restores scroll to top on every navigation.
 
@@ -218,22 +223,24 @@ The router restores scroll to top on every navigation.
 Tokens are defined in `src/styles/_variables.scss` and consumed via `@use '../../../styles/variables' as *`. All component styles follow **BEM** naming.
 
 **Colour palette:**
+
 - Primary — `#904d00` (dark brown) / Container: `#ff8c00` (orange)
 - Secondary — `#b80049` (magenta) / Container: `#e2165f` (pink)
 - Tertiary — `#6a5f00` (olive)
 - Background — `#faf9f6` (cream)
 
 **Typography:**
+
 - Headings / labels — **Lexend** (400–800)
 - Body text — **Newsreader** (serif, with italic variant)
 - Icons — **Material Symbols Outlined**
 
 **Global utility classes** (`styles.scss`):
 
-| Class | Description |
-|---|---|
+| Class              | Description                                       |
+| ------------------ | ------------------------------------------------- |
 | `.grainy-gradient` | Brand gradient orange→pink with SVG noise texture |
-| `.text-gradient` | Text clip with primary→secondary gradient |
+| `.text-gradient`   | Text clip with primary→secondary gradient         |
 
 ---
 
@@ -242,9 +249,9 @@ Tokens are defined in `src/styles/_variables.scss` and consumed via `@use '../..
 `I18nService` uses **Angular Signals** for reactivity:
 
 ```typescript
-i18n.t('nav.home')       // translate a key
-i18n.currentLang()       // signal: 'ca' | 'es' | 'en'
-i18n.setLanguage('ca')   // persists to localStorage
+i18n.t("nav.home");
+i18n.currentLang();
+i18n.setLanguage("ca");
 ```
 
 - Browser language auto-detection (`navigator.language`)
@@ -256,12 +263,12 @@ i18n.setLanguage('ca')   // persists to localStorage
 
 ## npm scripts
 
-| Script | Description |
-|---|---|
-| `npm start` | Angular dev server (`localhost:4200`) |
-| `npm run build` | Production build → `dist/xeic-runners/browser` |
-| `npm run strava:api` | Local API server (`localhost:3000`) — mirrors Vercel functions |
-| `npm run strava:auth` | Interactive Strava OAuth → prints `STRAVA_REFRESH_TOKEN` |
+| Script                | Description                                                    |
+| --------------------- | -------------------------------------------------------------- |
+| `npm start`           | Angular dev server (`localhost:4200`)                          |
+| `npm run build`       | Production build → `dist/xeic-runners/browser`                 |
+| `npm run strava:api`  | Local API server (`localhost:3000`) — mirrors Vercel functions |
+| `npm run strava:auth` | Interactive Strava OAuth → prints `STRAVA_REFRESH_TOKEN`       |
 
 ---
 
@@ -275,11 +282,12 @@ The project is pre-configured for Vercel via `vercel.json`:
 - **SPA fallback:** all routes → `index.html`
 
 **Steps:**
+
 1. Push to GitHub
 2. Import the repo at [vercel.com](https://vercel.com)
 3. Add environment variables: `STRAVA_CLIENT_ID`, `STRAVA_CLIENT_SECRET`, `STRAVA_REFRESH_TOKEN`, `INSTAGRAM_SESSION_ID`
 4. Deploy
-5. Connect your domain: *Project → Settings → Domains*
+5. Connect your domain: _Project → Settings → Domains_
 
 ---
 
