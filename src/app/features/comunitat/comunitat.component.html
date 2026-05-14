@@ -1,0 +1,175 @@
+<section class="community-hero">
+  <div class="community-hero__bg grainy-gradient"></div>
+  <div class="community-hero__inner">
+    <span class="community-hero__badge">&#64;xeicrunners</span>
+    <h1 class="community-hero__title">
+      {{ i18n.t('community.title') }}
+      <span class="text-gradient">{{ i18n.t('community.titleHighlight') }}</span>
+    </h1>
+    <p class="community-hero__subtitle">{{ i18n.t('community.subtitle') }}</p>
+  </div>
+</section>
+
+<section class="community-stats">
+  <div class="community-stats__inner">
+    <div class="community-stats__grid">
+      @for (stat of stats; track stat.label) {
+        <div class="community-stats__card">
+          <span class="material-symbols-outlined community-stats__icon">{{ stat.icon }}</span>
+          <p class="community-stats__value">{{ stat.value }}</p>
+          <p class="community-stats__label">{{ stat.label }}</p>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+@if (activities.length > 0) {
+  <section class="community-activities">
+    <div class="community-activities__inner">
+      <div class="community-activities__header">
+        <div class="community-activities__heading">
+          <img src="assets/images/strava-icon.png" alt="Strava" class="community-activities__strava-icon" />
+          <h2 class="community-activities__title">Activitats recents del club</h2>
+        </div>
+        <a
+          href="https://www.strava.com/clubs/1576309"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="community-activities__strava-link"
+        >
+          Veure al club <span class="material-symbols-outlined">open_in_new</span>
+        </a>
+      </div>
+
+      <div class="community-activities__grid">
+        @for (activity of activities; track activity.id) {
+          <div class="community-activities__card">
+            <div class="community-activities__card-top">
+              <span class="material-symbols-outlined community-activities__type-icon">
+                {{ activityIcon(activity.type) }}
+              </span>
+              <div class="community-activities__athlete">
+                {{ activity.athlete.firstname }} {{ activity.athlete.lastname }}
+              </div>
+            </div>
+            <p class="community-activities__name">{{ activity.name }}</p>
+            <div class="community-activities__meta">
+              <span class="community-activities__meta-item">
+                <span class="material-symbols-outlined">straighten</span>
+                {{ formatDistance(activity.distance) }} km
+              </span>
+              <span class="community-activities__meta-item">
+                <span class="material-symbols-outlined">schedule</span>
+                {{ formatTime(activity.moving_time) }}
+              </span>
+              @if (activity.total_elevation_gain > 0) {
+                <span class="community-activities__meta-item">
+                  <span class="material-symbols-outlined">landscape</span>
+                  {{ activity.total_elevation_gain | number:'1.0-0' }}m+
+                </span>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+}
+
+<section class="community-gallery">
+  <div class="community-gallery__inner">
+    <div class="community-gallery__header">
+      <h2 class="community-gallery__title">Les nostres sortides</h2>
+      <a
+        href="https://www.instagram.com/xeicrunners/"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="community-gallery__ig-link"
+      >
+        {{ i18n.t('community.instagram') }}
+        <svg class="community-gallery__ig-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+        </svg>
+      </a>
+    </div>
+
+    <div class="community-gallery__masonry no-scrollbar">
+      <div class="community-gallery__item">
+        <img
+          src="https://apropebre.cat/wp-content/uploads/2026/04/DSC09088-1024x683.jpg"
+          alt="XEIC Runners sortida"
+          class="community-gallery__photo"
+          loading="lazy"
+        />
+      </div>
+
+      <div class="community-gallery__item community-gallery__item--quote grainy-gradient">
+        <span class="material-symbols-outlined community-gallery__quote-icon">format_quote</span>
+        <p class="community-gallery__quote">"Més que quilòmetres, sumem moments inolvidables."</p>
+        <p class="community-gallery__quote-author">— Maria, membre des de 2025</p>
+      </div>
+
+      <div class="community-gallery__item">
+        <img
+          src="https://apropebre.cat/wp-content/uploads/2026/04/DSC09094-1024x683.jpg"
+          alt="XEIC Runners als Ports"
+          class="community-gallery__photo"
+          loading="lazy"
+        />
+      </div>
+
+      <div class="community-gallery__item">
+        <img
+          src="https://apropebre.cat/wp-content/uploads/2026/04/DSC09104-1024x683.jpg"
+          alt="XEIC Runners paisatge"
+          class="community-gallery__photo"
+          loading="lazy"
+        />
+      </div>
+
+      <div class="community-gallery__item community-gallery__item--stat">
+        <h4 class="community-gallery__stat-value">+130</h4>
+        <p class="community-gallery__stat-label">{{ i18n.t('community.activeMembers') }}</p>
+      </div>
+
+      <div class="community-gallery__item">
+        <img
+          src="https://apropebre.cat/wp-content/uploads/2026/04/DSC09152-1024x683.jpg"
+          alt="XEIC Runners pujada"
+          class="community-gallery__photo"
+          loading="lazy"
+        />
+      </div>
+
+      <div class="community-gallery__item community-gallery__item--quote grainy-gradient">
+        <span class="material-symbols-outlined community-gallery__quote-icon">format_quote</span>
+        <p class="community-gallery__quote">"El millor ritme és el que et fa feliç."</p>
+        <p class="community-gallery__quote-author">— Laia, membre</p>
+      </div>
+
+      <div class="community-gallery__item">
+        <img
+          src="https://apropebre.cat/wp-content/uploads/2026/04/DSC09169-1024x683.jpg"
+          alt="XEIC Runners Estrets"
+          class="community-gallery__photo"
+          loading="lazy"
+        />
+      </div>
+    </div>
+
+        <div class="community-gallery__ig-cta">
+      <a
+        href="https://www.instagram.com/xeicrunners/"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="community-gallery__ig-btn"
+      >
+        <svg class="community-gallery__ig-btn-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+        </svg>
+        Segueix &#64;xeicrunners
+      </a>
+    </div>
+  </div>
+</section>

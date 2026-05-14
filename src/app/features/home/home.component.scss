@@ -1,0 +1,571 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+
+.hero {
+  position: relative;
+  min-height: 85vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+
+  &__bg {
+    position: absolute;
+    inset: 0;
+  }
+
+  &__blob { display: none; }
+
+  &__inner {
+    @include container;
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 48px;
+    align-items: center;
+    padding-block: 80px;
+
+    @include md { grid-template-columns: 1fr 1fr; }
+  }
+
+  &__content { display: flex; flex-direction: column; gap: 24px; }
+
+  &__badge {
+    display: inline-block;
+    background: rgba($secondary, 0.1);
+    color: $secondary;
+    padding: 6px 16px;
+    border-radius: $radius-full;
+    font-family: $font-lexend;
+    font-size: $text-label-lg;
+    font-weight: $fw-semibold;
+  }
+
+  &__title {
+    @include headline-xl;
+    color: $on-background;
+    line-height: 1;
+  }
+
+  &__title-highlight { display: block; }
+
+  &__subtitle {
+    @include body-lg;
+    color: $on-surface-variant;
+    max-width: 420px;
+  }
+
+  &__actions { display: flex; flex-wrap: wrap; gap: 16px; }
+
+  &__stats {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+    padding-top: 8px;
+  }
+
+  &__stat { text-align: center; }
+
+  &__stat-value {
+    display: block;
+    @include headline-md;
+    color: $primary;
+  }
+
+  &__stat-label {
+    @include label-sm;
+    color: $on-surface-variant;
+  }
+
+  &__stat-divider {
+    width: 1px;
+    height: 32px;
+    background: $outline-variant;
+  }
+
+  &__visual {
+    position: relative;
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__image-frame {
+    position: absolute;
+    inset: 0;
+    background: rgba(255,255,255,0.4);
+    backdrop-filter: blur(24px);
+    border-radius: 40px;
+    border: 1px solid rgba(255,255,255,0.5);
+    box-shadow: $shadow-2xl;
+    overflow: hidden;
+
+    &:hover .hero__image { transform: scale(1.05); }
+  }
+
+  &__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.7s ease;
+  }
+
+  &__strava-card {
+    position: absolute;
+    bottom: -16px;
+    right: -16px;
+    background: rgba($surface-container-lowest, 0.9);
+    backdrop-filter: blur(12px);
+    border-radius: $radius-2xl;
+    padding: 16px;
+    box-shadow: $shadow-xl;
+    border: 1px solid rgba($outline-variant, 0.2);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    z-index: 2;
+
+    @include md { right: -32px; }
+  }
+
+  &__strava-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: $radius-full;
+    object-fit: cover;
+  }
+
+  &__strava-title {
+    font-family: $font-lexend;
+    font-size: $text-label-lg;
+    font-weight: $fw-bold;
+    color: $on-surface;
+  }
+
+  &__strava-sub {
+    font-family: $font-lexend;
+    font-size: $text-label-sm;
+    color: $on-surface-variant;
+  }
+}
+
+.founders-preview {
+  padding-block: 96px;
+  background: $surface-container-low;
+
+  &__inner {
+    @include container;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $gutter;
+
+    @include md { grid-template-columns: 8fr 4fr; }
+  }
+
+  &__main {
+    background: $surface-container-lowest;
+    border-radius: $radius-3xl;
+    padding: 40px;
+    border: 1px solid rgba($outline-variant, 0.2);
+    box-shadow: $shadow-sm;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  &__title { @include headline-lg; color: $primary; }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+
+    @include md { grid-template-columns: 1fr 1fr; }
+  }
+
+  &__block { display: flex; flex-direction: column; gap: 12px; }
+
+  &__block-title { @include headline-md; color: $secondary; }
+
+  &__block-text {
+    @include body-lg;
+    font-size: $text-body-md;
+    color: $on-surface-variant;
+  }
+
+  &__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: $font-lexend;
+    font-size: $text-label-lg;
+    font-weight: $fw-semibold;
+    color: $primary;
+    transition: gap 0.2s ease;
+
+    &:hover { gap: 16px; }
+
+    .material-symbols-outlined { font-size: 18px; }
+  }
+
+  &__community {
+    border-radius: $radius-3xl;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    color: $on-primary;
+    position: relative;
+    overflow: hidden;
+    gap: 8px;
+  }
+
+  &__community-icon {
+    font-size: 48px;
+    font-variation-settings: 'FILL' 1;
+    margin-bottom: 8px;
+  }
+
+  &__community-title { @include headline-lg; }
+
+  &__community-text {
+    @include body-lg;
+    font-size: $text-body-md;
+    opacity: 0.9;
+  }
+}
+
+.events-preview {
+  padding-block: 96px;
+
+  &__inner { @include container; }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+
+  &__title { @include headline-lg; color: $on-background; }
+
+  &__subtitle { @include body-lg; color: $on-surface-variant; }
+
+  &__link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: $font-lexend;
+    font-size: $text-label-lg;
+    font-weight: $fw-semibold;
+    color: $primary;
+    transition: gap 0.2s ease;
+
+    &:hover { gap: 16px; }
+
+    .material-symbols-outlined { font-size: 18px; }
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $gutter;
+
+    @include md { grid-template-columns: repeat(3, 1fr); }
+  }
+}
+
+.routes-preview {
+  padding-block: 96px;
+  background: $surface-container;
+  overflow: hidden;
+
+  &__inner {
+    @include container;
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+    align-items: center;
+
+    @include md { flex-direction: row; }
+  }
+
+  &__content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  &__heading {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  &__strava-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: $radius-full;
+    object-fit: cover;
+    box-shadow: $shadow-md;
+  }
+
+  &__title { @include headline-lg; }
+
+  &__subtitle { @include body-lg; color: $on-surface-variant; }
+
+  &__list { display: flex; flex-direction: column; gap: 12px; }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+    background: $surface-container-lowest;
+    border-radius: $radius-2xl;
+    border: 1px solid rgba($outline-variant, 0.3);
+    transition: border-color 0.2s ease;
+
+    &:hover { border-color: $primary; }
+
+    &:hover .routes-preview__item-arrow { color: $primary; }
+  }
+
+  &__item-left { display: flex; align-items: center; gap: 16px; }
+
+  &__item-icon {
+    width: 40px;
+    height: 40px;
+    background: rgba($secondary, 0.1);
+    color: $secondary;
+    border-radius: $radius-full;
+    @include flex-center;
+  }
+
+  &__item-name {
+    font-family: $font-lexend;
+    font-size: $text-label-lg;
+    font-weight: $fw-semibold;
+    color: $on-surface;
+  }
+
+  &__item-meta {
+    font-family: $font-lexend;
+    font-size: $text-label-sm;
+    color: $on-surface-variant;
+  }
+
+  &__item-arrow {
+    font-size: 20px;
+    color: $outline;
+    transition: color 0.2s ease;
+  }
+
+  &__all-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: $font-lexend;
+    font-size: $text-label-lg;
+    font-weight: $fw-semibold;
+    color: $primary;
+    transition: gap 0.2s ease;
+
+    &:hover { gap: 16px; }
+
+    .material-symbols-outlined { font-size: 18px; }
+  }
+
+  &__map {
+    flex: 1;
+    position: relative;
+  }
+
+  &__map-frame {
+    position: relative;
+    aspect-ratio: 1;
+    background: $surface-container-lowest;
+    border-radius: 40px;
+    box-shadow: $shadow-2xl;
+    overflow: hidden;
+    border: 8px solid $surface-container-lowest;
+    padding: 8px;
+  }
+
+  &__map-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 32px;
+  }
+
+  &__map-label {
+    position: absolute;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 24px;
+    border-radius: $radius-2xl;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  &__map-place {
+    font-family: $font-lexend;
+    font-size: $text-label-lg;
+    font-weight: $fw-bold;
+    color: $on-surface;
+  }
+
+  &__map-location {
+    font-family: $font-lexend;
+    font-size: $text-label-sm;
+    color: $on-surface-variant;
+  }
+}
+
+.community-preview {
+  padding-block: 96px;
+
+  &__inner {
+    @include container;
+    text-align: center;
+  }
+
+  &__title {
+    @include headline-xl;
+    color: $on-surface;
+    margin-bottom: 16px;
+  }
+
+  &__subtitle {
+    @include body-lg;
+    color: $on-surface-variant;
+    max-width: 640px;
+    margin-inline: auto;
+    margin-bottom: 64px;
+  }
+
+  &__masonry {
+    columns: 1;
+    gap: $gutter;
+
+    @include sm { columns: 2; }
+    @include md { columns: 3; }
+    @include lg { columns: 4; }
+  }
+
+  &__item {
+    break-inside: avoid;
+    border-radius: $radius-3xl;
+    overflow: hidden;
+    box-shadow: $shadow-lg;
+    border: 1px solid rgba($outline-variant, 0.1);
+    margin-bottom: $gutter;
+
+    &--quote {
+      padding: 24px;
+      color: $on-primary;
+    }
+
+    &--stat {
+      padding: 32px;
+      background: $surface-container-highest;
+    }
+  }
+
+  &__photo {
+    width: 100%;
+    transition: transform 0.5s ease;
+
+    .community-preview__item:hover & { transform: scale(1.05); }
+  }
+
+  &__quote {
+    font-family: $font-lexend;
+    font-size: $text-headline-md;
+    font-style: italic;
+    margin-bottom: 16px;
+  }
+
+  &__quote-author {
+    font-family: $font-lexend;
+    font-size: $text-label-lg;
+    font-weight: $fw-semibold;
+  }
+
+  &__stat-value {
+    @include headline-md;
+    color: $primary;
+    margin-bottom: 8px;
+  }
+
+  &__stat-label {
+    font-family: $font-newsreader;
+    font-size: $text-body-md;
+    color: $on-surface-variant;
+  }
+
+  &__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 48px;
+    font-family: $font-lexend;
+    font-size: $text-label-lg;
+    font-weight: $fw-semibold;
+    color: $primary;
+    transition: gap 0.2s ease;
+
+    &:hover { gap: 16px; }
+
+    .material-symbols-outlined { font-size: 18px; }
+  }
+}
+
+.home-cta {
+  padding-block: 96px;
+  color: $on-primary;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+
+  &__inner {
+    @include container;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+
+  &__title { @include headline-xl; }
+
+  &__subtitle {
+    @include headline-md;
+    font-weight: $fw-regular;
+    opacity: 0.9;
+    max-width: 480px;
+  }
+
+  &__btn {
+    display: inline-block;
+    background: $surface-container-lowest;
+    color: $secondary;
+    padding: 20px 48px;
+    border-radius: $radius-2xl;
+    font-family: $font-lexend;
+    font-weight: $fw-bold;
+    font-size: $text-headline-md;
+    box-shadow: $shadow-2xl;
+    transition: transform 0.2s ease;
+    margin-top: 16px;
+
+    &:hover { transform: scale(1.05); }
+  }
+}

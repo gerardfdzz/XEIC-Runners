@@ -1,0 +1,23 @@
+<nav class="mobile-nav">
+  <a routerLink="/" routerLinkActive="mobile-nav__tab--active"
+     [routerLinkActiveOptions]="{ exact: true }" class="mobile-nav__tab">
+    <span class="material-symbols-outlined mobile-nav__icon">home</span>
+    <span class="mobile-nav__label">{{ i18n.t('mobile_nav.home') }}</span>
+  </a>
+  <a routerLink="/esdeveniments" routerLinkActive="mobile-nav__tab--active" class="mobile-nav__tab">
+    <span class="material-symbols-outlined mobile-nav__icon">event</span>
+    <span class="mobile-nav__label">{{ i18n.t('mobile_nav.events') }}</span>
+  </a>
+  <a routerLink="/rutes" routerLinkActive="mobile-nav__tab--active" class="mobile-nav__tab">
+    <span class="material-symbols-outlined mobile-nav__icon">route</span>
+    <span class="mobile-nav__label">{{ i18n.t('mobile_nav.routes') }}</span>
+  </a>
+  <a routerLink="/comunitat" routerLinkActive="mobile-nav__tab--active" class="mobile-nav__tab">
+    <span class="material-symbols-outlined mobile-nav__icon">groups</span>
+    <span class="mobile-nav__label">{{ i18n.t('mobile_nav.community') }}</span>
+  </a>
+  <a routerLink="/fundadors" routerLinkActive="mobile-nav__tab--active" class="mobile-nav__tab">
+    <span class="material-symbols-outlined mobile-nav__icon">person</span>
+    <span class="mobile-nav__label">{{ i18n.t('mobile_nav.profile') }}</span>
+  </a>
+</nav>

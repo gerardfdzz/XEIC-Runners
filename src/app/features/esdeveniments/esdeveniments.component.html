@@ -1,0 +1,75 @@
+<section class="events-hero">
+  <div class="events-hero__blob"></div>
+  <div class="events-hero__inner">
+    <span class="events-hero__badge">Calendari</span>
+    <h1 class="events-hero__title">{{ i18n.t('events.title') }}</h1>
+    <p class="events-hero__subtitle">{{ i18n.t('events.subtitle') }}</p>
+  </div>
+</section>
+
+<section class="events-list">
+  <div class="events-list__inner">
+
+    <h2 class="events-list__section-title">
+      <span class="material-symbols-outlined events-list__section-icon">upcoming</span>
+      Pròxims esdeveniments
+    </h2>
+
+    @if (loading) {
+      <div class="events-list__loading">
+        <span class="material-symbols-outlined">sync</span>
+        Carregant events de Strava...
+      </div>
+    } @else if (upcoming.length === 0) {
+      <div class="events-list__empty">
+        <span class="material-symbols-outlined">event_busy</span>
+        <p>No hi ha esdeveniments programats</p>
+        <a
+          href="https://www.strava.com/clubs/1576309"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="events-list__empty-link"
+        >
+          Veure el club a Strava
+          <span class="material-symbols-outlined">open_in_new</span>
+        </a>
+      </div>
+    } @else {
+      <div class="events-list__grid">
+        @for (event of upcoming; track event.id) {
+          <app-event-card [event]="event" />
+        }
+      </div>
+    }
+
+    @if (past.length > 0) {
+      <h2 class="events-list__section-title events-list__section-title--past">
+        <span class="material-symbols-outlined events-list__section-icon events-list__section-icon--past">history</span>
+        Sortides passades
+      </h2>
+      <div class="events-list__grid events-list__grid--past">
+        @for (event of past; track event.id) {
+          <app-event-card [event]="event" />
+        }
+      </div>
+    }
+
+  </div>
+</section>
+
+<section class="events-cta grainy-gradient">
+  <div class="events-cta__inner">
+    <h2 class="events-cta__title">No et perdis cap sortida</h2>
+    <p class="events-cta__subtitle">
+      Uneix-te al grup de WhatsApp per rebre totes les notificacions dels propers events.
+    </p>
+    <a
+      href="https://wa.me/?text=Hola!%20Vull%20unir-me%20als%20XEIC%20RUNNERS"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="events-cta__btn"
+    >
+      Unir-me al grup
+    </a>
+  </div>
+</section>

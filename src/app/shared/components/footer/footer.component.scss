@@ -1,0 +1,107 @@
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/mixins' as *;
+
+.footer {
+  background: $surface-container-highest;
+  padding-block: 48px;
+
+  &__inner {
+    @include container;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $gutter;
+
+    @include md { grid-template-columns: 1fr 1fr; }
+  }
+
+  &__brand {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  &__logo {
+    font-family: $font-lexend;
+    font-size: $text-headline-md;
+    font-weight: $fw-extrabold;
+    color: $primary;
+  }
+
+  &__tagline {
+    font-family: $font-newsreader;
+    font-size: $text-body-md;
+    color: $on-surface-variant;
+    max-width: 340px;
+    line-height: $lh-body;
+  }
+
+  &__social {
+    display: flex;
+    gap: 12px;
+  }
+
+  &__social-link {
+    @include circle(40px);
+    border: 1px solid $outline;
+    color: $on-surface;
+    transition: $transition-base;
+
+    &:hover {
+      background: $secondary;
+      border-color: $secondary;
+      color: $on-secondary;
+    }
+
+    &--strava:hover {
+      background: $strava;
+      border-color: $strava;
+    }
+  }
+
+  &__social-icon {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+  }
+
+  &__strava-icon {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: $radius-full;
+  }
+
+  &__nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+
+  &__nav-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  &__nav-title {
+    font-family: $font-lexend;
+    font-size: $text-label-lg;
+    font-weight: $fw-semibold;
+    color: $primary;
+  }
+
+  &__nav-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  &__nav-link {
+    font-family: $font-newsreader;
+    font-size: $text-body-md;
+    color: $on-surface-variant;
+    transition: color 0.2s ease;
+
+    &:hover { color: $secondary; }
+  }
+}

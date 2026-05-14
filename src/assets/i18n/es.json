@@ -1,0 +1,146 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "founders": "Fundadores",
+    "events": "Eventos",
+    "routes": "Rutas",
+    "community": "Comunidad",
+    "join": "Únete"
+  },
+  "home": {
+    "hero": {
+      "badge": "Social Run Club · La Sénia",
+      "title": "SOMOS",
+      "titleHighlight": "XEIC RUNNERS",
+      "subtitle": "Más que un club, somos una pandilla. Corremos por los caminos de La Sénia y las Terres de l'Ebre, compartiendo kilómetros, risas y el mejor post-entrenamiento del territorio.",
+      "cta1": "¡Quiero correr!",
+      "cta2": "Saber más"
+    },
+    "founders": {
+      "title": "El Origen del Xeic",
+      "who": "¿Quiénes somos?",
+      "whoText": "Somos un grupo de amigos de la Sénia que un día decidimos que correr solo era aburrido. Lo que empezó como una quedada informal se ha convertido en el club de running más activo de la zona.",
+      "why": "¿Por qué?",
+      "whyText": "Porque creemos en el deporte como herramienta de cohesión social. Porque amamos nuestro territorio y queremos que todo el mundo lo descubra mientras se pone en forma.",
+      "community": "Comunidad",
+      "communityText": "Aquí nadie se queda atrás. Adaptamos el ritmo para que todos puedan disfrutar de la salida."
+    },
+    "events": {
+      "title": "Próximas Quedadas",
+      "subtitle": "No lo pienses más y ven a la próxima.",
+      "viewAll": "Ver calendario completo"
+    },
+    "routes": {
+      "title": "Explora las Rutas",
+      "subtitle": "Hemos mapeado los mejores rincones de La Sénia. Síguenos en Strava y descarga los tracks.",
+      "viewOnStrava": "VER EN STRAVA"
+    },
+    "community": {
+      "title": "Muro de la",
+      "titleHighlight": "Comunidad",
+      "subtitle": "No somos solo un club, somos una gran familia. Aquí no hay ganadores ni perdedores, solo runners con ganas de pasarlo bien.",
+      "activeMembers": "runners activos en la comunidad XEIC."
+    },
+    "cta": {
+      "title": "¡Te esperamos, Xeic!",
+      "subtitle": "Estamos a un clic de distancia. Únete a nuestro grupo de WhatsApp y empieza a correr mañana mismo.",
+      "button": "Contacta por WhatsApp"
+    }
+  },
+  "founders": {
+    "badge": "Más que un club",
+    "title": "El alma de la Sénia corriendo por los caminos.",
+    "quote": "\"¡XEIC!\" No es solo una expresión, es el grito de guerra de una comunidad que entiende el running como el hilo que une a la gente de nuestra tierra.",
+    "history": {
+      "title": "Nuestra historia",
+      "text1": "XEIC RUNNERS nació una mañana de niebla alrededor de un café en la Plaza Mayor. Éramos tres amigos con ganas de correr, pero sobre todo con ganas de hacer pueblo.",
+      "text2": "Lo que empezó como una quedada informal del domingo se ha convertido en el pulmón deportivo de la Sénia.",
+      "membersCount": "130+",
+      "membersLabel": "Miembros activos y creciendo"
+    },
+    "values": {
+      "title": "Nuestros Valores",
+      "subtitle": "La brújula que nos guía en cada kilómetro.",
+      "inclusion": {
+        "title": "Inclusión Total",
+        "text": "No nos importa si haces un kilómetro en 4 minutos o en 10. Si tienes ganas de moverte, ya eres un XEIC RUNNER."
+      },
+      "sustainability": {
+        "title": "Respeto por el Medio",
+        "text": "Cuidamos la Sénia y su entorno natural. Corremos sin dejar huella, protegiendo nuestros paisajes."
+      },
+      "effort": {
+        "title": "Espíritu de Superación",
+        "text": "Ayudamos a cada miembro a alcanzar sus propios retos, por pequeños que sean. Crecemos juntos."
+      },
+      "identity": {
+        "title": "Identidad Senienca",
+        "text": "Somos orgullosamente de la Sénia. Llevamos el nombre de nuestro pueblo donde vamos, con una sonrisa."
+      }
+    },
+    "team": {
+      "title": "El equipo motor"
+    },
+    "cta": {
+      "title": "¿Quieres ser un XEIC?",
+      "subtitle": "No buscamos campeones, buscamos gente con ganas de vivir el deporte desde otro ángulo.",
+      "join": "Quiero apuntarme",
+      "more": "Saber más"
+    }
+  },
+  "routes": {
+    "heroTitle": "Explora nuestras rutas",
+    "heroSubtitle": "De la llanura de la Sénia a los picos dels Ports. Elige tu reto.",
+    "search": "Buscar rutas...",
+    "filters": {
+      "all": "Todas",
+      "mountain": "Montaña",
+      "road": "Asfalto",
+      "easy": "Fácil",
+      "xeic": "Xeic!",
+      "mixed": "Mixto",
+      "medium": "Medio"
+    },
+    "stats": {
+      "distance": "Distancia",
+      "elevation": "D+",
+      "time": "Tiempo"
+    },
+    "viewOnStrava": "VER EN STRAVA",
+    "downloadGpx": "Descargar GPX",
+    "interactiveMap": "Explora el mapa interactivo",
+    "stravaFollow": "Síguenos en Strava"
+  },
+  "events": {
+    "title": "Próximas Quedadas",
+    "subtitle": "No lo pienses más y ven a la próxima.",
+    "viewAll": "Ver todos",
+    "time": "Horario",
+    "location": "Lugar",
+    "distance": "Distancia",
+    "difficulty": "Dificultad",
+    "join": "Apuntarme"
+  },
+  "community": {
+    "title": "Muro de la",
+    "titleHighlight": "Comunidad",
+    "subtitle": "No somos solo un club, somos una gran familia.",
+    "instagram": "Síguenos en Instagram",
+    "activeMembers": "runners activos"
+  },
+  "footer": {
+    "tagline": "Corriendo por las Terres de l'Ebre.",
+    "links": "Enlaces",
+    "legal": "Legal",
+    "contact": "Contacto",
+    "privacy": "Privacidad",
+    "copyright": "© 2025 XEIC RUNNERS La Sénia."
+  },
+  "mobile_nav": {
+    "home": "Inicio",
+    "events": "Eventos",
+    "routes": "Rutas",
+    "community": "Comunidad",
+    "profile": "Perfil"
+  }
+}

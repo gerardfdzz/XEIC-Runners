@@ -1,0 +1,295 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+
+.rutes-hero {
+  position: relative;
+  height: 288px;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+
+  @include md { height: 384px; }
+
+  &__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  &__bg-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.4;
+    mix-blend-mode: overlay;
+  }
+
+  &__inner {
+    @include container;
+    position: relative;
+    z-index: 1;
+    padding-bottom: 40px;
+    width: 100%;
+  }
+
+  &__strava {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  &__strava-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: $radius-full;
+    object-fit: cover;
+  }
+
+  &__strava-label {
+    font-family: $font-lexend;
+    font-size: $text-label-lg;
+    font-weight: $fw-semibold;
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  &__title {
+    @include headline-xl;
+    color: $on-primary;
+    margin-bottom: 12px;
+    line-height: 1.1;
+  }
+
+  &__subtitle {
+    @include body-lg;
+    color: rgba(255, 255, 255, 0.9);
+    max-width: 560px;
+  }
+}
+
+.rutes-filters {
+  position: sticky;
+  top: 64px;
+  z-index: 40;
+  background: rgba($surface, 0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba($outline-variant, 0.2);
+  box-shadow: $shadow-sm;
+
+  &__inner { @include container; padding-block: 16px; }
+
+  &__search-row {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    @include sm { flex-direction: row; }
+  }
+
+  &__search {
+    position: relative;
+    flex: 1;
+  }
+
+  &__search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    color: $outline;
+    pointer-events: none;
+  }
+
+  &__input {
+    width: 100%;
+    padding: 12px 16px 12px 40px;
+    border-radius: $radius-xl;
+    border: 1px solid rgba($outline-variant, 0.5);
+    background: $surface-container-low;
+    font-family: $font-lexend;
+    font-size: $text-body-md;
+    color: $on-surface;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+    &:focus {
+      border-color: $primary;
+      box-shadow: 0 0 0 3px rgba($primary, 0.15);
+    }
+
+    &::placeholder { color: $on-surface-variant; }
+  }
+
+  &__chips {
+    display: flex;
+    overflow-x: auto;
+    gap: 8px;
+  }
+}
+
+.rutes-chip {
+  white-space: nowrap;
+  padding: 8px 16px;
+  border-radius: $radius-full;
+  font-family: $font-lexend;
+  font-size: $text-label-lg;
+  font-weight: $fw-semibold;
+  transition: border-color 0.2s ease, color 0.2s ease;
+  cursor: pointer;
+
+  &--active {
+    background: $primary-container;
+    color: $on-primary-fixed-variant;
+    box-shadow: $shadow-md;
+  }
+
+  &--default {
+    background: $surface-container-high;
+    color: $on-surface-variant;
+    border: 1px solid rgba($outline-variant, 0.3);
+
+    &:hover {
+      border-color: $primary;
+      color: $primary;
+    }
+  }
+}
+
+.rutes-results-count {
+  &__inner {
+    @include container;
+    padding-top: 32px;
+    padding-bottom: 8px;
+  }
+
+  &__text {
+    font-family: $font-lexend;
+    font-size: $text-label-lg;
+    color: $on-surface-variant;
+  }
+}
+
+.rutes-grid {
+  &__inner {
+    @include container;
+    padding-block: 24px 112px;
+
+    @include md { padding-bottom: 64px; }
+  }
+
+  &__list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $gutter;
+
+    @include md { grid-template-columns: repeat(2, 1fr); }
+    @include lg { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  &__empty {
+    text-align: center;
+    padding-block: 96px;
+  }
+
+  &__empty-icon {
+    font-size: 48px;
+    color: $outline;
+    display: block;
+    margin-bottom: 16px;
+  }
+
+  &__empty-title {
+    @include headline-md;
+    color: $on-surface-variant;
+  }
+
+  &__empty-text {
+    @include body-lg;
+    font-size: $text-body-md;
+    color: $on-surface-variant;
+    margin-top: 8px;
+  }
+}
+
+.rutes-strava-cta {
+  &__inner { @include container; margin-bottom: 48px; }
+
+  &__card {
+    border-radius: $radius-3xl;
+    padding: 48px;
+    text-align: center;
+    color: $on-primary;
+    position: relative;
+    overflow: hidden;
+  }
+
+  &__content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+
+  &__icon {
+    width: 64px;
+    height: 64px;
+    border-radius: $radius-full;
+    object-fit: cover;
+  }
+
+  &__title { @include headline-lg; }
+
+  &__text {
+    @include body-lg;
+    opacity: 0.9;
+    max-width: 480px;
+  }
+
+  &__btn {
+    display: inline-block;
+    background: $surface-container-lowest;
+    color: $secondary;
+    padding: 16px 40px;
+    border-radius: $radius-xl;
+    font-family: $font-lexend;
+    font-weight: $fw-bold;
+    font-size: $text-headline-md;
+    box-shadow: $shadow-xl;
+    transition: transform 0.2s ease;
+
+    &:hover { transform: scale(1.05); }
+  }
+}
+
+.rutes-fab {
+  position: fixed;
+  bottom: 96px;
+  right: 24px;
+  z-index: 40;
+
+  @include md { display: none; }
+
+  &__btn {
+    width: 56px;
+    height: 56px;
+    border-radius: $radius-full;
+    overflow: hidden;
+    box-shadow: $shadow-2xl;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.15s ease;
+
+    &:active { transform: scale(0.9); }
+  }
+
+  &__icon {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: $radius-full;
+  }
+}

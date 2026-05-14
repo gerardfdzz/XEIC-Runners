@@ -1,0 +1,146 @@
+{
+  "nav": {
+    "home": "Inici",
+    "founders": "Fundadors",
+    "events": "Esdeveniments",
+    "routes": "Rutes",
+    "community": "Comunitat",
+    "join": "Uneix-te"
+  },
+  "home": {
+    "hero": {
+      "badge": "Social Run Club · La Sénia",
+      "title": "SOM",
+      "titleHighlight": "XEIC RUNNERS",
+      "subtitle": "Més que un club, som una colla. Correm pels camins de La Sénia i les Terres de l'Ebre, compartint quilòmetres, rialles i el millor post-entrenament del territori.",
+      "cta1": "Vull córrer!",
+      "cta2": "Saber-ne més"
+    },
+    "founders": {
+      "title": "L'Origen del Xeic",
+      "who": "Qui som?",
+      "whoText": "Som un grup d'amics de la Sénia que un dia vam decidir que córrer sol era avorrit. El que va començar com una quedada informal s'ha convertit en el club de running més actiu de la zona.",
+      "why": "Per què?",
+      "whyText": "Perquè creiem en l'esport com a eina de cohesió social. Perquè estimem el nostre territori i volem que tothom el descobreixi mentre es posa en forma.",
+      "community": "Comunitat",
+      "communityText": "Aquí ningú es queda enrere. Adaptem el ritme perquè tothom pugui gaudir de la sortida."
+    },
+    "events": {
+      "title": "Pròximes Quedades",
+      "subtitle": "No t'ho pensis més i vine a la propera.",
+      "viewAll": "Veure calendari complet"
+    },
+    "routes": {
+      "title": "Explora les Rutes",
+      "subtitle": "Hem mapejat els millors racons de La Sénia. Des de la pujada al Caro fins a les voltes pels horts de tarongers. Segueix-nos a Strava i descarrega els tracks.",
+      "viewOnStrava": "VEURE A STRAVA"
+    },
+    "community": {
+      "title": "Mur de la",
+      "titleHighlight": "Comunitat",
+      "subtitle": "No som només un club, som una gran família. Aquí no hi ha guanyadors ni perdedors, només runners amb ganes de passar-ho bé.",
+      "activeMembers": "runners actius a la comunitat XEIC."
+    },
+    "cta": {
+      "title": "T'hi esperem, Xeic!",
+      "subtitle": "Estem a un clic de distància. Uneix-te al nostre grup de WhatsApp i comença a córrer demà mateix.",
+      "button": "Contacta per WhatsApp"
+    }
+  },
+  "founders": {
+    "badge": "Més que un club",
+    "title": "L'ànima de la Sénia corrent pels camins.",
+    "quote": "\"XEIC!\" No és només una expressió, és el crit de guerra d'una comunitat que entén el running com el fil que uneix a la gent de la nostra terra.",
+    "history": {
+      "title": "La nostra història",
+      "text1": "XEIC RUNNERS va néixer un matí de boira al voltant d'un cafè a la Plaça Major. Erem tres amics amb ganes de córrer, però sobretot amb ganes de fer poble.",
+      "text2": "El que va comenzar com una quedada informal de diumenge s'ha convertit en el pulmó esportiu de la Sénia. No ens importa el teu ritme, ens importa que et posis les vambes i vinguis a descobrir les nostres rutes compartint rialles.",
+      "membersCount": "130+",
+      "membersLabel": "Membres actius i creixent"
+    },
+    "values": {
+      "title": "Els nostres Valors",
+      "subtitle": "La brúixola que ens guia a cada quilòmetre.",
+      "inclusion": {
+        "title": "Inclusió Total",
+        "text": "No ens importa si fas un quilòmetre en 4 minuts o en 10. Si tens ganes de moure't, ja ets un XEIC RUNNER. El club és per a tothom, sense excepcions."
+      },
+      "sustainability": {
+        "title": "Respecte pel Medi",
+        "text": "Cuidem la Sénia i el seu entorn natural. Correm sense deixar petjada, protegint els nostres paisatges."
+      },
+      "effort": {
+        "title": "Esperit de Superació",
+        "text": "Ajudem a cada membre a assolir els seus propis reptes, per petits que siguin. Creixem junts."
+      },
+      "identity": {
+        "title": "Identitat Senienca",
+        "text": "Som orgullosament de la Sénia. Portem el nom del nostre poble allà on anem, amb un somriure i ganes de xeic!"
+      }
+    },
+    "team": {
+      "title": "L'equip motor"
+    },
+    "cta": {
+      "title": "Vols ser un XEIC?",
+      "subtitle": "No busquem campions, busquem gent amb ganes de viure l'esport des d'un altre vessant. T'apuntes a la pròxima sortida?",
+      "join": "Vull apuntar-me",
+      "more": "Saber-ne més"
+    }
+  },
+  "routes": {
+    "heroTitle": "Explora les nostres rutes",
+    "heroSubtitle": "De la plana de la Sénia als cims dels Ports. Tria el teu repte.",
+    "search": "Cerca rutes...",
+    "filters": {
+      "all": "Totes",
+      "mountain": "Muntanya",
+      "road": "Asfalt",
+      "easy": "Fàcil",
+      "xeic": "Xeic!",
+      "mixed": "Mixte",
+      "medium": "Mig"
+    },
+    "stats": {
+      "distance": "Distància",
+      "elevation": "D+",
+      "time": "Temps"
+    },
+    "viewOnStrava": "VEURE A STRAVA",
+    "downloadGpx": "Descarrega GPX",
+    "interactiveMap": "Explora el mapa interactiu",
+    "stravaFollow": "Segueix-nos a Strava"
+  },
+  "events": {
+    "title": "Pròximes Quedades",
+    "subtitle": "No t'ho pensis més i vine a la propera.",
+    "viewAll": "Veure tots",
+    "time": "Horari",
+    "location": "Lloc",
+    "distance": "Distància",
+    "difficulty": "Dificultat",
+    "join": "Apuntar-me"
+  },
+  "community": {
+    "title": "Mur de la",
+    "titleHighlight": "Comunitat",
+    "subtitle": "No som només un club, som una gran família. Aquí no hi ha guanyadors ni perdedors, només runners amb ganes de passar-ho bé.",
+    "instagram": "Segueix-nos a Instagram",
+    "activeMembers": "runners actius"
+  },
+  "footer": {
+    "tagline": "Corrent per les Terres de l'Ebre.",
+    "links": "Enllaços",
+    "legal": "Legal",
+    "contact": "Contacte",
+    "privacy": "Privacitat",
+    "copyright": "© 2025 XEIC RUNNERS La Sénia."
+  },
+  "mobile_nav": {
+    "home": "Inici",
+    "events": "Esdeveniments",
+    "routes": "Rutes",
+    "community": "Comunitat",
+    "profile": "Perfil"
+  }
+}

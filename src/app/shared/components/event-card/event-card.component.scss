@@ -1,0 +1,109 @@
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/mixins' as *;
+
+.event-card {
+  background: $surface-container-lowest;
+  border-radius: $radius-3xl;
+  overflow: hidden;
+  border: 1px solid rgba($outline-variant, 0.2);
+  transition: box-shadow 0.3s ease;
+
+  &:hover { box-shadow: $shadow-xl; }
+
+  &__image-wrapper {
+    position: relative;
+    height: 192px;
+    overflow: hidden;
+  }
+
+  &__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+
+    .event-card:hover & { transform: scale(1.1); }
+  }
+
+  &__date-badge {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    background: rgba($surface-container-lowest, 0.9);
+    backdrop-filter: blur(8px);
+    padding: 6px 12px;
+    border-radius: $radius-lg;
+    text-align: center;
+    box-shadow: $shadow-sm;
+    min-width: 56px;
+  }
+
+  &__date-month {
+    display: block;
+    font-family: $font-lexend;
+    font-size: $text-label-sm;
+    font-weight: $fw-semibold;
+    color: $secondary;
+    text-transform: uppercase;
+  }
+
+  &__date-day {
+    display: block;
+    font-family: $font-lexend;
+    font-size: $text-headline-md;
+    font-weight: $fw-bold;
+    color: $on-background;
+    line-height: 1;
+  }
+
+  &__body {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  &__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  &__title {
+    @include headline-md;
+    color: $on-background;
+  }
+
+  &__meta {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  &__meta-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: $font-newsreader;
+    font-size: $text-body-md;
+    color: $on-surface-variant;
+
+    .material-symbols-outlined {
+      font-size: 18px;
+      color: $secondary;
+    }
+  }
+}
+
+.event-tag {
+  padding: 2px 8px;
+  border-radius: $radius-sm;
+  font-family: $font-lexend;
+  font-size: $text-label-sm;
+  font-weight: $fw-semibold;
+
+  &--primary  { background: rgba($primary, 0.1);   color: $primary; }
+  &--tertiary { background: rgba($tertiary, 0.1);  color: $tertiary; }
+  &--secondary{ background: rgba($secondary, 0.1); color: $secondary; }
+  &--default  { background: $surface-container;    color: $on-surface-variant; }
+}

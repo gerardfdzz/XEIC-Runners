@@ -1,0 +1,100 @@
+<section class="rutes-hero grainy-gradient">
+  <div class="rutes-hero__overlay">
+    <img
+      src="https://apropebre.cat/wp-content/uploads/2026/04/DSC09169-1024x683.jpg"
+      alt="Rutes Xeic Runners"
+      class="rutes-hero__bg-img"
+    />
+  </div>
+  <div class="rutes-hero__inner">
+    <div class="rutes-hero__strava">
+      <img src="assets/images/strava-icon.png" alt="Strava" class="rutes-hero__strava-icon" />
+      <span class="rutes-hero__strava-label">Connectat amb Strava</span>
+    </div>
+    <h1 class="rutes-hero__title">{{ i18n.t('routes.heroTitle') }}</h1>
+    <p class="rutes-hero__subtitle">{{ i18n.t('routes.heroSubtitle') }}</p>
+  </div>
+</section>
+
+<section class="rutes-filters">
+  <div class="rutes-filters__inner">
+    <div class="rutes-filters__search-row">
+      <div class="rutes-filters__search">
+        <span class="material-symbols-outlined rutes-filters__search-icon">search</span>
+        <input
+          [(ngModel)]="searchQuery"
+          (ngModelChange)="onSearch($event)"
+          [placeholder]="i18n.t('routes.search')"
+          type="text"
+          class="rutes-filters__input"
+        />
+      </div>
+      <div class="rutes-filters__chips no-scrollbar">
+        @for (filter of filters; track filter.key) {
+          <button
+            (click)="setFilter(filter.key)"
+            [class]="filterClass(filter.key)"
+          >{{ i18n.t('routes.filters.' + filter.translationKey) }}</button>
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="rutes-results-count">
+  <div class="rutes-results-count__inner">
+    <p class="rutes-results-count__text">{{ filteredRoutes().length }} rutes trobades</p>
+  </div>
+</div>
+
+<section class="rutes-grid">
+  <div class="rutes-grid__inner">
+    @if (filteredRoutes().length === 0) {
+      <div class="rutes-grid__empty">
+        <span class="material-symbols-outlined rutes-grid__empty-icon">search_off</span>
+        <p class="rutes-grid__empty-title">Cap ruta trobada</p>
+        <p class="rutes-grid__empty-text">Prova amb un altre filtre o cerca</p>
+      </div>
+    } @else {
+      <div class="rutes-grid__list">
+        @for (route of filteredRoutes(); track route.id) {
+          <app-route-card [route]="route" />
+        }
+      </div>
+    }
+  </div>
+</section>
+
+<section class="rutes-strava-cta">
+  <div class="rutes-strava-cta__inner">
+    <div class="rutes-strava-cta__card grainy-gradient">
+      <div class="rutes-strava-cta__content">
+        <img src="assets/images/strava-icon.png" alt="Strava" class="rutes-strava-cta__icon" />
+        <h3 class="rutes-strava-cta__title">{{ i18n.t('routes.stravaFollow') }}</h3>
+        <p class="rutes-strava-cta__text">
+          Uneix-te al nostre club de Strava per veure totes les activitats, rutes i reptes de la comunitat XEIC.
+        </p>
+        <a
+          href="https://www.strava.com/clubs/1576309"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="rutes-strava-cta__btn"
+        >
+          Seguir a Strava
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="rutes-fab">
+  <a
+    href="https://www.strava.com/clubs/1576309"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="rutes-fab__btn"
+    aria-label="Strava"
+  >
+    <img src="assets/images/strava-icon.png" alt="Strava" class="rutes-fab__icon" />
+  </a>
+</div>

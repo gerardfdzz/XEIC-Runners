@@ -1,0 +1,425 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+
+.founders-hero {
+  position: relative;
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-block: 80px;
+  overflow: hidden;
+
+  &__bg {
+    position: absolute;
+    inset: 0;
+    opacity: 0.08;
+  }
+
+  &__blob {
+    position: absolute;
+    width: 384px;
+    height: 384px;
+    border-radius: $radius-full;
+    filter: blur(100px);
+    pointer-events: none;
+
+    &--top    { top: -80px; right: -80px; background: rgba($secondary, 0.15); }
+    &--bottom { bottom: -80px; left: -80px; background: rgba($primary, 0.15); }
+  }
+
+  &__inner {
+    @include container;
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $gutter;
+    align-items: center;
+
+    @include lg { grid-template-columns: 1fr 1fr; }
+  }
+
+  &__content { display: flex; flex-direction: column; gap: 20px; }
+
+  &__badge {
+    display: inline-block;
+    background: $secondary-fixed;
+    color: $on-secondary-fixed;
+    padding: 6px 16px;
+    border-radius: $radius-full;
+    font-family: $font-lexend;
+    font-size: $text-label-lg;
+    font-weight: $fw-semibold;
+  }
+
+  &__title {
+    @include headline-xl;
+    color: $on-surface;
+    line-height: 1.1;
+  }
+
+  &__quote {
+    @include body-lg;
+    color: $on-surface-variant;
+    max-width: 480px;
+    font-style: italic;
+  }
+
+  &__visual {
+    position: relative;
+
+    &:hover .founders-hero__image { transform: scale(1.02); }
+  }
+
+  &__image-bg {
+    position: absolute;
+    inset: 0;
+    background: $secondary-container;
+    border-radius: $radius-xl;
+    opacity: 0.2;
+    transform: rotate(3deg);
+    transition: transform 0.5s ease;
+
+    .founders-hero__visual:hover & { transform: rotate(0deg); }
+  }
+
+  &__image {
+    position: relative;
+    z-index: 1;
+    border-radius: $radius-xl;
+    box-shadow: $shadow-xl;
+    object-fit: cover;
+    height: 400px;
+    width: 100%;
+    border: 4px solid $surface-container-lowest;
+    transition: transform 0.5s ease;
+  }
+}
+
+.founders-history {
+  padding-block: 96px;
+  background: $surface-container-low;
+
+  &__inner {
+    @include container;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $gutter;
+    align-items: start;
+
+    @include md { grid-template-columns: 5fr 7fr; }
+  }
+
+  &__sticky {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    @include md { position: sticky; top: 128px; }
+  }
+
+  &__title { @include headline-lg; color: $primary; }
+
+  &__text { @include body-lg; color: $on-surface-variant; }
+
+  &__stat {
+    padding: 24px;
+    border-radius: $radius-xl;
+    color: $on-primary;
+    position: relative;
+    overflow: hidden;
+  }
+
+  &__stat-value {
+    font-family: $font-lexend;
+    font-size: $text-headline-lg;
+    font-weight: $fw-bold;
+    margin-bottom: 4px;
+  }
+
+  &__stat-label {
+    font-family: $font-lexend;
+    font-size: $text-label-lg;
+    opacity: 0.9;
+  }
+
+  &__gallery {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  &__col {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    &--offset { padding-top: 48px; }
+  }
+
+  &__photo-frame {
+    border-radius: $radius-xl;
+    overflow: hidden;
+    box-shadow: $shadow-md;
+  }
+
+  &__photo {
+    width: 100%;
+    height: 256px;
+    object-fit: cover;
+
+    &--tall { height: 320px; }
+  }
+
+  &__card {
+    background: $surface-container-lowest;
+    padding: 32px;
+    border-radius: $radius-xl;
+    box-shadow: $shadow-sm;
+    border: 1px solid rgba($outline-variant, 0.2);
+  }
+
+  &__card-icon {
+    font-size: 32px;
+    color: $secondary;
+    display: block;
+    margin-bottom: 16px;
+
+    &--primary { color: $primary; }
+  }
+
+  &__card-title { @include headline-md; margin-bottom: 8px; }
+
+  &__card-text { @include body-lg; font-size: $text-body-md; color: $on-surface-variant; }
+}
+
+.founders-values {
+  padding-block: 96px;
+
+  &__inner { @include container; }
+
+  &__header {
+    text-align: center;
+    margin-bottom: 64px;
+  }
+
+  &__title { @include headline-lg; color: $on-surface; }
+
+  &__subtitle { @include body-lg; color: $on-surface-variant; margin-top: 8px; }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $gutter;
+
+    @include md { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  &__card {
+    padding: 40px;
+    border-radius: $radius-2xl;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    position: relative;
+    overflow: hidden;
+
+    &--wide {
+      @include md { grid-column: span 2; }
+    }
+
+    &--surface {
+      background: $surface-container-highest;
+      border: 1px solid rgba($outline-variant, 0.3);
+      justify-content: space-between;
+    }
+
+    &--gradient { color: $on-primary; }
+
+    &--identity {
+      flex-direction: row;
+      align-items: center;
+      gap: 40px;
+    }
+  }
+
+  &__card-deco {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 32px;
+    font-size: 72px;
+    color: rgba($secondary, 0.2);
+    transition: transform 0.5s ease;
+
+    .founders-values__card:hover & { transform: scale(1.1); }
+  }
+
+  &__card-icon {
+    font-size: 40px;
+    color: $primary;
+    margin-bottom: 16px;
+  }
+
+  &__card-title {
+    @include headline-md;
+    margin-bottom: 8px;
+
+    &--secondary { color: $secondary; }
+  }
+
+  &__card-text {
+    @include body-lg;
+    font-size: $text-body-md;
+    color: $on-surface-variant;
+
+    &--light { color: $on-primary; opacity: 0.9; }
+  }
+
+  &__identity-badge {
+    flex-shrink: 0;
+    width: 128px;
+    height: 128px;
+    border-radius: $radius-full;
+    border: 4px solid $secondary;
+    @include flex-center;
+
+    @include sm { display: flex; }
+    display: none;
+  }
+
+  &__identity-text {
+    font-family: $font-lexend;
+    font-weight: $fw-extrabold;
+    font-size: 30px;
+    color: $secondary;
+  }
+}
+
+.founders-team {
+  padding-block: 96px;
+  background: $surface-container;
+
+  &__inner {
+    @include container;
+    text-align: center;
+  }
+
+  &__title {
+    @include headline-lg;
+    margin-bottom: 64px;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+
+    @include sm { grid-template-columns: repeat(2, 1fr); }
+    @include lg { grid-template-columns: repeat(4, 1fr); }
+  }
+
+  &__member { display: flex; flex-direction: column; }
+
+  &__photo-frame {
+    margin-bottom: 24px;
+    border-radius: $radius-2xl;
+    overflow: hidden;
+    aspect-ratio: 1;
+    background: $surface-container-highest;
+
+    &:hover .founders-team__photo { transform: scale(1.05); }
+  }
+
+  &__photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  &__name { @include headline-md; color: $primary; margin-bottom: 4px; }
+
+  &__role {
+    font-family: $font-lexend;
+    font-size: $text-label-lg;
+    color: $secondary;
+    margin-bottom: 8px;
+  }
+
+  &__quote {
+    font-family: $font-newsreader;
+    font-size: $text-body-md;
+    color: $on-surface-variant;
+    font-style: italic;
+    padding-inline: 16px;
+  }
+}
+
+.founders-cta {
+  padding: 80px $margin-mobile;
+
+  &__inner {
+    @include container;
+    border-radius: 32px;
+    padding: 48px;
+    text-align: center;
+    color: $on-primary;
+    position: relative;
+    overflow: hidden;
+    box-shadow: $shadow-2xl;
+
+    @include md { padding: 80px; }
+  }
+
+  &__content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+
+  &__title { @include headline-xl; }
+
+  &__subtitle { @include body-lg; max-width: 640px; opacity: 0.9; }
+
+  &__actions {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-top: 16px;
+
+    @include sm { flex-direction: row; }
+  }
+
+  &__btn-join {
+    background: $surface-container-lowest;
+    color: $secondary;
+    padding: 16px 40px;
+    border-radius: $radius-full;
+    font-family: $font-lexend;
+    font-weight: $fw-bold;
+    font-size: $text-headline-md;
+    box-shadow: $shadow-lg;
+    transition: transform 0.2s ease;
+
+    &:hover { transform: scale(1.05); }
+  }
+
+  &__btn-more {
+    border: 2px solid rgba(255,255,255,0.4);
+    backdrop-filter: blur(4px);
+    color: $on-primary;
+    padding: 16px 40px;
+    border-radius: $radius-full;
+    font-family: $font-lexend;
+    font-weight: $fw-bold;
+    font-size: $text-headline-md;
+    transition: background 0.2s ease;
+
+    &:hover { background: rgba(255,255,255,0.1); }
+  }
+}

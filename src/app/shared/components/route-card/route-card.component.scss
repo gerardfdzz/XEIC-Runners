@@ -1,0 +1,153 @@
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/mixins' as *;
+
+.route-card {
+  display: flex;
+  flex-direction: column;
+  background: $surface-container-lowest;
+  border-radius: $radius-2xl;
+  overflow: hidden;
+  border: 1px solid rgba($outline-variant, 0.2);
+  box-shadow: $shadow-sm;
+  transition: box-shadow 0.3s ease;
+
+  &:hover { box-shadow: $shadow-xl; }
+
+  &__image-wrapper {
+    position: relative;
+    height: 192px;
+    overflow: hidden;
+  }
+
+  &__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+
+    .route-card:hover & { transform: scale(1.05); }
+  }
+
+  &__image-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.2), transparent);
+  }
+
+  &__tags {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    display: flex;
+    gap: 8px;
+  }
+
+  &__strava-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 32px;
+    height: 32px;
+    border-radius: $radius-full;
+    object-fit: cover;
+    box-shadow: $shadow-md;
+  }
+
+  &__body {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  &__title {
+    @include headline-md;
+    color: $on-surface;
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+
+  &__description {
+    font-family: $font-newsreader;
+    font-size: $text-body-md;
+    color: $on-surface-variant;
+    margin-bottom: 20px;
+    flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  &__stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    padding-block: 16px;
+    border-top: 1px solid rgba($outline-variant, 0.15);
+    border-bottom: 1px solid rgba($outline-variant, 0.15);
+    margin-bottom: 20px;
+  }
+
+  &__stat {
+    text-align: center;
+
+    &--bordered {
+      border-inline: 1px solid rgba($outline-variant, 0.15);
+    }
+  }
+
+  &__stat-label {
+    display: block;
+    @include label-sm;
+    color: $outline;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 4px;
+  }
+
+  &__stat-value {
+    @include headline-md;
+    color: $primary;
+
+    small {
+      font-size: $text-label-sm;
+      font-weight: $fw-medium;
+      margin-left: 2px;
+    }
+  }
+
+  &__strava-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px;
+    border-radius: $radius-xl;
+    font-family: $font-lexend;
+    font-size: $text-label-lg;
+    font-weight: $fw-semibold;
+    color: $on-primary;
+    transition: transform 0.15s ease;
+
+    &:active { transform: scale(0.98); }
+
+    .material-symbols-outlined { font-size: 18px; }
+  }
+}
+
+.chip {
+  padding: 4px 12px;
+  border-radius: $radius-full;
+  font-family: $font-lexend;
+  font-size: $text-label-sm;
+  font-weight: $fw-semibold;
+  backdrop-filter: blur(4px);
+
+  &--mountain { background: rgba($tertiary-fixed, 0.9);           color: $on-tertiary-fixed; }
+  &--road     { background: rgba($primary-fixed, 0.9);            color: $on-primary-fixed; }
+  &--mixed    { background: rgba($surface-container-lowest, 0.9); color: $on-surface; }
+  &--easy     { background: rgba($tertiary-container, 0.8);       color: $on-tertiary-container; }
+  &--medium   { background: rgba($primary-container, 0.8);        color: $on-primary-container; }
+  &--xeic     { background: $secondary-container;                 color: $on-secondary; }
+}
