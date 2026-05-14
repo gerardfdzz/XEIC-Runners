@@ -291,5 +291,17 @@ The project is pre-configured for Vercel via `vercel.json`:
 
 ---
 
+---
+
+## Credits
+
+The initial UI design and component structure were bootstrapped using **Google Stitch**, which generated a first version of the Angular app as a starting point.
+
+> [View the original Stitch project](https://stitch.withgoogle.com/projects/4079644074290490504)
+
+From that base, the project was fully extended with: BEM/SCSS refactor, Strava API integration, Instagram highlights proxy, Google Sheets mini-CMS, Vercel serverless functions, i18n, and all feature pages.
+
+---
+
 **Strava club:** [strava.com/clubs/1576309](https://www.strava.com/clubs/1576309)  
 **Instagram:** [@xeicrunners](https://www.instagram.com/xeicrunners/)

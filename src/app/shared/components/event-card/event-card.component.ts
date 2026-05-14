@@ -15,9 +15,9 @@ export class EventCardComponent {
   protected i18n = inject(I18nService);
 
   tagClass(tag: string): string {
-    const primary = ['Xeic!'];
-    const tertiary = ['Iniciació', 'Mig', 'Muntanya'];
-    const secondary = ['Asfalt', 'Social', 'Comunitat'];
+    const primary = ['Xeic!', 'Cursa', 'Trail'];
+    const tertiary = ['Iniciació', 'Mig', 'Muntanya', 'Senderisme'];
+    const secondary = ['Asfalt', 'Social', 'Comunitat', 'Caminada'];
     if (primary.includes(tag)) return 'event-tag event-tag--primary';
     if (tertiary.includes(tag)) return 'event-tag event-tag--tertiary';
     if (secondary.includes(tag)) return 'event-tag event-tag--secondary';

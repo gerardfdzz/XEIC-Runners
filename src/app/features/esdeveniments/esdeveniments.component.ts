@@ -102,10 +102,20 @@ export class EsdevenimentsComponent implements OnInit {
       location: e.address || 'La Sénia',
       type: typeMap[e.activity_type] ?? 'social',
       difficulty: 'Iniciació',
-      tags: [e.activity_type ?? 'Social'],
+      tags: [this.mapActivityTag(e.activity_type)],
       imageUrl: CLUB_IMAGE,
       description: e.description || undefined,
     };
+  }
+
+  private mapActivityTag(activityType: string): string {
+    const map: Record<string, string> = {
+      Run: 'Cursa',
+      TrailRun: 'Trail',
+      Walk: 'Caminada',
+      Hike: 'Senderisme',
+    };
+    return map[activityType] ?? activityType ?? 'Social';
   }
 
   private instagramToXeicEvent(item: InstagramItem): XeicEvent {
