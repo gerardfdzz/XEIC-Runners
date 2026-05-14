@@ -108,7 +108,21 @@ Past events with full metadata (title, date, distance, elevation, photo, descrip
 - `type` → `training` / `race` / `social` / `track`
 - `difficulty` → `Iniciació` / `Mitjà` / `Xeic!`
 - `tags` → pipe-separated: `Muntanya|Trail|Xeic!`
-- `imageUrl` → direct image URL (any CDN)
+- `imageUrl` → direct public image URL (see below)
+
+**Recommended image hosting: [ImgBB](https://imgbb.com)** (free, no account needed)  
+Upload the photo → copy the **Direct link** (`https://i.ibb.co/...`) → paste into the Sheet.
+
+**How each row works:**  
+Each row in the Sheet serves two purposes simultaneously:
+
+- **Past events** — if the row's `date` is strictly before today, it appears in the "Sortides passades" section with the photo, tags, and description from the Sheet.
+- **Upcoming event image** — if a Strava group event has the **exact same title** as a row in the Sheet (case-insensitive), the app uses that row's `imageUrl` and `description` for the upcoming event card. The `date` must be set to the actual event date so that on the day after the event it automatically moves to "Sortides passades".
+
+**Example workflow for an event:**
+1. Add a row to the Sheet with the exact Strava title (e.g. `Trail XEIC + AREA`), the event date, photo URL and tags.
+2. While the date is today or in the future → the photo appears on the Strava event card in "Pròxims esdeveniments".
+3. The day after the event → the same row automatically moves to "Sortides passades".
 
 **To activate:**
 

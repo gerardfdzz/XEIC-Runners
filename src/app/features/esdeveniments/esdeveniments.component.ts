@@ -32,6 +32,13 @@ export class EsdevenimentsComponent implements OnInit {
   past: XeicEvent[] = [];
   loading = true;
 
+  private isStrictlyBeforeToday(date: Date): boolean {
+    const pad = (n: number) => String(n).padStart(2, '0');
+    const toStr = (d: Date) =>
+      `${d.getFullYear()}${pad(d.getMonth() + 1)}${pad(d.getDate())}`;
+    return toStr(date) < toStr(new Date());
+  }
+
   ngOnInit(): void {
     const now = new Date();
 
@@ -50,27 +57,30 @@ export class EsdevenimentsComponent implements OnInit {
               new Date(a.upcoming_occurrences[0]).getTime() -
               new Date(b.upcoming_occurrences[0]).getTime(),
           )
-          .map((e) => this.stravaToXeicEvent(e));
+          .map((e) => this.stravaToXeicEvent(e, sheetEvents));
       } else {
-        const futursSheet = sheetEvents.filter((e) => e.date >= now);
+        const futursSheet = sheetEvents.filter(
+          (e) => !this.isStrictlyBeforeToday(e.date),
+        );
         this.upcoming =
           futursSheet.length > 0
             ? futursSheet.sort((a, b) => a.date.getTime() - b.date.getTime())
             : this.eventsService
                 .getAll()
-                .filter((e) => e.date >= now)
+                .filter((e) => !this.isStrictlyBeforeToday(e.date))
                 .sort((a, b) => a.date.getTime() - b.date.getTime());
       }
 
       const igPast = igItems
         .map((item) => this.instagramToXeicEvent(item))
-        .filter((e) => e.date < now);
+        .filter((e) => this.isStrictlyBeforeToday(e.date));
 
       if (igPast.length > 0) {
         this.past = igPast.sort((a, b) => b.date.getTime() - a.date.getTime());
       } else {
-        const passatsSheet = sheetEvents.filter((e) => e.date < now);
-
+        const passatsSheet = sheetEvents.filter((e) =>
+          this.isStrictlyBeforeToday(e.date),
+        );
         if (passatsSheet.length > 0) {
           this.past = passatsSheet.sort(
             (a, b) => b.date.getTime() - a.date.getTime(),
@@ -78,14 +88,17 @@ export class EsdevenimentsComponent implements OnInit {
         } else {
           this.past = this.eventsService
             .getAll()
-            .filter((e) => e.date < now)
+            .filter((e) => this.isStrictlyBeforeToday(e.date))
             .sort((a, b) => b.date.getTime() - a.date.getTime());
         }
       }
     });
   }
 
-  private stravaToXeicEvent(e: StravaGroupEvent): XeicEvent {
+  private stravaToXeicEvent(
+    e: StravaGroupEvent,
+    sheetEvents: XeicEvent[],
+  ): XeicEvent {
     const date = new Date(e.upcoming_occurrences[0]);
     const typeMap: Record<string, EventType> = {
       Run: 'training',
@@ -94,6 +107,11 @@ export class EsdevenimentsComponent implements OnInit {
       Hike: 'social',
       Ride: 'training',
     };
+
+    const sheetMatch = sheetEvents.find(
+      (s) => s.title.trim().toLowerCase() === e.title.trim().toLowerCase(),
+    );
+
     return {
       id: `strava-${e.id}`,
       title: e.title,
@@ -103,8 +121,8 @@ export class EsdevenimentsComponent implements OnInit {
       type: typeMap[e.activity_type] ?? 'social',
       difficulty: 'Iniciació',
       tags: [this.mapActivityTag(e.activity_type, e.title)],
-      imageUrl: CLUB_IMAGE,
-      description: e.description || undefined,
+      imageUrl: sheetMatch?.imageUrl ?? CLUB_IMAGE,
+      description: sheetMatch?.description ?? e.description ?? undefined,
     };
   }
 
