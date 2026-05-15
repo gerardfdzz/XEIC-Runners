@@ -11,7 +11,7 @@ Official website of the XEIC RUNNERS running club from La Sénia (Terres de l'Eb
 | SCSS + BEM       | —        | Component styles                                                  |
 | Angular Router   | built-in | Lazy-loaded routes                                                |
 | RxJS             | 7.8      | Async streams (`forkJoin`, `shareReplay`, `catchError`)           |
-| Vercel Functions | Node.js  | Serverless API proxy (Strava + Instagram)                         |
+| Vercel Functions | Node.js  | Serverless API proxy (Strava + Instagram + Routes)                |
 
 ---
 
@@ -23,7 +23,7 @@ npm install
 # Angular dev server only — http://localhost:4200
 npm start
 
-# Angular + live API (Strava & Instagram)
+# Angular + live API (Strava, Instagram & Routes)
 npm run strava:api   # terminal 1 — local API server on localhost:3000
 npm start            # terminal 2 — Angular reads proxy.conf.json → localhost:3000
 
@@ -42,6 +42,7 @@ Create a `.env` file at the project root:
 STRAVA_CLIENT_ID=your_client_id
 STRAVA_CLIENT_SECRET=your_client_secret
 STRAVA_REFRESH_TOKEN=your_refresh_token   # obtained via: npm run strava:auth
+STRAVA_ATHLETE_ID=your_athlete_id         # numeric ID from strava.com/athletes/{id}
 
 # Instagram
 INSTAGRAM_SESSION_ID=your_session_id     # from browser DevTools → Cookies → instagram.com
@@ -53,7 +54,7 @@ For **Vercel deployment**, add the same keys under _Project → Settings → Env
 
 ## API integrations
 
-### Strava (Vercel serverless function)
+### Strava club data
 
 `api/strava.js` refreshes the OAuth token on each cold start, fetches club data in parallel, and returns a single cached JSON response.
 
@@ -77,7 +78,48 @@ npm run strava:auth   # follow the prompts → prints STRAVA_REFRESH_TOKEN
 
 ---
 
-### Instagram highlights (Vercel serverless function)
+### Strava routes
+
+`api/routes.js` fetches the athlete's public routes from their Strava profile.
+
+```
+GET /api/routes → { routes: XeicRoute[] }
+```
+
+**Endpoint fetched from Strava:**
+
+- `/athletes/{STRAVA_ATHLETE_ID}/routes?per_page=50` — all public routes
+
+Each route is normalized to:
+
+```ts
+{
+  id: string;           // Strava route id_str
+  name: string;
+  description: string | null;
+  distance: number;     // km
+  elevationGain: number;// metres
+  estimatedTime: number;// seconds
+  type: 'mountain' | 'road' | 'mixed';
+  mapImageUrl: string | null;
+  stravaUrl: string;
+}
+```
+
+Route type is inferred from Strava's `type` + `sub_type` fields:
+
+| Strava sub_type | Strava type | Result     |
+| --------------- | ----------- | ---------- |
+| 4 (mountain)    | any         | `mountain` |
+| 1 (road)        | 2 (run)     | `road`     |
+| —               | 3 (walk)    | `mixed`    |
+| other           | —           | `mixed`    |
+
+**Cache:** 1 hour in-memory.
+
+---
+
+### Instagram highlights
 
 `api/instagram.js` fetches highlight stories from `@xeicrunners` using Instagram's private API. Requires only a `sessionid` cookie — no official API key.
 
@@ -90,6 +132,8 @@ GET /api/instagram → { items: [{ id, imageUrl, takenAt }] }
 1. Open Chrome, log in as `@xeicrunners` at instagram.com
 2. DevTools → Application → Cookies → `https://www.instagram.com`
 3. Copy the value of `sessionid` → set as `INSTAGRAM_SESSION_ID`
+
+> If the value contains `%3A`, paste it as-is — the server decodes it automatically.
 
 **Cache:** 30 minutes (Instagram CDN URLs expire after ~1 hour).
 
@@ -108,7 +152,7 @@ Past events with full metadata (title, date, distance, elevation, photo, descrip
 - `type` → `training` / `race` / `social` / `track`
 - `difficulty` → `Iniciació` / `Mitjà` / `Xeic!`
 - `tags` → pipe-separated: `Muntanya|Trail|Xeic!`
-- `imageUrl` → direct public image URL (see below)
+- `imageUrl` → direct public image URL
 
 **Recommended image hosting: [ImgBB](https://imgbb.com)** (free, no account needed)  
 Upload the photo → copy the **Direct link** (`https://i.ibb.co/...`) → paste into the Sheet.
@@ -139,10 +183,10 @@ const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/.../pub?output=csv
 
 All sources are fetched in parallel with `forkJoin`. Any failure silently falls through to the next source.
 
-| Section      | Priority 1           | Priority 2                 | Priority 3           |
-| ------------ | -------------------- | -------------------------- | -------------------- |
-| **Upcoming** | Strava group events  | Google Sheet (future rows) | Hardcoded local data |
-| **Past**     | Instagram highlights | Google Sheet (past rows)   | Hardcoded local data |
+| Section      | Priority 1           | Priority 2                 |
+| ------------ | -------------------- | -------------------------- |
+| **Upcoming** | Strava group events  | Google Sheet (future rows) |
+| **Past**     | Instagram highlights | Google Sheet (past rows)   |
 
 ---
 
@@ -152,7 +196,8 @@ All sources are fetched in parallel with `forkJoin`. Any failure silently falls 
 xeic-runners/
 ├── api/
 │   ├── strava.js              # Vercel function: Strava OAuth + club data proxy
-│   └── instagram.js           # Vercel function: Instagram highlights proxy
+│   ├── instagram.js           # Vercel function: Instagram highlights proxy
+│   └── routes.js              # Vercel function: athlete's public routes
 │
 ├── scripts/
 │   ├── dev-api.mjs            # Local API server (port 3000) — mirrors api/ functions
@@ -165,15 +210,14 @@ xeic-runners/
 │   │   │   │   ├── event.model.ts         # XeicEvent, EventType, EventDifficulty
 │   │   │   │   ├── instagram.model.ts     # InstagramItem, InstagramHighlightsResponse
 │   │   │   │   ├── member.model.ts        # Member (founders & team)
-│   │   │   │   ├── route.model.ts         # XeicRoute, RouteType, RouteDifficulty
-│   │   │   │   └── strava.model.ts        # StravaClub, StravaActivity, StravaGroupEvent
+│   │   │   │   ├── route.model.ts         # XeicRoute, RouteType
+│   │   │   │   └── strava.model.ts        # StravaActivity, StravaGroupEvent, StravaData
 │   │   │   └── services/
-│   │   │       ├── events-data.service.ts # Hardcoded fallback events
 │   │   │       ├── events-sheet.service.ts# Google Sheets CSV → XeicEvent[]
 │   │   │       ├── i18n.service.ts        # Translations CA/ES/EN (Angular Signals)
 │   │   │       ├── instagram.service.ts   # GET /api/instagram → InstagramItem[]
-│   │   │       ├── routes-data.service.ts # Hardcoded routes data
-│   │   │       └── strava.service.ts      # GET /api/strava → club, activities, groupEvents
+│   │   │       ├── strava.service.ts      # GET /api/strava → activities, groupEvents
+│   │   │       └── strava-routes.service.ts# GET /api/routes → XeicRoute[]
 │   │   │
 │   │   ├── shared/
 │   │   │   └── components/
@@ -187,7 +231,7 @@ xeic-runners/
 │   │   │   ├── home/                      # Hero · Founders · Events · Routes · Community · CTA
 │   │   │   ├── fundadors/                 # History · Values bento · Team · CTA
 │   │   │   ├── rutes/                     # Hero · Sticky filters · Responsive grid
-│   │   │   ├── esdeveniments/             # Upcoming (Strava) · Past (Instagram/Sheet/local)
+│   │   │   ├── esdeveniments/             # Upcoming (Strava) · Past (Instagram/Sheet)
 │   │   │   └── comunitat/                 # Live stats · Recent activities · Gallery · CTA
 │   │   │
 │   │   ├── app.component.ts               # Shell: Navbar + RouterOutlet + Footer + MobileNav
@@ -201,6 +245,7 @@ xeic-runners/
 │   ├── assets/
 │   │   ├── images/
 │   │   │   ├── xeicrunners.png            # Club logo (also used as favicon)
+│   │   │   ├── strava-icon.png            # Strava branding icon
 │   │   │   └── fundadors/                 # Founders photos
 │   │   └── i18n/
 │   │       ├── ca.json                    # Catalan (primary language)
@@ -292,18 +337,16 @@ The project is pre-configured for Vercel via `vercel.json`:
 
 - **Build command:** `npm run build`
 - **Output directory:** `dist/xeic-runners/browser`
-- **Serverless functions:** `api/strava.js`, `api/instagram.js` (auto-detected)
+- **Serverless functions:** `api/strava.js`, `api/instagram.js`, `api/routes.js` (auto-detected)
 - **SPA fallback:** all routes → `index.html`
 
 **Steps:**
 
 1. Push to GitHub
 2. Import the repo at [vercel.com](https://vercel.com)
-3. Add environment variables: `STRAVA_CLIENT_ID`, `STRAVA_CLIENT_SECRET`, `STRAVA_REFRESH_TOKEN`, `INSTAGRAM_SESSION_ID`
+3. Add environment variables: `STRAVA_CLIENT_ID`, `STRAVA_CLIENT_SECRET`, `STRAVA_REFRESH_TOKEN`, `STRAVA_ATHLETE_ID`, `INSTAGRAM_SESSION_ID`
 4. Deploy
 5. Connect your domain: _Project → Settings → Domains_
-
----
 
 ---
 
@@ -313,7 +356,7 @@ The initial UI design and component structure were bootstrapped using **Google S
 
 > [View the original Stitch project](https://stitch.withgoogle.com/projects/4079644074290490504)
 
-From that base, the project was fully extended with: BEM/SCSS refactor, Strava API integration, Instagram highlights proxy, Google Sheets mini-CMS, Vercel serverless functions, i18n, and all feature pages.
+From that base, the project was fully extended with: BEM/SCSS refactor, Strava API integration (club data + athlete routes), Instagram highlights proxy, Google Sheets mini-CMS, Vercel serverless functions, i18n (CA/ES/EN), and all feature pages.
 
 ---
 
