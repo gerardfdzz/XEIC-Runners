@@ -33,6 +33,11 @@ export class EventCardComponent {
     return date.toLocaleDateString(this.locale, { day: 'numeric' });
   }
 
+  translateTag(tag: string): string {
+    const translated = this.i18n.t(`tags.${tag}`);
+    return translated.startsWith('tags.') ? tag : translated;
+  }
+
   tagClass(tag: string): string {
     const primary = ['Xeic!', 'Cursa', 'Trail'];
     const tertiary = ['Iniciació', 'Mig', 'Muntanya', 'Senderisme'];

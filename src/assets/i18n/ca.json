@@ -136,6 +136,20 @@
     "privacy": "Privacitat",
     "copyright": "© 2025 XEIC RUNNERS La Sénia."
   },
+  "tags": {
+    "Trail": "Trail",
+    "Cursa": "Cursa",
+    "Senderisme": "Senderisme",
+    "Caminada": "Caminada",
+    "Iniciació": "Iniciació",
+    "Mitjà": "Mitjà",
+    "Xeic!": "Xeic!",
+    "Muntanya": "Muntanya",
+    "Asfalt": "Asfalt",
+    "Social": "Social",
+    "Comunitat": "Comunitat",
+    "Sortida": "Sortida"
+  },
   "mobile_nav": {
     "home": "Inici",
     "events": "Esdeveniments",

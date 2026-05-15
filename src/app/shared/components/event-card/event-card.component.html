@@ -18,7 +18,7 @@
     <div class="event-card__body">
       <div class="event-card__tags">
         @for (tag of event.tags; track tag) {
-          <span [class]="tagClass(tag)">{{ tag }}</span>
+          <span [class]="tagClass(tag)">{{ translateTag(tag) }}</span>
         }
       </div>
 
