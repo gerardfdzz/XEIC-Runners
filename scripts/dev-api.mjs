@@ -27,6 +27,10 @@ const IG_CACHE_TTL  = 30 * 60 * 1000;
 let _igCache        = null;
 let _igCacheExpiry  = 0;
 
+const ROUTES_CACHE_TTL = 60 * 60 * 1000;
+let _routesCache       = null;
+let _routesCacheExpiry = 0;
+
 async function getAccessToken() {
   const res = await fetch(TOKEN_URL, {
     method: 'POST',
@@ -122,6 +126,57 @@ const server = createServer(async (req, res) => {
     return;
   }
 
+  if (req.url.startsWith('/api/routes')) {
+    try {
+      if (_routesCache && Date.now() < _routesCacheExpiry) {
+        res.writeHead(200, HEADERS);
+        res.end(JSON.stringify(_routesCache));
+        return;
+      }
+
+      const athleteId = process.env.STRAVA_ATHLETE_ID;
+      if (!athleteId) throw new Error('Falta STRAVA_ATHLETE_ID al .env');
+
+      console.log('🗺️  Fetching Strava routes...');
+      const accessToken = await getAccessToken();
+      const routesRes = await fetch(`${API_BASE}/athletes/${athleteId}/routes?per_page=50`, {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      });
+
+      if (!routesRes.ok) {
+        const body = await routesRes.text();
+        throw new Error(`Strava routes HTTP ${routesRes.status}: ${body.slice(0, 200)}`);
+      }
+
+      const raw = await routesRes.json();
+      const routes = raw
+        .filter((r) => !r.private)
+        .map((r) => ({
+          id:            r.id_str,
+          name:          r.name,
+          description:   r.description || null,
+          distance:      Math.round(r.distance) / 1000,
+          elevationGain: Math.round(r.elevation_gain),
+          estimatedTime: r.estimated_moving_time,
+          type:          mapRouteType(r.type, r.sub_type),
+          mapImageUrl:   r.map_urls?.url ?? null,
+          stravaUrl:     `https://www.strava.com/routes/${r.id_str}`,
+        }));
+
+      _routesCache       = { routes };
+      _routesCacheExpiry = Date.now() + ROUTES_CACHE_TTL;
+      console.log(`✅  Routes: ${routes.length} rutes`);
+
+      res.writeHead(200, HEADERS);
+      res.end(JSON.stringify(_routesCache));
+    } catch (err) {
+      console.error('❌  Routes:', err.message);
+      res.writeHead(500, HEADERS);
+      res.end(JSON.stringify({ error: err.message, routes: [] }));
+    }
+    return;
+  }
+
   if (!req.url.startsWith('/api/strava')) {
     res.writeHead(404, HEADERS);
     res.end(JSON.stringify({ error: 'Not found' }));
@@ -170,11 +225,20 @@ const server = createServer(async (req, res) => {
   }
 });
 
+function mapRouteType(type, subType) {
+  if (subType === 4) return 'mountain';
+  if (type === 2 && subType === 1) return 'road';
+  if (type === 5) return 'mountain';
+  if (type === 3) return 'mixed';
+  return 'mixed';
+}
+
 server.listen(PORT, () => {
   console.log(`\n🚀  Dev API running at:`);
   console.log(`     http://localhost:${PORT}/api/strava`);
-  console.log(`     http://localhost:${PORT}/api/instagram\n`);
-  const missing = ['STRAVA_CLIENT_ID', 'STRAVA_CLIENT_SECRET', 'STRAVA_REFRESH_TOKEN', 'INSTAGRAM_SESSION_ID']
+  console.log(`     http://localhost:${PORT}/api/instagram`);
+  console.log(`     http://localhost:${PORT}/api/routes\n`);
+  const missing = ['STRAVA_CLIENT_ID', 'STRAVA_CLIENT_SECRET', 'STRAVA_REFRESH_TOKEN', 'STRAVA_ATHLETE_ID', 'INSTAGRAM_SESSION_ID']
     .filter((k) => !process.env[k] || process.env[k].includes('your_'));
   if (missing.length) {
     console.warn(`⚠️   Falten variables al .env: ${missing.join(', ')}\n`);

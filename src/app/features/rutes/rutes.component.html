@@ -29,7 +29,6 @@
         >
         <input
           [(ngModel)]="searchQuery"
-          (ngModelChange)="onSearch($event)"
           [placeholder]="i18n.t('routes.search')"
           type="text"
           class="rutes-filters__input"
@@ -51,15 +50,28 @@
 
 <div class="rutes-results-count">
   <div class="rutes-results-count__inner">
-    <p class="rutes-results-count__text">
-      {{ filteredRoutes().length }} rutes trobades
-    </p>
+    @if (loading()) {
+      <p class="rutes-results-count__text">Carregant rutes de Strava...</p>
+    } @else {
+      <p class="rutes-results-count__text">
+        {{ filteredRoutes().length }} rutes trobades
+      </p>
+    }
   </div>
 </div>
 
 <section class="rutes-grid">
   <div class="rutes-grid__inner">
-    @if (filteredRoutes().length === 0) {
+    @if (loading()) {
+      <div class="rutes-grid__empty">
+        <span
+          class="material-symbols-outlined rutes-grid__empty-icon"
+          style="animation: spin 1.2s linear infinite"
+          >sync</span
+        >
+        <p class="rutes-grid__empty-title">Carregant rutes...</p>
+      </div>
+    } @else if (filteredRoutes().length === 0) {
       <div class="rutes-grid__empty">
         <span class="material-symbols-outlined rutes-grid__empty-icon"
           >search_off</span

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { forkJoin } from 'rxjs';
 import { I18nService } from '../../core/services/i18n.service';
-import { RoutesDataService } from '../../core/services/routes-data.service';
+import { StravaRoutesService } from '../../core/services/strava-routes.service';
 import { StravaService } from '../../core/services/strava.service';
 import { EventsSheetService } from '../../core/services/events-sheet.service';
 import { EventCardComponent } from '../../shared/components/event-card/event-card.component';
@@ -20,7 +20,7 @@ import { StravaGroupEvent } from '../../core/models/strava.model';
 })
 export class HomeComponent implements OnInit {
   protected i18n = inject(I18nService);
-  private routesService = inject(RoutesDataService);
+  private routesService = inject(StravaRoutesService);
   private strava = inject(StravaService);
   private sheet = inject(EventsSheetService);
 
@@ -35,7 +35,9 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.featuredRoutes.set(this.routesService.getFeatured().slice(0, 2));
+    this.routesService.getRoutes().subscribe((routes) => {
+      this.featuredRoutes.set(routes.slice(0, 4));
+    });
 
     forkJoin({
       groupEvents: this.strava.getGroupEvents(),

@@ -15,28 +15,18 @@ export class RouteCardComponent {
   protected i18n = inject(I18nService);
 
   typeLabel(): string {
-    const labels: Record<string, string> = {
-      mountain: 'Muntanya',
-      road: 'Asfalt',
-      mixed: 'Mixte',
-    };
-    return labels[this.route.type] ?? this.route.type;
-  }
-
-  difficultyLabel(): string {
-    const labels: Record<string, string> = {
-      easy: 'Fàcil',
-      medium: 'Mig',
-      xeic: 'Xeic!',
-    };
-    return labels[this.route.difficulty] ?? this.route.difficulty;
+    const key = `routes.filters.${this.route.type}`;
+    const t = this.i18n.t(key);
+    return t.startsWith('routes.') ? this.route.type : t;
   }
 
   typeChipClass(): string {
     return `chip chip--${this.route.type}`;
   }
 
-  difficultyChipClass(): string {
-    return `chip chip--${this.route.difficulty}`;
+  formatTime(seconds: number): string {
+    const h = Math.floor(seconds / 3600);
+    const m = Math.floor((seconds % 3600) / 60);
+    return h > 0 ? `${h}h ${m}min` : `${m}min`;
   }
 }

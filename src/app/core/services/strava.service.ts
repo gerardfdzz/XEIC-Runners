@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, shareReplay, catchError, of, map } from 'rxjs';
 import {
   StravaData,
-  StravaClub,
   StravaActivity,
   StravaGroupEvent,
 } from '../models/strava.model';
@@ -27,10 +26,6 @@ export class StravaService {
 
   getData(): Observable<StravaData | null> {
     return this.data$;
-  }
-
-  getClub(): Observable<StravaClub | null> {
-    return this.data$.pipe(map((d) => d?.club ?? null));
   }
 
   getActivities(): Observable<StravaActivity[]> {

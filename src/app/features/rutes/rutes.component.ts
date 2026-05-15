@@ -2,18 +2,9 @@ import { Component, inject, signal, computed, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { I18nService } from '../../core/services/i18n.service';
-import { RoutesDataService } from '../../core/services/routes-data.service';
+import { StravaRoutesService } from '../../core/services/strava-routes.service';
 import { RouteCardComponent } from '../../shared/components/route-card/route-card.component';
-import { XeicRoute } from '../../core/models/route.model';
-
-type FilterType =
-  | 'all'
-  | 'mountain'
-  | 'road'
-  | 'mixed'
-  | 'easy'
-  | 'medium'
-  | 'xeic';
+import { XeicRoute, RouteType } from '../../core/models/route.model';
 
 @Component({
   selector: 'app-rutes',
@@ -24,58 +15,55 @@ type FilterType =
 })
 export class RutesComponent implements OnInit {
   protected i18n = inject(I18nService);
-  private routesService = inject(RoutesDataService);
+  private routesService = inject(StravaRoutesService);
 
   searchQuery = '';
-  activeFilter = signal<FilterType>('all');
+  activeFilter = signal<RouteType | 'all'>('all');
+  loading = signal(true);
   private allRoutes = signal<XeicRoute[]>([]);
-  private searchResults = signal<XeicRoute[]>([]);
-  protected useSearch = signal(false);
 
-  filters: { key: FilterType; translationKey: string }[] = [
+  filters: { key: RouteType | 'all'; translationKey: string }[] = [
     { key: 'all', translationKey: 'all' },
     { key: 'mountain', translationKey: 'mountain' },
     { key: 'road', translationKey: 'road' },
     { key: 'mixed', translationKey: 'mixed' },
-    { key: 'easy', translationKey: 'easy' },
-    { key: 'medium', translationKey: 'medium' },
-    { key: 'xeic', translationKey: 'xeic' },
   ];
 
   filteredRoutes = computed(() => {
-    if (this.useSearch()) return this.searchResults();
     const filter = this.activeFilter();
-    const routes = this.allRoutes();
-    if (filter === 'all') return routes;
-    if (filter === 'easy' || filter === 'medium' || filter === 'xeic') {
-      return routes.filter((r) => r.difficulty === filter);
+    const query = this.searchQuery.trim().toLowerCase();
+    let routes = this.allRoutes();
+
+    if (query) {
+      routes = routes.filter((r) => r.name.toLowerCase().includes(query));
     }
-    return routes.filter((r) => r.type === filter);
+    if (filter !== 'all') {
+      routes = routes.filter((r) => r.type === filter);
+    }
+    return routes;
   });
 
   ngOnInit(): void {
-    this.allRoutes.set(this.routesService.getAll());
+    this.routesService.getRoutes().subscribe((routes) => {
+      this.allRoutes.set(routes);
+      this.loading.set(false);
+    });
   }
 
-  setFilter(filter: FilterType): void {
+  setFilter(filter: RouteType | 'all'): void {
     this.activeFilter.set(filter);
-    this.useSearch.set(false);
     this.searchQuery = '';
   }
 
-  onSearch(query: string): void {
-    if (!query.trim()) {
-      this.useSearch.set(false);
-      return;
-    }
-    this.useSearch.set(true);
-    this.searchResults.set(this.routesService.search(query));
+  filterClass(key: RouteType | 'all'): string {
+    return this.activeFilter() === key
+      ? 'rutes-chip rutes-chip--active'
+      : 'rutes-chip rutes-chip--default';
   }
 
-  filterClass(key: FilterType): string {
-    if (this.activeFilter() === key && !this.useSearch()) {
-      return 'rutes-chip rutes-chip--active';
-    }
-    return 'rutes-chip rutes-chip--default';
+  formatTime(seconds: number): string {
+    const h = Math.floor(seconds / 3600);
+    const m = Math.floor((seconds % 3600) / 60);
+    return h > 0 ? `${h}h ${m}min` : `${m}min`;
   }
 }
