@@ -1,12 +1,15 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { forkJoin } from 'rxjs';
 import { I18nService } from '../../core/services/i18n.service';
-import { EventsDataService } from '../../core/services/events-data.service';
 import { RoutesDataService } from '../../core/services/routes-data.service';
+import { StravaService } from '../../core/services/strava.service';
+import { EventsSheetService } from '../../core/services/events-sheet.service';
 import { EventCardComponent } from '../../shared/components/event-card/event-card.component';
-import { XeicEvent } from '../../core/models/event.model';
+import { XeicEvent, EventType } from '../../core/models/event.model';
 import { XeicRoute } from '../../core/models/route.model';
+import { StravaGroupEvent } from '../../core/models/strava.model';
 
 @Component({
   selector: 'app-home',
@@ -17,14 +20,94 @@ import { XeicRoute } from '../../core/models/route.model';
 })
 export class HomeComponent implements OnInit {
   protected i18n = inject(I18nService);
-  private eventsService = inject(EventsDataService);
   private routesService = inject(RoutesDataService);
+  private strava = inject(StravaService);
+  private sheet = inject(EventsSheetService);
 
   upcomingEvents = signal<XeicEvent[]>([]);
   featuredRoutes = signal<XeicRoute[]>([]);
 
+  private readonly CLUB_IMAGE =
+    'https://apropebre.cat/wp-content/uploads/2026/04/DSC09088-1024x683.jpg';
+
   ngOnInit(): void {
-    this.upcomingEvents.set(this.eventsService.getUpcoming(3));
     this.featuredRoutes.set(this.routesService.getFeatured().slice(0, 2));
+
+    forkJoin({
+      groupEvents: this.strava.getGroupEvents(),
+      sheetEvents: this.sheet.getEvents(),
+    }).subscribe(({ groupEvents, sheetEvents }) => {
+      let upcoming: XeicEvent[];
+
+      if (groupEvents.length > 0) {
+        upcoming = groupEvents
+          .filter(
+            (e) =>
+              e.upcoming_occurrences?.length > 0 &&
+              !this.isStrictlyBeforeToday(new Date(e.upcoming_occurrences[0])),
+          )
+          .sort(
+            (a, b) =>
+              new Date(a.upcoming_occurrences[0]).getTime() -
+              new Date(b.upcoming_occurrences[0]).getTime(),
+          )
+          .map((e) => this.stravaToXeicEvent(e, sheetEvents));
+      } else {
+        upcoming = sheetEvents
+          .filter((e) => !this.isStrictlyBeforeToday(e.date))
+          .sort((a, b) => a.date.getTime() - b.date.getTime());
+      }
+
+      this.upcomingEvents.set(upcoming.slice(0, 3));
+    });
+  }
+
+  private isStrictlyBeforeToday(date: Date): boolean {
+    const pad = (n: number) => String(n).padStart(2, '0');
+    const toStr = (d: Date) =>
+      `${d.getFullYear()}${pad(d.getMonth() + 1)}${pad(d.getDate())}`;
+    return toStr(date) < toStr(new Date());
+  }
+
+  private stravaToXeicEvent(
+    e: StravaGroupEvent,
+    sheetEvents: XeicEvent[],
+  ): XeicEvent {
+    const date = new Date(e.upcoming_occurrences[0]);
+    const typeMap: Record<string, EventType> = {
+      Run: 'training',
+      TrailRun: 'race',
+      Walk: 'social',
+      Hike: 'social',
+      Ride: 'training',
+    };
+    const sheetMatch = sheetEvents.find(
+      (s) => s.title.trim().toLowerCase() === e.title.trim().toLowerCase(),
+    );
+    return {
+      id: `strava-${e.id}`,
+      title: e.title,
+      date,
+      time: date.toTimeString().slice(0, 5),
+      location: e.address || 'La Sénia',
+      type: typeMap[e.activity_type] ?? 'social',
+      difficulty: 'Iniciació',
+      tags: [this.mapActivityTag(e.activity_type, e.title)],
+      imageUrl: sheetMatch?.imageUrl ?? this.CLUB_IMAGE,
+      description: sheetMatch?.description ?? e.description ?? undefined,
+    };
+  }
+
+  private mapActivityTag(activityType: string, title: string): string {
+    const t = title.toLowerCase();
+    if (t.includes('trail')) return 'Trail';
+    if (t.includes('senderisme') || t.includes('hike')) return 'Senderisme';
+    if (t.includes('caminada') || t.includes('walk')) return 'Caminada';
+    const map: Record<string, string> = {
+      Run: 'Cursa',
+      Walk: 'Caminada',
+      Hike: 'Senderisme',
+    };
+    return map[activityType] ?? activityType ?? 'Social';
   }
 }

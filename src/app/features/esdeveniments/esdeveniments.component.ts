@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { forkJoin } from 'rxjs';
 import { I18nService } from '../../core/services/i18n.service';
 import { StravaService } from '../../core/services/strava.service';
-import { EventsDataService } from '../../core/services/events-data.service';
 import { InstagramService } from '../../core/services/instagram.service';
 import { EventsSheetService } from '../../core/services/events-sheet.service';
 import { EventCardComponent } from '../../shared/components/event-card/event-card.component';
@@ -24,7 +23,6 @@ const CLUB_IMAGE =
 export class EsdevenimentsComponent implements OnInit {
   protected i18n = inject(I18nService);
   private strava = inject(StravaService);
-  private eventsService = inject(EventsDataService);
   private instagram = inject(InstagramService);
   private sheet = inject(EventsSheetService);
 
@@ -40,8 +38,6 @@ export class EsdevenimentsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const now = new Date();
-
     forkJoin({
       groupEvents: this.strava.getGroupEvents(),
       igItems: this.instagram.getHighlights(),
@@ -51,7 +47,13 @@ export class EsdevenimentsComponent implements OnInit {
 
       if (groupEvents.length > 0) {
         this.upcoming = groupEvents
-          .filter((e) => e.upcoming_occurrences?.length > 0)
+          .filter(
+            (e) =>
+              e.upcoming_occurrences?.length > 0 &&
+              !this.isStrictlyBeforeToday(
+                new Date(e.upcoming_occurrences[0]),
+              ),
+          )
           .sort(
             (a, b) =>
               new Date(a.upcoming_occurrences[0]).getTime() -
@@ -59,16 +61,9 @@ export class EsdevenimentsComponent implements OnInit {
           )
           .map((e) => this.stravaToXeicEvent(e, sheetEvents));
       } else {
-        const futursSheet = sheetEvents.filter(
-          (e) => !this.isStrictlyBeforeToday(e.date),
-        );
-        this.upcoming =
-          futursSheet.length > 0
-            ? futursSheet.sort((a, b) => a.date.getTime() - b.date.getTime())
-            : this.eventsService
-                .getAll()
-                .filter((e) => !this.isStrictlyBeforeToday(e.date))
-                .sort((a, b) => a.date.getTime() - b.date.getTime());
+        this.upcoming = sheetEvents
+          .filter((e) => !this.isStrictlyBeforeToday(e.date))
+          .sort((a, b) => a.date.getTime() - b.date.getTime());
       }
 
       const igPast = igItems
@@ -78,19 +73,9 @@ export class EsdevenimentsComponent implements OnInit {
       if (igPast.length > 0) {
         this.past = igPast.sort((a, b) => b.date.getTime() - a.date.getTime());
       } else {
-        const passatsSheet = sheetEvents.filter((e) =>
-          this.isStrictlyBeforeToday(e.date),
-        );
-        if (passatsSheet.length > 0) {
-          this.past = passatsSheet.sort(
-            (a, b) => b.date.getTime() - a.date.getTime(),
-          );
-        } else {
-          this.past = this.eventsService
-            .getAll()
-            .filter((e) => this.isStrictlyBeforeToday(e.date))
-            .sort((a, b) => b.date.getTime() - a.date.getTime());
-        }
+        this.past = sheetEvents
+          .filter((e) => this.isStrictlyBeforeToday(e.date))
+          .sort((a, b) => b.date.getTime() - a.date.getTime());
       }
     });
   }

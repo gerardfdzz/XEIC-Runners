@@ -101,27 +101,29 @@
   </div>
 </section>
 
-<section class="events-preview">
-  <div class="events-preview__inner">
-    <div class="events-preview__header">
-      <div>
-        <h2 class="events-preview__title">{{ i18n.t("home.events.title") }}</h2>
-        <p class="events-preview__subtitle">
-          {{ i18n.t("home.events.subtitle") }}
-        </p>
+@if (upcomingEvents().length > 0) {
+  <section class="events-preview">
+    <div class="events-preview__inner">
+      <div class="events-preview__header">
+        <div>
+          <h2 class="events-preview__title">{{ i18n.t("home.events.title") }}</h2>
+          <p class="events-preview__subtitle">
+            {{ i18n.t("home.events.subtitle") }}
+          </p>
+        </div>
+        <a routerLink="/esdeveniments" class="events-preview__link">
+          {{ i18n.t("home.events.viewAll") }}
+          <span class="material-symbols-outlined">arrow_forward</span>
+        </a>
       </div>
-      <a routerLink="/esdeveniments" class="events-preview__link">
-        {{ i18n.t("home.events.viewAll") }}
-        <span class="material-symbols-outlined">arrow_forward</span>
-      </a>
+      <div class="events-preview__grid">
+        @for (event of upcomingEvents(); track event.id) {
+          <app-event-card [event]="event" />
+        }
+      </div>
     </div>
-    <div class="events-preview__grid">
-      @for (event of upcomingEvents(); track event.id) {
-        <app-event-card [event]="event" />
-      }
-    </div>
-  </div>
-</section>
+  </section>
+}
 
 <section class="routes-preview">
   <div class="routes-preview__inner">

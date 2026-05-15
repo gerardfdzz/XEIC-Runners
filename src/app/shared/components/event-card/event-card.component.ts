@@ -12,6 +12,7 @@ import { I18nService } from '../../../core/services/i18n.service';
 })
 export class EventCardComponent {
   @Input({ required: true }) event!: XeicEvent;
+  @Input() hideMeta = false;
   protected i18n = inject(I18nService);
 
   tagClass(tag: string): string {

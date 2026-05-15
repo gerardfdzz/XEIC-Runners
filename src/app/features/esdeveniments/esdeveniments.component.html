@@ -53,7 +53,7 @@
       </h2>
       <div class="events-list__grid events-list__grid--past">
         @for (event of past; track event.id) {
-          <app-event-card [event]="event" />
+          <app-event-card [event]="event" [hideMeta]="true" />
         }
       </div>
     }
