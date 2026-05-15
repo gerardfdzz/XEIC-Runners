@@ -1,12 +1,13 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { I18nService } from '../../core/services/i18n.service';
 import { Member } from '../../core/models/member.model';
 
 @Component({
   selector: 'app-fundadors',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './fundadors.component.html',
   styleUrl: './fundadors.component.scss',
 })
