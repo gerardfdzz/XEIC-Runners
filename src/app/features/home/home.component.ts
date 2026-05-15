@@ -30,6 +30,10 @@ export class HomeComponent implements OnInit {
   private readonly CLUB_IMAGE =
     'https://apropebre.cat/wp-content/uploads/2026/04/DSC09088-1024x683.jpg';
 
+  scrollToOrigen(): void {
+    document.getElementById('origen')?.scrollIntoView({ behavior: 'smooth' });
+  }
+
   ngOnInit(): void {
     this.featuredRoutes.set(this.routesService.getFeatured().slice(0, 2));
 

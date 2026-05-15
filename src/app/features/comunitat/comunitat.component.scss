@@ -6,12 +6,10 @@
   padding-block: 96px;
   overflow: hidden;
   text-align: center;
-
-  &__bg {
-    position: absolute;
-    inset: 0;
-    opacity: 0.08;
-  }
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.52), rgba(0, 0, 0, 0.52)),
+    url('https://apropebre.cat/wp-content/uploads/2026/04/DSC09104-1024x683.jpg')
+    center / cover no-repeat;
 
   &__inner {
     @include container;
@@ -21,25 +19,26 @@
 
   &__badge {
     display: inline-block;
-    background: rgba($secondary, 0.1);
-    color: $secondary;
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
     padding: 6px 16px;
     border-radius: $radius-full;
     font-family: $font-lexend;
     font-size: $text-label-lg;
     font-weight: $fw-semibold;
     margin-bottom: 24px;
+    backdrop-filter: blur(6px);
   }
 
   &__title {
     @include headline-xl;
-    color: $on-surface;
+    color: #fff;
     margin-bottom: 16px;
   }
 
   &__subtitle {
     @include body-lg;
-    color: $on-surface-variant;
+    color: rgba(255, 255, 255, 0.8);
     max-width: 672px;
     margin-inline: auto;
   }

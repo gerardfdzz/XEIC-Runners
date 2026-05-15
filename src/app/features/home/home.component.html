@@ -14,8 +14,13 @@
       </h1>
       <p class="hero__subtitle">{{ i18n.t("home.hero.subtitle") }}</p>
       <div class="hero__actions">
-        <button class="btn-primary">{{ i18n.t("home.hero.cta1") }}</button>
-        <button class="btn-ghost">{{ i18n.t("home.hero.cta2") }}</button>
+        <a
+          href="https://chat.whatsapp.com/GQj4ET5Bt84IgBLtLKwpwx?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQPOTM2NjE5NzQzMzkyNDU5AAGnkLfEewKCANv5brMZbnOgR5donAQwSYtOzCHXZQGOXv6mbYORq69F0ik71eA_aem_YWdncwBKjk5hjNoEkFPA6kU1K5Xs&brid=YWdncwFIRsqUftDhoI0fTw6tmbFH"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn-primary"
+        >{{ i18n.t("home.hero.cta1") }}</a>
+        <button class="btn-ghost" (click)="scrollToOrigen()">{{ i18n.t("home.hero.cta2") }}</button>
       </div>
       <div class="hero__stats">
         <div class="hero__stat">
@@ -58,7 +63,7 @@
   </div>
 </section>
 
-<section class="founders-preview">
+<section class="founders-preview" id="origen">
   <div class="founders-preview__inner">
     <div class="founders-preview__main">
       <h2 class="founders-preview__title">
