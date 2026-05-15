@@ -28,7 +28,19 @@ export class EsdevenimentsComponent implements OnInit {
 
   upcoming: XeicEvent[] = [];
   past: XeicEvent[] = [];
+  pastByMonth: { year: number; month: number; events: XeicEvent[] }[] = [];
   loading = true;
+
+  private readonly localeMap: Record<string, string> = {
+    ca: 'ca-ES', es: 'es-ES', en: 'en-US',
+  };
+
+  monthGroupLabel(year: number, month: number): string {
+    const locale = this.localeMap[this.i18n.currentLang()] ?? 'ca-ES';
+    const date = new Date(year, month, 1);
+    const m = date.toLocaleDateString(locale, { month: 'long' });
+    return `${m.charAt(0).toUpperCase()}${m.slice(1)} ${year}`;
+  }
 
   private isStrictlyBeforeToday(date: Date): boolean {
     const pad = (n: number) => String(n).padStart(2, '0');
@@ -77,6 +89,8 @@ export class EsdevenimentsComponent implements OnInit {
           .filter((e) => this.isStrictlyBeforeToday(e.date))
           .sort((a, b) => b.date.getTime() - a.date.getTime());
       }
+
+      this.pastByMonth = this.groupByMonth(this.past);
     });
   }
 
@@ -123,6 +137,19 @@ export class EsdevenimentsComponent implements OnInit {
       Hike: 'Senderisme',
     };
     return map[activityType] ?? activityType ?? 'Social';
+  }
+
+  private groupByMonth(events: XeicEvent[]): { year: number; month: number; events: XeicEvent[] }[] {
+    const map = new Map<string, XeicEvent[]>();
+    for (const e of events) {
+      const key = `${e.date.getFullYear()}-${e.date.getMonth()}`;
+      if (!map.has(key)) map.set(key, []);
+      map.get(key)!.push(e);
+    }
+    return Array.from(map.entries()).map(([key, evs]) => {
+      const [year, month] = key.split('-').map(Number);
+      return { year, month, events: evs };
+    });
   }
 
   private instagramToXeicEvent(item: InstagramItem): XeicEvent {

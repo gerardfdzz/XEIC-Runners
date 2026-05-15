@@ -63,6 +63,17 @@
     }
   }
 
+  &__month-title {
+    font-family: $font-lexend;
+    font-size: $text-headline-md;
+    font-weight: $fw-semibold;
+    color: $on-surface-variant;
+    margin-bottom: 20px;
+    margin-top: 40px;
+
+    &:first-of-type { margin-top: 0; }
+  }
+
   &__section-icon {
     font-size: 24px;
     color: $secondary;

@@ -15,6 +15,24 @@ export class EventCardComponent {
   @Input() hideMeta = false;
   protected i18n = inject(I18nService);
 
+  private readonly localeMap: Record<string, string> = {
+    ca: 'ca-ES',
+    es: 'es-ES',
+    en: 'en-US',
+  };
+
+  get locale(): string {
+    return this.localeMap[this.i18n.currentLang()] ?? 'ca-ES';
+  }
+
+  monthLabel(date: Date): string {
+    return date.toLocaleDateString(this.locale, { month: 'short' }).replace('.', '').toUpperCase();
+  }
+
+  dayLabel(date: Date): string {
+    return date.toLocaleDateString(this.locale, { day: 'numeric' });
+  }
+
   tagClass(tag: string): string {
     const primary = ['Xeic!', 'Cursa', 'Trail'];
     const tertiary = ['Iniciació', 'Mig', 'Muntanya', 'Senderisme'];

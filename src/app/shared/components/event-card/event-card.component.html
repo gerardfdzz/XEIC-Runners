@@ -6,10 +6,12 @@
       class="event-card__image"
       loading="lazy"
     />
-    <div class="event-card__date-badge">
-      <span class="event-card__date-month">{{ event.date | date: "MMM" }}</span>
-      <span class="event-card__date-day">{{ event.date | date: "d" }}</span>
-    </div>
+    @if (!hideMeta) {
+      <div class="event-card__date-badge">
+        <span class="event-card__date-month">{{ monthLabel(event.date) }}</span>
+        <span class="event-card__date-day">{{ dayLabel(event.date) }}</span>
+      </div>
+    }
   </div>
 
   @if (!hideMeta) {

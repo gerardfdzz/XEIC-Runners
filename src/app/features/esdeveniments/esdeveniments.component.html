@@ -43,7 +43,7 @@
       </div>
     }
 
-    @if (past.length > 0) {
+    @if (pastByMonth.length > 0) {
       <h2 class="events-list__section-title events-list__section-title--past">
         <span
           class="material-symbols-outlined events-list__section-icon events-list__section-icon--past"
@@ -51,11 +51,15 @@
         >
         Sortides passades
       </h2>
-      <div class="events-list__grid events-list__grid--past">
-        @for (event of past; track event.id) {
-          <app-event-card [event]="event" [hideMeta]="true" />
-        }
-      </div>
+
+      @for (group of pastByMonth; track group.year + '-' + group.month) {
+        <h3 class="events-list__month-title">{{ monthGroupLabel(group.year, group.month) }}</h3>
+        <div class="events-list__grid events-list__grid--past">
+          @for (event of group.events; track event.id) {
+            <app-event-card [event]="event" [hideMeta]="true" />
+          }
+        </div>
+      }
     }
   </div>
 </section>
