@@ -94,12 +94,12 @@ Each route is normalized to:
 
 ```ts
 {
-  id: string;           // Strava route id_str
+  id: string;
   name: string;
   description: string | null;
-  distance: number;     // km
-  elevationGain: number;// metres
-  estimatedTime: number;// seconds
+  distance: number;
+  elevationGain: number;
+  estimatedTime: number;
   type: 'mountain' | 'road' | 'mixed';
   mapImageUrl: string | null;
   stravaUrl: string;

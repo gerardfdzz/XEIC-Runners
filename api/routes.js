@@ -1,6 +1,6 @@
 const TOKEN_URL = 'https://www.strava.com/oauth/token';
 const API_BASE  = 'https://www.strava.com/api/v3';
-const CACHE_TTL = 60 * 60 * 1000; // 1 hour
+const CACHE_TTL = 15 * 60 * 1000;
 
 let _cache       = null;
 let _cacheExpiry = 0;
@@ -55,9 +55,9 @@ module.exports = async function handler(req, res) {
         id:            r.id_str,
         name:          r.name,
         description:   r.description || null,
-        distance:      Math.round(r.distance) / 1000,       // metres → km
+        distance:      Math.round(r.distance) / 1000,
         elevationGain: Math.round(r.elevation_gain),
-        estimatedTime: r.estimated_moving_time,             // seconds
+        estimatedTime: r.estimated_moving_time,
         type:          mapType(r.type, r.sub_type),
         mapImageUrl:   r.map_urls?.url ?? null,
         stravaUrl:     `https://www.strava.com/routes/${r.id_str}`,
@@ -75,13 +75,9 @@ module.exports = async function handler(req, res) {
 };
 
 function mapType(type, subType) {
-  // sub_type 4 = trail
   if (subType === 4) return 'mountain';
-  // type 2 = run, sub_type 1 = road
   if (type === 2 && subType === 1) return 'road';
-  // type 5 = trail run
   if (type === 5) return 'mountain';
-  // type 3 = walk/hike
   if (type === 3) return 'mixed';
   return 'mixed';
 }

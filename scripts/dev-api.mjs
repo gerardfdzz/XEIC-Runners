@@ -71,7 +71,6 @@ const server = createServer(async (req, res) => {
       if (!rawSession || rawSession.includes('your_')) {
         throw new Error('Falta INSTAGRAM_SESSION_ID al .env');
       }
-      // Decode in case .env stores the URL-encoded form (e.g. %3A instead of :)
       const sessionId = decodeURIComponent(rawSession);
 
       console.log('📸  Fetching Instagram highlights...');

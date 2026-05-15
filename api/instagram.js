@@ -23,7 +23,6 @@ module.exports = async function handler(req, res) {
     if (!rawSession) {
       throw new Error('Missing INSTAGRAM_SESSION_ID environment variable.');
     }
-    // Cookies must use the raw value — decode in case the .env stores the URL-encoded form
     const sessionId = decodeURIComponent(rawSession);
 
     const igRes = await fetch(IG_API, {
