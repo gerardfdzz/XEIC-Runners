@@ -127,9 +127,13 @@
         class="navbar__mobile-link"
         >{{ i18n.t("nav.community") }}</a
       >
-      <button class="btn-pill navbar__mobile-join">
-        {{ i18n.t("nav.join") }}
-      </button>
+      <a
+        href="https://chat.whatsapp.com/GQj4ET5Bt84IgBLtLKwpwx?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQPOTM2NjE5NzQzMzkyNDU5AAGnkLfEewKCANv5brMZbnOgR5donAQwSYtOzCHXZQGOXv6mbYORq69F0ik71eA_aem_YWdncwBKjk5hjNoEkFPA6kU1K5Xs&brid=YWdncwFIRsqUftDhoI0fTw6tmbFH"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn-pill navbar__mobile-join"
+        (click)="mobileMenuOpen.set(false)"
+      >{{ i18n.t("nav.join") }}</a>
     </div>
   }
 </header>
