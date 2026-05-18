@@ -71,7 +71,6 @@ module.exports = async function handler(req, res) {
     }
     items.sort((a, b) => b.takenAt - a.takenAt);
 
-    // Temporary debug info — remove once issue is resolved
     return res.status(200).json({
       items,
       _debug: {

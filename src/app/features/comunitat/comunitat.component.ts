@@ -14,10 +14,10 @@ interface Stat {
 }
 
 const FALLBACK_STATS: Stat[] = [
-  { icon: 'person', value: '130+', labelKey: 'community.stats.members' },
-  { icon: 'route', value: '∞', labelKey: 'community.stats.routes' },
+  { icon: 'person', value: '140+', labelKey: 'community.stats.members' },
+  { icon: 'route', value: '20', labelKey: 'community.stats.routes' },
   { icon: 'event', value: '40+', labelKey: 'community.stats.outingsPerYear' },
-  { icon: 'landscape', value: '500+', labelKey: 'community.stats.kmShared' },
+  { icon: 'landscape', value: '400+', labelKey: 'community.stats.kmShared' },
 ];
 
 @Component({
