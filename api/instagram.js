@@ -49,18 +49,14 @@ module.exports = async function handler(req, res) {
 
     const data = await igRes.json();
 
+    const topLevelKeys = Object.keys(data ?? {});
     const reelsMap = data?.reels ?? data?.reels_media ?? {};
-    console.log('[instagram] top-level keys:', Object.keys(data ?? {}));
-    console.log('[instagram] reelsMap keys:', Object.keys(reelsMap));
+    const reelsMapKeys = Object.keys(reelsMap);
 
     let items = [];
     for (const id of HIGHLIGHT_IDS) {
       const reel = reelsMap[`highlight:${id}`];
-      if (!reel) {
-        console.log(`[instagram] highlight:${id} not found in response`);
-        continue;
-      }
-      console.log(`[instagram] highlight:${id} → ${reel.items?.length ?? 0} items`);
+      if (!reel) continue;
       const reelItems = (reel.items ?? [])
         .map((item) => {
           const candidates = item.image_versions2?.candidates ?? [];
@@ -75,10 +71,15 @@ module.exports = async function handler(req, res) {
     }
     items.sort((a, b) => b.takenAt - a.takenAt);
 
-    _cache       = { items };
-    _cacheExpiry = Date.now() + CACHE_TTL;
-
-    return res.status(200).json(_cache);
+    // Temporary debug info — remove once issue is resolved
+    return res.status(200).json({
+      items,
+      _debug: {
+        topLevelKeys,
+        reelsMapKeys,
+        highlightFound: reelsMapKeys.some(k => HIGHLIGHT_IDS.some(id => k.includes(id))),
+      },
+    });
 
   } catch (err) {
     console.error('[api/instagram]', err.message);
