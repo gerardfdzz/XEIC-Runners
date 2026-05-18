@@ -12,23 +12,23 @@ if (existsSync(envPath)) {
   });
 }
 
-const PORT      = 3000;
-const CLUB_ID   = 1576309;
+const PORT = 3000;
+const CLUB_ID = 1576309;
 const TOKEN_URL = 'https://www.strava.com/oauth/token';
-const API_BASE  = 'https://www.strava.com/api/v3';
+const API_BASE = 'https://www.strava.com/api/v3';
 
-let _cache       = null;
+let _cache = null;
 let _cacheExpiry = 0;
-const CACHE_TTL  = 5 * 60 * 1000;
+const CACHE_TTL = 5 * 60 * 1000;
 
-const HIGHLIGHT_ID  = '18071980868164936';
-const IG_API        = `https://i.instagram.com/api/v1/feed/reels_media/?reel_ids=highlight:${HIGHLIGHT_ID}`;
-const IG_CACHE_TTL  = 30 * 60 * 1000;
-let _igCache        = null;
-let _igCacheExpiry  = 0;
+const HIGHLIGHT_IDS = ['18071980868164936'];
+const IG_API = `https://i.instagram.com/api/v1/feed/reels_media/?${HIGHLIGHT_IDS.map(id => `reel_ids=highlight:${id}`).join('&')}`;
+const IG_CACHE_TTL = 30 * 60 * 1000;
+let _igCache = null;
+let _igCacheExpiry = 0;
 
 const ROUTES_CACHE_TTL = 60 * 60 * 1000;
-let _routesCache       = null;
+let _routesCache = null;
 let _routesCacheExpiry = 0;
 
 async function getAccessToken() {
@@ -76,17 +76,17 @@ const server = createServer(async (req, res) => {
       console.log('📸  Fetching Instagram highlights...');
       const igRes = await fetch(IG_API, {
         headers: {
-          'User-Agent':       'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1',
-          'Cookie':           `sessionid=${sessionId}`,
-          'X-IG-App-ID':      '936619743392459',
-          'Accept':           '*/*',
-          'Accept-Language':  'ca-ES,ca;q=0.9,en;q=0.8',
-          'Accept-Encoding':  'gzip, deflate, br',
-          'Origin':           'https://www.instagram.com',
-          'Referer':          'https://www.instagram.com/',
-          'Sec-Fetch-Mode':   'cors',
-          'Sec-Fetch-Site':   'same-site',
-          'Sec-Fetch-Dest':   'empty',
+          'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1',
+          'Cookie': `sessionid=${sessionId}`,
+          'X-IG-App-ID': '936619743392459',
+          'Accept': '*/*',
+          'Accept-Language': 'ca-ES,ca;q=0.9,en;q=0.8',
+          'Accept-Encoding': 'gzip, deflate, br',
+          'Origin': 'https://www.instagram.com',
+          'Referer': 'https://www.instagram.com/',
+          'Sec-Fetch-Mode': 'cors',
+          'Sec-Fetch-Site': 'same-site',
+          'Sec-Fetch-Dest': 'empty',
           'X-Requested-With': 'XMLHttpRequest',
         },
       });
@@ -97,19 +97,21 @@ const server = createServer(async (req, res) => {
       }
 
       const data = await igRes.json();
-      const reel = data?.reels?.[`highlight:${HIGHLIGHT_ID}`];
 
       let items = [];
-      if (reel) {
-        items = (reel.items ?? [])
+      for (const id of HIGHLIGHT_IDS) {
+        const reel = data?.reels?.[`highlight:${id}`];
+        if (!reel) continue;
+        const reelItems = (reel.items ?? [])
           .map((item) => {
             const candidates = item.image_versions2?.candidates ?? [];
             const best = candidates.reduce((a, b) => (b.width > a.width ? b : a), candidates[0] ?? {});
             return { id: item.id, imageUrl: best.url ?? null, takenAt: item.taken_at };
           })
-          .filter((i) => i.imageUrl)
-          .sort((a, b) => b.takenAt - a.takenAt);
+          .filter((i) => i.imageUrl);
+        items = items.concat(reelItems);
       }
+      items.sort((a, b) => b.takenAt - a.takenAt);
 
       _igCache       = { items };
       _igCacheExpiry = Date.now() + IG_CACHE_TTL;

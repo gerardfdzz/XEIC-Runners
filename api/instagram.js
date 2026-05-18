@@ -1,8 +1,8 @@
-const HIGHLIGHT_ID = '18071980868164936';
-const IG_API       = `https://i.instagram.com/api/v1/feed/reels_media/?reel_ids=highlight:${HIGHLIGHT_ID}`;
-const CACHE_TTL    = 30 * 60 * 1000;
+const HIGHLIGHT_IDS = ['18071980868164936'];
+const IG_API = `https://i.instagram.com/api/v1/feed/reels_media/?${HIGHLIGHT_IDS.map(id => `reel_ids=highlight:${id}`).join('&')}`;
+const CACHE_TTL = 30 * 60 * 1000;
 
-let _cache       = null;
+let _cache = null;
 let _cacheExpiry = 0;
 
 module.exports = async function handler(req, res) {
@@ -48,11 +48,20 @@ module.exports = async function handler(req, res) {
     }
 
     const data = await igRes.json();
-    const reel  = data?.reels?.[`highlight:${HIGHLIGHT_ID}`];
+
+    const reelsMap = data?.reels ?? data?.reels_media ?? {};
+    console.log('[instagram] top-level keys:', Object.keys(data ?? {}));
+    console.log('[instagram] reelsMap keys:', Object.keys(reelsMap));
 
     let items = [];
-    if (reel) {
-      items = (reel.items ?? [])
+    for (const id of HIGHLIGHT_IDS) {
+      const reel = reelsMap[`highlight:${id}`];
+      if (!reel) {
+        console.log(`[instagram] highlight:${id} not found in response`);
+        continue;
+      }
+      console.log(`[instagram] highlight:${id} → ${reel.items?.length ?? 0} items`);
+      const reelItems = (reel.items ?? [])
         .map((item) => {
           const candidates = item.image_versions2?.candidates ?? [];
           const best = candidates.reduce(
@@ -61,9 +70,10 @@ module.exports = async function handler(req, res) {
           );
           return { id: item.id, imageUrl: best.url ?? null, takenAt: item.taken_at };
         })
-        .filter((i) => i.imageUrl)
-        .sort((a, b) => b.takenAt - a.takenAt);
+        .filter((i) => i.imageUrl);
+      items = items.concat(reelItems);
     }
+    items.sort((a, b) => b.takenAt - a.takenAt);
 
     _cache       = { items };
     _cacheExpiry = Date.now() + CACHE_TTL;
