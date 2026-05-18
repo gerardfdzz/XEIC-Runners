@@ -40,7 +40,7 @@ export class EventCardComponent {
 
   tagClass(tag: string): string {
     const primary = ['Xeic!', 'Cursa', 'Trail'];
-    const tertiary = ['Iniciació', 'Mig', 'Muntanya', 'Senderisme'];
+    const tertiary = ['Iniciació', 'Mig', 'Muntanya', 'Senderisme', 'Entrenament'];
     const secondary = ['Asfalt', 'Social', 'Comunitat', 'Caminada'];
     if (primary.includes(tag)) return 'event-tag event-tag--primary';
     if (tertiary.includes(tag)) return 'event-tag event-tag--tertiary';

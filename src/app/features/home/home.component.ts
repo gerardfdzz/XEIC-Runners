@@ -42,7 +42,7 @@ export class HomeComponent implements OnInit {
     this.seo.update({
       title: 'XEIC RUNNERS · El club de running social de La Sénia',
       description: 'XEIC RUNNERS és el club de running de La Sénia i les Terres de l\'Ebre. Més de 130 membres, sortides setmanals per muntanya i carretera. Uneix-te ara!',
-      keywords: 'running La Sénia, club running Terres de l\'Ebre, trail running Ports Beseit, XEIC RUNNERS, running social, club esportiu La Sénia, running Tarragona',
+      keywords: 'running La Sénia, club running Terres de l\'Ebre, trail running Parc Natural dels Ports, XEIC RUNNERS, running social, club esportiu La Sénia, running Tarragona',
     });
 
     this.routesService.getRoutes().subscribe((routes) => {
@@ -115,7 +115,9 @@ export class HomeComponent implements OnInit {
       location: e.address || 'La Sénia',
       type: typeMap[e.activity_type] ?? 'social',
       difficulty: 'Iniciació',
-      tags: [this.mapActivityTag(e.activity_type, e.title)],
+      tags: sheetMatch?.tags?.length
+        ? sheetMatch.tags
+        : [this.mapActivityTag(e.activity_type, e.title)],
       imageUrl: sheetMatch?.imageUrl ?? this.CLUB_IMAGE,
       description: sheetMatch?.description ?? e.description ?? undefined,
     };

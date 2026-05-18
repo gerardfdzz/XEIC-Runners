@@ -61,8 +61,8 @@ export class RutesComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.seo.update({
       title: 'Rutes de Running i Trail · XEIC RUNNERS',
-      description: 'Descobreix les millors rutes de running i trail running per La Sénia, els Ports de Beseit i les Terres de l\'Ebre. Tracks GPS descarregables des de Strava.',
-      keywords: 'rutes running La Sénia, trail Ports Beseit, rutes trail Terres de l\'Ebre, GPX running, rutes muntanya Tarragona, trail running Ports',
+      description: 'Descobreix les millors rutes de running i trail running per La Sénia, el Parc Natural dels Ports i les Terres de l\'Ebre. Tracks GPS descarregables des de Strava.',
+      keywords: 'rutes running La Sénia, trail Parc Natural dels Ports, rutes trail Terres de l\'Ebre, GPX running, rutes muntanya Tarragona, trail running Ports',
       ogImage: 'https://www.xeicrunners.com/assets/images/galeria/foto-rutes.jpg',
     });
 

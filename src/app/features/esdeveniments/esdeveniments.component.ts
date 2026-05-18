@@ -128,7 +128,9 @@ export class EsdevenimentsComponent implements OnInit {
       location: e.address || 'La Sénia',
       type: typeMap[e.activity_type] ?? 'social',
       difficulty: 'Iniciació',
-      tags: [this.mapActivityTag(e.activity_type, e.title)],
+      tags: sheetMatch?.tags?.length
+        ? sheetMatch.tags
+        : [this.mapActivityTag(e.activity_type, e.title)],
       imageUrl: sheetMatch?.imageUrl ?? CLUB_IMAGE,
       description: sheetMatch?.description ?? e.description ?? undefined,
     };
