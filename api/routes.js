@@ -55,7 +55,7 @@ module.exports = async function handler(req, res) {
         id:            r.id_str,
         name:          r.name,
         description:   r.description || null,
-        distance:      Math.round(r.distance) / 1000,
+        distance:      parseFloat((r.distance / 1000).toFixed(1)),
         elevationGain: Math.round(r.elevation_gain),
         estimatedTime: r.estimated_moving_time,
         type:          mapType(r.type, r.sub_type),

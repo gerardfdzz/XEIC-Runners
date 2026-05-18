@@ -109,6 +109,7 @@
   &__stat-value {
     @include headline-md;
     color: $primary;
+    white-space: nowrap;
 
     small {
       font-size: $text-label-sm;

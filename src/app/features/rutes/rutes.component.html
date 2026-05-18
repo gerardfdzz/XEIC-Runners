@@ -22,7 +22,7 @@
   </div>
 </section>
 
-<section class="rutes-filters">
+<section #filtersAnchor id="rutes-filters-anchor" class="rutes-filters">
   <div class="rutes-filters__inner">
     <div class="rutes-filters__search-row">
       <div class="rutes-filters__search">
@@ -50,7 +50,7 @@
   </div>
 </section>
 
-<div class="rutes-results-count">
+<div id="rutes-results" class="rutes-results-count">
   <div class="rutes-results-count__inner">
     @if (loading()) {
       <p class="rutes-results-count__text">{{ i18n.t("routes.loading") }}</p>

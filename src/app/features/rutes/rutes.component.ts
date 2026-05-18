@@ -1,4 +1,13 @@
-import { Component, inject, signal, computed, OnInit } from '@angular/core';
+import {
+  Component,
+  inject,
+  signal,
+  computed,
+  OnInit,
+  AfterViewInit,
+  ViewChild,
+  ElementRef,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { I18nService } from '../../core/services/i18n.service';
@@ -13,9 +22,13 @@ import { XeicRoute, RouteType } from '../../core/models/route.model';
   templateUrl: './rutes.component.html',
   styleUrl: './rutes.component.scss',
 })
-export class RutesComponent implements OnInit {
+export class RutesComponent implements OnInit, AfterViewInit {
   protected i18n = inject(I18nService);
   private routesService = inject(StravaRoutesService);
+
+  @ViewChild('filtersAnchor')
+  private filtersAnchorRef!: ElementRef<HTMLElement>;
+  private filtersSectionTop = 0;
 
   searchQuery = '';
   activeFilter = signal<RouteType | 'all'>('all');
@@ -50,9 +63,20 @@ export class RutesComponent implements OnInit {
     });
   }
 
+  ngAfterViewInit(): void {
+    const el = this.filtersAnchorRef?.nativeElement;
+    if (el) {
+      this.filtersSectionTop = el.getBoundingClientRect().top + window.scrollY;
+    }
+  }
+
   setFilter(filter: RouteType | 'all'): void {
     this.activeFilter.set(filter);
     this.searchQuery = '';
+    window.scrollTo({
+      top: Math.max(0, this.filtersSectionTop - 64),
+      behavior: 'smooth',
+    });
   }
 
   filterClass(key: RouteType | 'all'): string {
