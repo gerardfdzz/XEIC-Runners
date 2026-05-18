@@ -43,7 +43,7 @@ export class ComunitatComponent implements OnInit {
       title: 'Comunitat · XEIC RUNNERS',
       description: 'La comunitat XEIC RUNNERS: runners de La Sénia i les Terres de l\'Ebre units per l\'esport. Activitats recents, fotos de sortides i connexió amb el nostre club de Strava.',
       keywords: 'comunitat runners La Sénia, club Strava XEIC, running social Terres de l\'Ebre, Instagram xeicrunners, running club Tarragona',
-      ogImage: 'https://apropebre.cat/wp-content/uploads/2026/04/DSC09094-1024x683.jpg',
+      ogImage: 'https://www.xeicrunners.com/assets/images/galeria/foto-xeic.jpg',
     });
 
     forkJoin({

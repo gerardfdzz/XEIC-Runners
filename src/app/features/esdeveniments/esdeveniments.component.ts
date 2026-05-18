@@ -12,7 +12,7 @@ import { StravaGroupEvent } from '../../core/models/strava.model';
 import { InstagramItem } from '../../core/models/instagram.model';
 
 const CLUB_IMAGE =
-  'https://apropebre.cat/wp-content/uploads/2026/04/DSC09088-1024x683.jpg';
+  'https://www.xeicrunners.com/assets/images/galeria/foto-xeic.jpg';
 
 @Component({
   selector: 'app-esdeveniments',
@@ -56,7 +56,7 @@ export class EsdevenimentsComponent implements OnInit {
       title: 'Esdeveniments i Sortides · XEIC RUNNERS',
       description: 'Pròxims esdeveniments i sortides de XEIC RUNNERS a La Sénia i les Terres de l\'Ebre. Quedades setmanals de running, trail i senderisme obertes a tothom.',
       keywords: 'esdeveniments running La Sénia, sortides trail Terres de l\'Ebre, quedades running XEIC, events running Tarragona, senderisme La Sénia',
-      ogImage: 'https://apropebre.cat/wp-content/uploads/2026/04/DSC09152-1024x683.jpg',
+      ogImage: 'https://www.xeicrunners.com/assets/images/galeria/foto-xeic.jpg',
     });
 
     forkJoin({

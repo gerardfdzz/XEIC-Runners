@@ -25,7 +25,7 @@ export class FundadorsComponent implements OnInit {
       title: 'Fundadors · XEIC RUNNERS',
       description: 'Coneix l\'equip fundador de XEIC RUNNERS: quatre amics de La Sénia que van crear el club de running més actiu de les Terres de l\'Ebre. La seva història i valors.',
       keywords: 'fundadors XEIC RUNNERS, equip XEIC runners, història club running La Sénia, Teo Arasa, running social Terres Ebre',
-      ogImage: 'https://apropebre.cat/wp-content/uploads/2026/04/DSC09145-1024x683.jpg',
+      ogImage: 'https://www.xeicrunners.com/assets/images/galeria/foto-xeic.jpg',
     });
 
     this.strava.getData().subscribe((data) => {

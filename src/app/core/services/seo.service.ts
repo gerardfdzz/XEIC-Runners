@@ -12,7 +12,7 @@ export interface SeoPage {
 
 const BASE_URL = 'https://www.xeicrunners.com';
 const DEFAULT_OG_IMAGE =
-  'https://apropebre.cat/wp-content/uploads/2026/04/DSC09088-1024x683.jpg';
+  'https://www.xeicrunners.com/assets/images/galeria/foto-xeic.jpg';
 
 @Injectable({ providedIn: 'root' })
 export class SeoService {

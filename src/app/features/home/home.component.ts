@@ -32,7 +32,7 @@ export class HomeComponent implements OnInit {
   memberCount = signal<string>('...');
 
   private readonly CLUB_IMAGE =
-    'https://apropebre.cat/wp-content/uploads/2026/04/DSC09088-1024x683.jpg';
+    'https://www.xeicrunners.com/assets/images/galeria/foto-xeic.jpg';
 
   scrollToOrigen(): void {
     document.getElementById('origen')?.scrollIntoView({ behavior: 'smooth' });
