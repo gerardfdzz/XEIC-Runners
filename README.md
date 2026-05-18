@@ -190,6 +190,65 @@ All sources are fetched in parallel with `forkJoin`. Any failure silently falls 
 
 ---
 
+## Live dynamic stats
+
+Member count and route count are never hardcoded — they are always fetched live from Strava:
+
+| Stat           | Source                                  | Shown on                          |
+| -------------- | --------------------------------------- | --------------------------------- |
+| Member count   | `club.member_count` from `/api/strava`  | Home hero, Community page, Founders page |
+| Route count    | Route array length from `/api/routes`   | Home hero, Community stats        |
+
+Both show `...` while loading and fall back gracefully if the API is unavailable.
+
+---
+
+## SEO
+
+### Per-page dynamic meta tags
+
+`SeoService` (Angular `Meta` + `Title` services) updates all relevant tags on every route change:
+
+```ts
+this.seo.update({
+  title: 'Page title · XEIC RUNNERS',
+  description: '...',
+  keywords: '...',
+  ogImage: 'https://www.xeicrunners.com/assets/images/galeria/foto-xeic.jpg',
+});
+```
+
+Tags updated per page: `<title>`, `description`, `keywords`, `og:title`, `og:description`, `og:image`, `og:url`, `twitter:title`, `twitter:description`, `twitter:image`, `link[rel=canonical]`.
+
+### Static SEO files
+
+| File              | Purpose                                      |
+| ----------------- | -------------------------------------------- |
+| `src/robots.txt`  | `Allow: /` + `Sitemap:` pointer              |
+| `src/sitemap.xml` | 5 URLs with priorities and weekly changefreq |
+
+Both are listed in `angular.json` assets so they are copied to the build output root.
+
+### Structured data (JSON-LD)
+
+`src/index.html` includes two inline JSON-LD blocks:
+
+- `SportsClub` — name, description, sport, foundingDate, address, geo, sameAs (Strava + Instagram), contactPoint (WhatsApp)
+- `WebSite` — name, url
+
+### Security & cache headers (`vercel.json`)
+
+| Header                    | Value                     |
+| ------------------------- | ------------------------- |
+| `X-Content-Type-Options`  | `nosniff`                 |
+| `X-Frame-Options`         | `DENY`                    |
+| `X-XSS-Protection`        | `1; mode=block`           |
+| `Referrer-Policy`         | `strict-origin-when-cross-origin` |
+| Static assets (`/_next/static/*`, `*.js`, `*.css`) | `Cache-Control: public, max-age=31536000, immutable` |
+| `sitemap.xml` / `robots.txt` | `Cache-Control: public, max-age=86400` |
+
+---
+
 ## Project structure
 
 ```
@@ -213,18 +272,19 @@ xeic-runners/
 │   │   │   │   ├── route.model.ts         # XeicRoute, RouteType
 │   │   │   │   └── strava.model.ts        # StravaActivity, StravaGroupEvent, StravaData
 │   │   │   └── services/
-│   │   │       ├── events-sheet.service.ts# Google Sheets CSV → XeicEvent[]
-│   │   │       ├── i18n.service.ts        # Translations CA/ES/EN (Angular Signals)
-│   │   │       ├── instagram.service.ts   # GET /api/instagram → InstagramItem[]
-│   │   │       ├── strava.service.ts      # GET /api/strava → activities, groupEvents
-│   │   │       └── strava-routes.service.ts# GET /api/routes → XeicRoute[]
+│   │   │       ├── events-sheet.service.ts  # Google Sheets CSV → XeicEvent[]
+│   │   │       ├── i18n.service.ts          # Translations CA/ES/EN (Angular Signals)
+│   │   │       ├── instagram.service.ts     # GET /api/instagram → InstagramItem[]
+│   │   │       ├── seo.service.ts           # Dynamic meta tags + canonical per page
+│   │   │       ├── strava.service.ts        # GET /api/strava → activities, groupEvents
+│   │   │       └── strava-routes.service.ts # GET /api/routes → XeicRoute[]
 │   │   │
 │   │   ├── shared/
 │   │   │   └── components/
 │   │   │       ├── event-card/            # Event card: image, date badge, tags
 │   │   │       ├── footer/                # Logo, tagline, social links
 │   │   │       ├── mobile-nav/            # Fixed bottom bar (< md breakpoint)
-│   │   │       ├── navbar/                # Top nav with language selector
+│   │   │       ├── navbar/                # Top nav with language selector + WhatsApp CTA
 │   │   │       └── route-card/            # Route card with stats and Strava link
 │   │   │
 │   │   ├── features/
@@ -246,17 +306,25 @@ xeic-runners/
 │   │   ├── images/
 │   │   │   ├── xeicrunners.png            # Club logo (also used as favicon)
 │   │   │   ├── strava-icon.png            # Strava branding icon
-│   │   │   └── fundadors/                 # Founders photos
+│   │   │   ├── fundadors/                 # Founders photos (Teo, Robert, Jordi, Saber)
+│   │   │   └── galeria/                   # Club photos (used in galleries + OG images)
+│   │   │       ├── foto-xeic.jpg          # Club members walking through La Sénia streets
+│   │   │       ├── foto-grup.jpg          # Group photo at the river
+│   │   │       ├── foto-rutes.jpg         # Landscape: lake at Parc Natural dels Ports
+│   │   │       ├── foto-trail-1.jpg       # Trail running through mountain forest
+│   │   │       └── foto-trail-2.jpg       # Runners on rocky viewpoint, Els Ports
 │   │   └── i18n/
 │   │       ├── ca.json                    # Catalan (primary language)
 │   │       ├── es.json                    # Spanish
 │   │       └── en.json                    # English
 │   │
-│   ├── index.html                         # SEO meta, OG tags, favicon
+│   ├── index.html                         # Base SEO meta, OG tags, JSON-LD, favicon
+│   ├── robots.txt                         # Search engine directives + sitemap pointer
+│   ├── sitemap.xml                        # 5 URLs with priorities (weekly changefreq)
 │   └── styles.scss                        # Global resets + utility classes
 │
 ├── proxy.conf.json                        # Dev proxy: /api/* → localhost:3000
-├── vercel.json                            # Build config + SPA rewrite fallback
+├── vercel.json                            # Build config + SPA fallback + security headers
 └── .env                                   # Local secrets (git-ignored)
 ```
 
@@ -356,7 +424,7 @@ The initial UI design and component structure were bootstrapped using **Google S
 
 > [View the original Stitch project](https://stitch.withgoogle.com/projects/4079644074290490504)
 
-From that base, the project was fully extended with: BEM/SCSS refactor, Strava API integration (club data + athlete routes), Instagram highlights proxy, Google Sheets mini-CMS, Vercel serverless functions, i18n (CA/ES/EN), and all feature pages.
+From that base, the project was fully extended with: BEM/SCSS refactor, Strava API integration (club data + athlete routes), Instagram highlights proxy, Google Sheets mini-CMS, Vercel serverless functions, i18n (CA/ES/EN), all feature pages, full SEO implementation (SeoService, JSON-LD, sitemap, robots.txt), live dynamic stats from Strava, and club photo gallery.
 
 ---
 
