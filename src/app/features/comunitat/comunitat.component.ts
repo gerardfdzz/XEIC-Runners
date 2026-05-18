@@ -2,6 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule, DecimalPipe } from '@angular/common';
 import { forkJoin } from 'rxjs';
 import { I18nService } from '../../core/services/i18n.service';
+import { SeoService } from '../../core/services/seo.service';
 import { StravaService } from '../../core/services/strava.service';
 import { StravaRoutesService } from '../../core/services/strava-routes.service';
 import { StravaActivity } from '../../core/models/strava.model';
@@ -28,6 +29,7 @@ const FALLBACK_STATS: Stat[] = [
 })
 export class ComunitatComponent implements OnInit {
   protected i18n = inject(I18nService);
+  private seo = inject(SeoService);
   protected strava = inject(StravaService);
   private routesService = inject(StravaRoutesService);
 
@@ -37,6 +39,13 @@ export class ComunitatComponent implements OnInit {
   memberCount = '...';
 
   ngOnInit(): void {
+    this.seo.update({
+      title: 'Comunitat · XEIC RUNNERS',
+      description: 'La comunitat XEIC RUNNERS: runners de La Sénia i les Terres de l\'Ebre units per l\'esport. Activitats recents, fotos de sortides i connexió amb el nostre club de Strava.',
+      keywords: 'comunitat runners La Sénia, club Strava XEIC, running social Terres de l\'Ebre, Instagram xeicrunners, running club Tarragona',
+      ogImage: 'https://apropebre.cat/wp-content/uploads/2026/04/DSC09094-1024x683.jpg',
+    });
+
     forkJoin({
       strava: this.strava.getData(),
       routes: this.routesService.getRoutes(),

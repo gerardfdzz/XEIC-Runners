@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { forkJoin } from 'rxjs';
 import { I18nService } from '../../core/services/i18n.service';
+import { SeoService } from '../../core/services/seo.service';
 import { StravaRoutesService } from '../../core/services/strava-routes.service';
 import { StravaService } from '../../core/services/strava.service';
 import { EventsSheetService } from '../../core/services/events-sheet.service';
@@ -20,6 +21,7 @@ import { StravaGroupEvent } from '../../core/models/strava.model';
 })
 export class HomeComponent implements OnInit {
   protected i18n = inject(I18nService);
+  private seo = inject(SeoService);
   private routesService = inject(StravaRoutesService);
   private strava = inject(StravaService);
   private sheet = inject(EventsSheetService);
@@ -37,6 +39,12 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.seo.update({
+      title: 'XEIC RUNNERS · El club de running social de La Sénia',
+      description: 'XEIC RUNNERS és el club de running de La Sénia i les Terres de l\'Ebre. Més de 130 membres, sortides setmanals per muntanya i carretera. Uneix-te ara!',
+      keywords: 'running La Sénia, club running Terres de l\'Ebre, trail running Ports Beseit, XEIC RUNNERS, running social, club esportiu La Sénia, running Tarragona',
+    });
+
     this.routesService.getRoutes().subscribe((routes) => {
       this.featuredRoutes.set(routes.slice(0, 4));
       this.routeCount.set(routes.length > 0 ? `${routes.length}` : '∞');

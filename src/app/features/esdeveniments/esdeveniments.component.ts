@@ -2,6 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { forkJoin } from 'rxjs';
 import { I18nService } from '../../core/services/i18n.service';
+import { SeoService } from '../../core/services/seo.service';
 import { StravaService } from '../../core/services/strava.service';
 import { InstagramService } from '../../core/services/instagram.service';
 import { EventsSheetService } from '../../core/services/events-sheet.service';
@@ -22,6 +23,7 @@ const CLUB_IMAGE =
 })
 export class EsdevenimentsComponent implements OnInit {
   protected i18n = inject(I18nService);
+  private seo = inject(SeoService);
   private strava = inject(StravaService);
   private instagram = inject(InstagramService);
   private sheet = inject(EventsSheetService);
@@ -50,6 +52,13 @@ export class EsdevenimentsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.seo.update({
+      title: 'Esdeveniments i Sortides · XEIC RUNNERS',
+      description: 'Pròxims esdeveniments i sortides de XEIC RUNNERS a La Sénia i les Terres de l\'Ebre. Quedades setmanals de running, trail i senderisme obertes a tothom.',
+      keywords: 'esdeveniments running La Sénia, sortides trail Terres de l\'Ebre, quedades running XEIC, events running Tarragona, senderisme La Sénia',
+      ogImage: 'https://apropebre.cat/wp-content/uploads/2026/04/DSC09152-1024x683.jpg',
+    });
+
     forkJoin({
       groupEvents: this.strava.getGroupEvents(),
       igItems: this.instagram.getHighlights(),

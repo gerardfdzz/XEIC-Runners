@@ -11,6 +11,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { I18nService } from '../../core/services/i18n.service';
+import { SeoService } from '../../core/services/seo.service';
 import { StravaRoutesService } from '../../core/services/strava-routes.service';
 import { RouteCardComponent } from '../../shared/components/route-card/route-card.component';
 import { XeicRoute, RouteType } from '../../core/models/route.model';
@@ -24,6 +25,7 @@ import { XeicRoute, RouteType } from '../../core/models/route.model';
 })
 export class RutesComponent implements OnInit, AfterViewInit {
   protected i18n = inject(I18nService);
+  private seo = inject(SeoService);
   private routesService = inject(StravaRoutesService);
 
   @ViewChild('filtersAnchor')
@@ -57,6 +59,13 @@ export class RutesComponent implements OnInit, AfterViewInit {
   });
 
   ngOnInit(): void {
+    this.seo.update({
+      title: 'Rutes de Running i Trail · XEIC RUNNERS',
+      description: 'Descobreix les millors rutes de running i trail running per La Sénia, els Ports de Beseit i les Terres de l\'Ebre. Tracks GPS descarregables des de Strava.',
+      keywords: 'rutes running La Sénia, trail Ports Beseit, rutes trail Terres de l\'Ebre, GPX running, rutes muntanya Tarragona, trail running Ports',
+      ogImage: 'https://apropebre.cat/wp-content/uploads/2026/04/DSC09169-1024x683.jpg',
+    });
+
     this.routesService.getRoutes().subscribe((routes) => {
       this.allRoutes.set(routes);
       this.loading.set(false);
