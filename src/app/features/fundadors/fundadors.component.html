@@ -34,7 +34,7 @@
       </p>
       <div class="founders-history__stat grainy-gradient">
         <p class="founders-history__stat-value">
-          {{ i18n.t("founders.history.membersCount") }}
+          {{ memberCount() }}
         </p>
         <p class="founders-history__stat-label">
           {{ i18n.t("founders.history.membersLabel") }}
@@ -56,10 +56,11 @@
           <span class="material-symbols-outlined founders-history__card-icon"
             >groups</span
           >
-          <h3 class="founders-history__card-title">Social per naturalesa</h3>
+          <h3 class="founders-history__card-title">
+            {{ i18n.t("founders.history.social.title") }}
+          </h3>
           <p class="founders-history__card-text">
-            L'esport és l'excusa; la cervesa de després i els esmorzars de
-            forquilla són la nostra vertadera meta.
+            {{ i18n.t("founders.history.social.text") }}
           </p>
         </div>
       </div>
@@ -69,10 +70,11 @@
             class="material-symbols-outlined founders-history__card-icon founders-history__card-icon--primary"
             >landscape</span
           >
-          <h3 class="founders-history__card-title">Arrelats al territori</h3>
+          <h3 class="founders-history__card-title">
+            {{ i18n.t("founders.history.territory.title") }}
+          </h3>
           <p class="founders-history__card-text">
-            Coneixem cada racó del Port i cada camí d'oliveres mil·lenàries com
-            el palmell de la nostra mà.
+            {{ i18n.t("founders.history.territory.text") }}
           </p>
         </div>
         <div class="founders-history__photo-frame">
@@ -174,8 +176,8 @@
             />
           </div>
           <h4 class="founders-team__name">{{ member.name }}</h4>
-          <p class="founders-team__role">{{ member.role }}</p>
-          <p class="founders-team__quote">"{{ member.quote }}"</p>
+          <p class="founders-team__role">{{ i18n.t(member.role) }}</p>
+          <p class="founders-team__quote">"{{ i18n.t(member.quote) }}"</p>
         </div>
       }
     </div>

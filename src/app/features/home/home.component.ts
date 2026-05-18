@@ -26,6 +26,8 @@ export class HomeComponent implements OnInit {
 
   upcomingEvents = signal<XeicEvent[]>([]);
   featuredRoutes = signal<XeicRoute[]>([]);
+  routeCount = signal<string>('...');
+  memberCount = signal<string>('...');
 
   private readonly CLUB_IMAGE =
     'https://apropebre.cat/wp-content/uploads/2026/04/DSC09088-1024x683.jpg';
@@ -37,6 +39,13 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.routesService.getRoutes().subscribe((routes) => {
       this.featuredRoutes.set(routes.slice(0, 4));
+      this.routeCount.set(routes.length > 0 ? `${routes.length}` : '∞');
+    });
+
+    this.strava.getData().subscribe((data) => {
+      if (data?.club?.member_count) {
+        this.memberCount.set(`${data.club.member_count}`);
+      }
     });
 
     forkJoin({

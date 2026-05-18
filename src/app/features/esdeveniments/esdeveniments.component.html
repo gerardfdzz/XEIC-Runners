@@ -1,7 +1,7 @@
 <section class="events-hero">
   <div class="events-hero__blob"></div>
   <div class="events-hero__inner">
-    <span class="events-hero__badge">Calendari</span>
+    <span class="events-hero__badge">{{ i18n.t("events.badge") }}</span>
     <h1 class="events-hero__title">{{ i18n.t("events.title") }}</h1>
     <p class="events-hero__subtitle">{{ i18n.t("events.subtitle") }}</p>
   </div>
@@ -13,25 +13,25 @@
       <span class="material-symbols-outlined events-list__section-icon"
         >upcoming</span
       >
-      Pròxims esdeveniments
+      {{ i18n.t("events.upcoming") }}
     </h2>
 
     @if (loading) {
       <div class="events-list__loading">
         <span class="material-symbols-outlined">sync</span>
-        Carregant events de Strava...
+        {{ i18n.t("events.loading") }}
       </div>
     } @else if (upcoming.length === 0) {
       <div class="events-list__empty">
         <span class="material-symbols-outlined">event_busy</span>
-        <p>No hi ha esdeveniments programats</p>
+        <p>{{ i18n.t("events.noEvents") }}</p>
         <a
           href="https://www.strava.com/clubs/1576309"
           target="_blank"
           rel="noopener noreferrer"
           class="events-list__empty-link"
         >
-          Veure el club a Strava
+          {{ i18n.t("events.viewClub") }}
           <span class="material-symbols-outlined">open_in_new</span>
         </a>
       </div>
@@ -49,11 +49,13 @@
           class="material-symbols-outlined events-list__section-icon events-list__section-icon--past"
           >history</span
         >
-        Sortides passades
+        {{ i18n.t("events.past") }}
       </h2>
 
-      @for (group of pastByMonth; track group.year + '-' + group.month) {
-        <h3 class="events-list__month-title">{{ monthGroupLabel(group.year, group.month) }}</h3>
+      @for (group of pastByMonth; track group.year + "-" + group.month) {
+        <h3 class="events-list__month-title">
+          {{ monthGroupLabel(group.year, group.month) }}
+        </h3>
         <div class="events-list__grid events-list__grid--past">
           @for (event of group.events; track event.id) {
             <app-event-card [event]="event" [hideMeta]="true" />
@@ -66,18 +68,15 @@
 
 <section class="events-cta grainy-gradient">
   <div class="events-cta__inner">
-    <h2 class="events-cta__title">No et perdis cap sortida</h2>
-    <p class="events-cta__subtitle">
-      Uneix-te al grup de WhatsApp per rebre totes les notificacions dels
-      propers events.
-    </p>
+    <h2 class="events-cta__title">{{ i18n.t("events.ctaTitle") }}</h2>
+    <p class="events-cta__subtitle">{{ i18n.t("events.ctaSubtitle") }}</p>
     <a
       href="https://chat.whatsapp.com/GQj4ET5Bt84IgBLtLKwpwx?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQPOTM2NjE5NzQzMzkyNDU5AAGnkLfEewKCANv5brMZbnOgR5donAQwSYtOzCHXZQGOXv6mbYORq69F0ik71eA_aem_YWdncwBKjk5hjNoEkFPA6kU1K5Xs&brid=YWdncwFIRsqUftDhoI0fTw6tmbFH"
       target="_blank"
       rel="noopener noreferrer"
       class="events-cta__btn"
     >
-      Unir-me al grup
+      {{ i18n.t("events.ctaButton") }}
     </a>
   </div>
 </section>

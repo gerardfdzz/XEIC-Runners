@@ -19,23 +19,32 @@
           target="_blank"
           rel="noopener noreferrer"
           class="btn-primary"
-        >{{ i18n.t("home.hero.cta1") }}</a>
-        <button class="btn-ghost" (click)="scrollToOrigen()">{{ i18n.t("home.hero.cta2") }}</button>
+          >{{ i18n.t("home.hero.cta1") }}</a
+        >
+        <button class="btn-ghost" (click)="scrollToOrigen()">
+          {{ i18n.t("home.hero.cta2") }}
+        </button>
       </div>
       <div class="hero__stats">
         <div class="hero__stat">
-          <span class="hero__stat-value">130+</span>
-          <span class="hero__stat-label">Membres</span>
+          <span class="hero__stat-value">{{ memberCount() }}</span>
+          <span class="hero__stat-label">{{
+            i18n.t("home.stats.members")
+          }}</span>
         </div>
         <div class="hero__stat-divider"></div>
         <div class="hero__stat">
-          <span class="hero__stat-value">&infin;</span>
-          <span class="hero__stat-label">Rutes</span>
+          <span class="hero__stat-value">{{ routeCount() }}</span>
+          <span class="hero__stat-label">{{
+            i18n.t("home.stats.routes")
+          }}</span>
         </div>
         <div class="hero__stat-divider"></div>
         <div class="hero__stat">
           <span class="hero__stat-value">2025</span>
-          <span class="hero__stat-label">Fundació</span>
+          <span class="hero__stat-label">{{
+            i18n.t("home.stats.founded")
+          }}</span>
         </div>
       </div>
     </div>
@@ -55,8 +64,12 @@
           class="hero__strava-icon"
         />
         <div>
-          <p class="hero__strava-title">Strava Club</p>
-          <p class="hero__strava-sub">XEIC Runners</p>
+          <p class="hero__strava-title">
+            {{ i18n.t("home.stravaCard.title") }}
+          </p>
+          <p class="hero__strava-sub">
+            {{ i18n.t("home.stravaCard.subtitle") }}
+          </p>
         </div>
       </div>
     </div>
@@ -88,7 +101,7 @@
         </div>
       </div>
       <a routerLink="/fundadors" class="founders-preview__link">
-        Coneix l'equip
+        {{ i18n.t("home.founders.viewTeam") }}
         <span class="material-symbols-outlined">arrow_forward</span>
       </a>
     </div>
@@ -111,7 +124,9 @@
     <div class="events-preview__inner">
       <div class="events-preview__header">
         <div>
-          <h2 class="events-preview__title">{{ i18n.t("home.events.title") }}</h2>
+          <h2 class="events-preview__title">
+            {{ i18n.t("home.events.title") }}
+          </h2>
           <p class="events-preview__subtitle">
             {{ i18n.t("home.events.subtitle") }}
           </p>
@@ -172,7 +187,7 @@
       </div>
 
       <a routerLink="/rutes" class="routes-preview__all-link">
-        Veure totes les rutes
+        {{ i18n.t("home.routes.viewAll") }}
         <span class="material-symbols-outlined">arrow_forward</span>
       </a>
     </div>
@@ -217,9 +232,11 @@
         class="community-preview__item community-preview__item--quote grainy-gradient"
       >
         <p class="community-preview__quote">
-          "Més que quilòmetres, sumem moments inolvidables."
+          "{{ i18n.t("home.community.quote1") }}"
         </p>
-        <p class="community-preview__quote-author">— Membre XEIC</p>
+        <p class="community-preview__quote-author">
+          {{ i18n.t("home.community.quote1Author") }}
+        </p>
       </div>
       <div class="community-preview__item">
         <img
@@ -246,7 +263,7 @@
         />
       </div>
       <div class="community-preview__item community-preview__item--stat">
-        <h4 class="community-preview__stat-value">+130</h4>
+        <h4 class="community-preview__stat-value">{{ memberCount() }}</h4>
         <p class="community-preview__stat-label">
           {{ i18n.t("home.community.activeMembers") }}
         </p>
@@ -254,7 +271,7 @@
     </div>
 
     <a routerLink="/comunitat" class="community-preview__link">
-      Veure la comunitat
+      {{ i18n.t("home.community.viewAll") }}
       <span class="material-symbols-outlined">arrow_forward</span>
     </a>
   </div>

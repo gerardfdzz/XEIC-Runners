@@ -14,7 +14,17 @@
       "titleHighlight": "XEIC RUNNERS",
       "subtitle": "More than a club, we're a crew. We run the trails of La Sénia and the Terres de l'Ebre, sharing kilometres, laughs, and the best post-run in the territory.",
       "cta1": "I want to run!",
-      "cta2": "Learn more"
+      "cta2": "Learn more",
+      "imageAlt": "XEIC RUNNERS running through the trails of La Sénia"
+    },
+    "stats": {
+      "members": "Members",
+      "routes": "Routes",
+      "founded": "Founded"
+    },
+    "stravaCard": {
+      "title": "Strava Club",
+      "subtitle": "XEIC Runners"
     },
     "founders": {
       "title": "The Origin of Xeic",
@@ -23,7 +33,8 @@
       "why": "Why?",
       "whyText": "Because we believe in sport as a tool for social cohesion. Because we love our territory and want everyone to discover it while getting fit.",
       "community": "Community",
-      "communityText": "No one gets left behind here. We adapt the pace so everyone can enjoy the outing."
+      "communityText": "No one gets left behind here. We adapt the pace so everyone can enjoy the outing.",
+      "viewTeam": "Meet the team"
     },
     "events": {
       "title": "Upcoming Meetups",
@@ -33,13 +44,17 @@
     "routes": {
       "title": "Explore the Routes",
       "subtitle": "We've mapped the best corners of La Sénia. Follow us on Strava and download the tracks.",
-      "viewOnStrava": "VIEW ON STRAVA"
+      "viewOnStrava": "VIEW ON STRAVA",
+      "viewAll": "View all routes"
     },
     "community": {
       "title": "The",
       "titleHighlight": "Community Wall",
       "subtitle": "We're not just a club, we're a big family. There are no winners or losers here, just runners wanting to have a great time.",
-      "activeMembers": "active runners in the XEIC community."
+      "activeMembers": "active runners in the XEIC community.",
+      "quote1": "More than kilometres, we collect unforgettable moments.",
+      "quote1Author": "— XEIC Member",
+      "viewAll": "View the community"
     },
     "cta": {
       "title": "We're waiting for you, Xeic!",
@@ -55,8 +70,15 @@
       "title": "Our story",
       "text1": "XEIC RUNNERS was born on a foggy morning over coffee in the main square. We were three friends who wanted to run, but above all, wanted to build community.",
       "text2": "What started as an informal Sunday meetup has become the sporting heart of La Sénia.",
-      "membersCount": "130+",
-      "membersLabel": "Active members and growing"
+      "membersLabel": "Active members and growing",
+      "social": {
+        "title": "Social by nature",
+        "text": "Sport is the excuse; the after-run beer and proper breakfasts are our real goal."
+      },
+      "territory": {
+        "title": "Rooted in the territory",
+        "text": "We know every corner of El Port and every ancient olive grove path like the back of our hand."
+      }
     },
     "values": {
       "title": "Our Values",
@@ -79,7 +101,23 @@
       }
     },
     "team": {
-      "title": "The core team"
+      "title": "The core team",
+      "teo": {
+        "role": "Founder & Community",
+        "quote": "As long as there's a path, there's an adventure."
+      },
+      "robert": {
+        "role": "Co-founder & Routes Lead",
+        "quote": "Running connects us with the land and with ourselves."
+      },
+      "jordi": {
+        "role": "Co-founder & Events",
+        "quote": "At XEIC, no one ever runs alone."
+      },
+      "saber": {
+        "role": "Co-founder & Logistics",
+        "quote": "The best pace is the one that makes you happy."
+      }
     },
     "cta": {
       "title": "Want to be a XEIC?",
@@ -92,6 +130,14 @@
     "heroTitle": "Explore our routes",
     "heroSubtitle": "From the plains of La Sénia to the peaks of Els Ports. Choose your challenge.",
     "search": "Search routes...",
+    "connectedStrava": "Connected with Strava",
+    "loading": "Loading Strava routes...",
+    "loadingShort": "Loading routes...",
+    "resultsFound": "routes found",
+    "noRoutes": "No routes found",
+    "noRoutesHint": "Try another filter or search",
+    "ctaText": "Join our Strava club to see all XEIC community activities, routes and challenges.",
+    "followStravaBtn": "Follow on Strava",
     "filters": {
       "all": "All",
       "mountain": "Mountain",
@@ -112,8 +158,17 @@
     "stravaFollow": "Follow us on Strava"
   },
   "events": {
+    "badge": "Calendar",
     "title": "Upcoming Meetups",
     "subtitle": "Don't think twice and come to the next one.",
+    "upcoming": "Upcoming events",
+    "loading": "Loading Strava events...",
+    "noEvents": "No events scheduled",
+    "viewClub": "View club on Strava",
+    "past": "Past outings",
+    "ctaTitle": "Don't miss any outing",
+    "ctaSubtitle": "Join the WhatsApp group to receive all notifications for upcoming events.",
+    "ctaButton": "Join the group",
     "viewAll": "View all",
     "time": "Time",
     "location": "Location",
@@ -126,7 +181,22 @@
     "titleHighlight": "Community Wall",
     "subtitle": "We're not just a club, we're a big family.",
     "instagram": "Follow us on Instagram",
-    "activeMembers": "active runners"
+    "activeMembers": "active runners",
+    "recentActivities": "Recent club activities",
+    "viewClub": "View club",
+    "ourOutings": "Our outings",
+    "quote1": "More than kilometres, we collect unforgettable moments.",
+    "quote1Author": "— Maria, member since 2025",
+    "quote2": "The best pace is the one that makes you happy.",
+    "quote2Author": "— Laia, member",
+    "followInstagram": "Follow @xeicrunners",
+    "stats": {
+      "members": "Members",
+      "routes": "Routes",
+      "outingsPerYear": "Outings/year",
+      "kmShared": "km shared",
+      "recentStrava": "Recent (Strava)"
+    }
   },
   "footer": {
     "tagline": "Running through the Terres de l'Ebre.",

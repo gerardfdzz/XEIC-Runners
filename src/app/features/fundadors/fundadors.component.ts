@@ -1,7 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { I18nService } from '../../core/services/i18n.service';
+import { StravaService } from '../../core/services/strava.service';
 import { Member } from '../../core/models/member.model';
 
 @Component({
@@ -11,39 +12,50 @@ import { Member } from '../../core/models/member.model';
   templateUrl: './fundadors.component.html',
   styleUrl: './fundadors.component.scss',
 })
-export class FundadorsComponent {
+export class FundadorsComponent implements OnInit {
   protected i18n = inject(I18nService);
+  private strava = inject(StravaService);
+
+  memberCount = signal<string>('...');
+
+  ngOnInit(): void {
+    this.strava.getData().subscribe((data) => {
+      if (data?.club?.member_count) {
+        this.memberCount.set(`${data.club.member_count}`);
+      }
+    });
+  }
 
   team: Member[] = [
     {
       id: '1',
       name: 'Teo Arasa',
-      role: 'Fundador & Comunitat',
-      quote: 'Mentre hi hagi un camí, hi haurà una aventura.',
+      role: 'founders.team.teo.role',
+      quote: 'founders.team.teo.quote',
       imageUrl: '../../assets/images/fundadors/Teo.png',
       isFounder: true,
     },
     {
       id: '2',
       name: 'Robert Benet',
-      role: 'Co-fundador & Cap de rutes',
-      quote: 'Córrer ens connecta amb la terra i amb nosaltres.',
+      role: 'founders.team.robert.role',
+      quote: 'founders.team.robert.quote',
       imageUrl: '../../assets/images/fundadors/Robert.png',
       isFounder: true,
     },
     {
       id: '3',
       name: 'Jordi Escubedo',
-      role: 'Co-fundador & Esdeveniments',
-      quote: 'A XEIC, ningú corre sol mai.',
+      role: 'founders.team.jordi.role',
+      quote: 'founders.team.jordi.quote',
       imageUrl: '../../assets/images/fundadors/Jordi.png',
       isFounder: true,
     },
     {
       id: '4',
       name: 'Saber Chelli',
-      role: 'Co-fundador & Logística',
-      quote: 'El millor ritme és el que et fa feliç.',
+      role: 'founders.team.saber.role',
+      quote: 'founders.team.saber.quote',
       imageUrl: '../../assets/images/fundadors/Saber.png',
       isFounder: true,
     },

@@ -13,7 +13,9 @@
         alt="Strava"
         class="rutes-hero__strava-icon"
       />
-      <span class="rutes-hero__strava-label">Connectat amb Strava</span>
+      <span class="rutes-hero__strava-label">{{
+        i18n.t("routes.connectedStrava")
+      }}</span>
     </div>
     <h1 class="rutes-hero__title">{{ i18n.t("routes.heroTitle") }}</h1>
     <p class="rutes-hero__subtitle">{{ i18n.t("routes.heroSubtitle") }}</p>
@@ -51,10 +53,10 @@
 <div class="rutes-results-count">
   <div class="rutes-results-count__inner">
     @if (loading()) {
-      <p class="rutes-results-count__text">Carregant rutes de Strava...</p>
+      <p class="rutes-results-count__text">{{ i18n.t("routes.loading") }}</p>
     } @else {
       <p class="rutes-results-count__text">
-        {{ filteredRoutes().length }} rutes trobades
+        {{ filteredRoutes().length }} {{ i18n.t("routes.resultsFound") }}
       </p>
     }
   </div>
@@ -69,15 +71,19 @@
           style="animation: spin 1.2s linear infinite"
           >sync</span
         >
-        <p class="rutes-grid__empty-title">Carregant rutes...</p>
+        <p class="rutes-grid__empty-title">
+          {{ i18n.t("routes.loadingShort") }}
+        </p>
       </div>
     } @else if (filteredRoutes().length === 0) {
       <div class="rutes-grid__empty">
         <span class="material-symbols-outlined rutes-grid__empty-icon"
           >search_off</span
         >
-        <p class="rutes-grid__empty-title">Cap ruta trobada</p>
-        <p class="rutes-grid__empty-text">Prova amb un altre filtre o cerca</p>
+        <p class="rutes-grid__empty-title">{{ i18n.t("routes.noRoutes") }}</p>
+        <p class="rutes-grid__empty-text">
+          {{ i18n.t("routes.noRoutesHint") }}
+        </p>
       </div>
     } @else {
       <div class="rutes-grid__list">
@@ -102,8 +108,7 @@
           {{ i18n.t("routes.stravaFollow") }}
         </h3>
         <p class="rutes-strava-cta__text">
-          Uneix-te al nostre club de Strava per veure totes les activitats,
-          rutes i reptes de la comunitat XEIC.
+          {{ i18n.t("routes.ctaText") }}
         </p>
         <a
           href="https://www.strava.com/clubs/1576309"
@@ -111,7 +116,7 @@
           rel="noopener noreferrer"
           class="rutes-strava-cta__btn"
         >
-          Seguir a Strava
+          {{ i18n.t("routes.followStravaBtn") }}
         </a>
       </div>
     </div>
@@ -124,7 +129,7 @@
     target="_blank"
     rel="noopener noreferrer"
     class="rutes-fab__btn"
-    aria-label="Strava"
+    [attr.aria-label]="i18n.t('routes.stravaFollow')"
   >
     <img
       src="assets/images/strava-icon.png"

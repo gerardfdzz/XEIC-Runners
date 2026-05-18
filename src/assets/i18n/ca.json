@@ -14,7 +14,17 @@
       "titleHighlight": "XEIC RUNNERS",
       "subtitle": "Més que un club, som una colla. Correm pels camins de La Sénia i les Terres de l'Ebre, compartint quilòmetres, rialles i el millor post-entrenament del territori.",
       "cta1": "Vull córrer!",
-      "cta2": "Saber-ne més"
+      "cta2": "Saber-ne més",
+      "imageAlt": "XEIC RUNNERS corrents pels camins de La Sénia"
+    },
+    "stats": {
+      "members": "Membres",
+      "routes": "Rutes",
+      "founded": "Fundació"
+    },
+    "stravaCard": {
+      "title": "Strava Club",
+      "subtitle": "XEIC Runners"
     },
     "founders": {
       "title": "L'Origen del Xeic",
@@ -23,7 +33,8 @@
       "why": "Per què?",
       "whyText": "Perquè creiem en l'esport com a eina de cohesió social. Perquè estimem el nostre territori i volem que tothom el descobreixi mentre es posa en forma.",
       "community": "Comunitat",
-      "communityText": "Aquí ningú es queda enrere. Adaptem el ritme perquè tothom pugui gaudir de la sortida."
+      "communityText": "Aquí ningú es queda enrere. Adaptem el ritme perquè tothom pugui gaudir de la sortida.",
+      "viewTeam": "Coneix l'equip"
     },
     "events": {
       "title": "Pròximes Quedades",
@@ -33,13 +44,17 @@
     "routes": {
       "title": "Explora les Rutes",
       "subtitle": "Hem mapejat els millors racons de La Sénia. Des de la pujada al Caro fins a les voltes pels horts de tarongers. Segueix-nos a Strava i descarrega els tracks.",
-      "viewOnStrava": "VEURE A STRAVA"
+      "viewOnStrava": "VEURE A STRAVA",
+      "viewAll": "Veure totes les rutes"
     },
     "community": {
       "title": "Mur de la",
       "titleHighlight": "Comunitat",
       "subtitle": "No som només un club, som una gran família. Aquí no hi ha guanyadors ni perdedors, només runners amb ganes de passar-ho bé.",
-      "activeMembers": "runners actius a la comunitat XEIC."
+      "activeMembers": "runners actius a la comunitat XEIC.",
+      "quote1": "Més que quilòmetres, sumem moments inoblidables.",
+      "quote1Author": "— Membre XEIC",
+      "viewAll": "Veure la comunitat"
     },
     "cta": {
       "title": "T'hi esperem, Xeic!",
@@ -55,8 +70,15 @@
       "title": "La nostra història",
       "text1": "XEIC RUNNERS va néixer un matí de boira al voltant d'un cafè a la Plaça Major. Erem tres amics amb ganes de córrer, però sobretot amb ganes de fer poble.",
       "text2": "El que va començar com una quedada informal de diumenge s'ha convertit en el pulmó esportiu de la Sénia. No ens importa el teu ritme, ens importa que et posis les vambes i vinguis a descobrir les nostres rutes compartint rialles.",
-      "membersCount": "130+",
-      "membersLabel": "Membres actius i creixent"
+      "membersLabel": "Membres actius i creixent",
+      "social": {
+        "title": "Social per naturalesa",
+        "text": "L'esport és l'excusa; la cervesa de després i els esmorzars de forquilla són la nostra vertadera meta."
+      },
+      "territory": {
+        "title": "Arrelats al territori",
+        "text": "Coneixem cada racó del Port i cada camí d'oliveres mil·lenàries com el palmell de la nostra mà."
+      }
     },
     "values": {
       "title": "Els nostres Valors",
@@ -79,7 +101,23 @@
       }
     },
     "team": {
-      "title": "L'equip motor"
+      "title": "L'equip motor",
+      "teo": {
+        "role": "Fundador & Comunitat",
+        "quote": "Mentre hi hagi un camí, hi haurà una aventura."
+      },
+      "robert": {
+        "role": "Co-fundador & Cap de rutes",
+        "quote": "Córrer ens connecta amb la terra i amb nosaltres."
+      },
+      "jordi": {
+        "role": "Co-fundador & Esdeveniments",
+        "quote": "A XEIC, ningú corre sol mai."
+      },
+      "saber": {
+        "role": "Co-fundador & Logística",
+        "quote": "El millor ritme és el que et fa feliç."
+      }
     },
     "cta": {
       "title": "Vols ser un XEIC?",
@@ -92,6 +130,14 @@
     "heroTitle": "Explora les nostres rutes",
     "heroSubtitle": "De la plana de la Sénia als cims dels Ports. Tria el teu repte.",
     "search": "Cerca rutes...",
+    "connectedStrava": "Connectat amb Strava",
+    "loading": "Carregant rutes de Strava...",
+    "loadingShort": "Carregant rutes...",
+    "resultsFound": "rutes trobades",
+    "noRoutes": "Cap ruta trobada",
+    "noRoutesHint": "Prova amb un altre filtre o cerca",
+    "ctaText": "Uneix-te al nostre club de Strava per veure totes les activitats, rutes i reptes de la comunitat XEIC.",
+    "followStravaBtn": "Seguir a Strava",
     "filters": {
       "all": "Totes",
       "mountain": "Muntanya",
@@ -112,8 +158,17 @@
     "stravaFollow": "Segueix-nos a Strava"
   },
   "events": {
+    "badge": "Calendari",
     "title": "Pròximes Quedades",
     "subtitle": "No t'ho pensis més i vine a la propera.",
+    "upcoming": "Pròxims esdeveniments",
+    "loading": "Carregant events de Strava...",
+    "noEvents": "No hi ha esdeveniments programats",
+    "viewClub": "Veure el club a Strava",
+    "past": "Sortides passades",
+    "ctaTitle": "No et perdis cap sortida",
+    "ctaSubtitle": "Uneix-te al grup de WhatsApp per rebre totes les notificacions dels propers events.",
+    "ctaButton": "Unir-me al grup",
     "viewAll": "Veure tots",
     "time": "Horari",
     "location": "Lloc",
@@ -126,7 +181,22 @@
     "titleHighlight": "Comunitat",
     "subtitle": "No som només un club, som una gran família. Aquí no hi ha guanyadors ni perdedors, només runners amb ganes de passar-ho bé.",
     "instagram": "Segueix-nos a Instagram",
-    "activeMembers": "runners actius"
+    "activeMembers": "runners actius",
+    "recentActivities": "Activitats recents del club",
+    "viewClub": "Veure al club",
+    "ourOutings": "Les nostres sortides",
+    "quote1": "Més que quilòmetres, sumem moments inoblidables.",
+    "quote1Author": "— Maria, membre des de 2025",
+    "quote2": "El millor ritme és el que et fa feliç.",
+    "quote2Author": "— Laia, membre",
+    "followInstagram": "Segueix @xeicrunners",
+    "stats": {
+      "members": "Membres",
+      "routes": "Rutes",
+      "outingsPerYear": "Sortides/any",
+      "kmShared": "km compartits",
+      "recentStrava": "Recents (Strava)"
+    }
   },
   "footer": {
     "tagline": "Corrent per les Terres de l'Ebre.",

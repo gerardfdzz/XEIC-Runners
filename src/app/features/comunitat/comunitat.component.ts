@@ -1,20 +1,22 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule, DecimalPipe } from '@angular/common';
+import { forkJoin } from 'rxjs';
 import { I18nService } from '../../core/services/i18n.service';
 import { StravaService } from '../../core/services/strava.service';
+import { StravaRoutesService } from '../../core/services/strava-routes.service';
 import { StravaActivity } from '../../core/models/strava.model';
 
 interface Stat {
   icon: string;
   value: string;
-  label: string;
+  labelKey: string;
 }
 
 const FALLBACK_STATS: Stat[] = [
-  { icon: 'person', value: '130+', label: 'Membres' },
-  { icon: 'route', value: '∞', label: 'Rutes' },
-  { icon: 'event', value: '40+', label: 'Sortides/any' },
-  { icon: 'landscape', value: '500+', label: 'km compartits' },
+  { icon: 'person', value: '130+', labelKey: 'community.stats.members' },
+  { icon: 'route', value: '∞', labelKey: 'community.stats.routes' },
+  { icon: 'event', value: '40+', labelKey: 'community.stats.outingsPerYear' },
+  { icon: 'landscape', value: '500+', labelKey: 'community.stats.kmShared' },
 ];
 
 @Component({
@@ -27,16 +29,32 @@ const FALLBACK_STATS: Stat[] = [
 export class ComunitatComponent implements OnInit {
   protected i18n = inject(I18nService);
   protected strava = inject(StravaService);
+  private routesService = inject(StravaRoutesService);
 
   stats: Stat[] = FALLBACK_STATS;
   activities: StravaActivity[] = [];
   loading = true;
+  memberCount = '...';
 
   ngOnInit(): void {
-    this.strava.getData().subscribe((data) => {
+    forkJoin({
+      strava: this.strava.getData(),
+      routes: this.routesService.getRoutes(),
+    }).subscribe(({ strava: data, routes }) => {
       this.loading = false;
 
-      if (!data) return;
+      const routeCount = routes.length > 0 ? `${routes.length}` : '∞';
+
+      if (!data) {
+        this.stats = FALLBACK_STATS.map((s) =>
+          s.labelKey === 'community.stats.routes'
+            ? { ...s, value: routeCount }
+            : s,
+        );
+        return;
+      }
+
+      this.memberCount = `${data.club.member_count}`;
 
       const totalKm = data.activities.reduce(
         (acc, a) => acc + a.distance / 1000,
@@ -47,14 +65,22 @@ export class ComunitatComponent implements OnInit {
         {
           icon: 'person',
           value: `${data.club.member_count}`,
-          label: 'Membres',
+          labelKey: 'community.stats.members',
         },
-        { icon: 'route', value: '∞', label: 'Rutes' },
-        { icon: 'event', value: '40+', label: 'Sortides/any' },
+        {
+          icon: 'route',
+          value: routeCount,
+          labelKey: 'community.stats.routes',
+        },
+        {
+          icon: 'event',
+          value: '40+',
+          labelKey: 'community.stats.outingsPerYear',
+        },
         {
           icon: 'landscape',
           value: `${Math.round(totalKm)}km`,
-          label: 'Recents (Strava)',
+          labelKey: 'community.stats.recentStrava',
         },
       ];
 
