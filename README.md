@@ -12,6 +12,7 @@ Official website of the XEIC RUNNERS running club from La Sénia (Terres de l'Eb
 | Angular Router   | built-in | Lazy-loaded routes                                                |
 | RxJS             | 7.8      | Async streams (`forkJoin`, `shareReplay`, `catchError`)           |
 | Vercel Functions | Node.js  | Serverless API proxy (Strava + Instagram + Routes)                |
+| @vercel/analytics | —       | Page views and visitor tracking (privacy-friendly, no cookies)    |
 
 ---
 
