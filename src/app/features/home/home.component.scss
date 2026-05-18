@@ -89,6 +89,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-bottom: 24px;
+    margin-right: 24px;
+
+    @include md {
+      margin: 0;
+    }
   }
 
   &__image-frame {
