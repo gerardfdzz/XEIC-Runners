@@ -31,14 +31,15 @@ export class NavbarComponent {
 
   @HostListener('document:click', ['$event.target'])
   onDocumentClick(target: EventTarget | null): void {
+    if (!(target instanceof Node)) return;
+
     const langContainer = this.elRef.nativeElement.querySelector('.navbar__lang');
-    if (
-      this.langMenuOpen() &&
-      langContainer &&
-      target instanceof Node &&
-      !langContainer.contains(target)
-    ) {
+    if (this.langMenuOpen() && langContainer && !langContainer.contains(target)) {
       this.langMenuOpen.set(false);
+    }
+
+    if (this.mobileMenuOpen() && !this.elRef.nativeElement.contains(target)) {
+      this.mobileMenuOpen.set(false);
     }
   }
 
