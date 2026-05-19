@@ -234,7 +234,7 @@ Both are listed in `angular.json` assets so they are copied to the build output 
 
 `src/index.html` includes two inline JSON-LD blocks:
 
-- `SportsClub` — name, description, sport, foundingDate, address, geo, sameAs (Strava + Instagram), contactPoint (WhatsApp)
+- `SportsClub` — name, description, foundingDate, address, geo, sameAs (Strava + Instagram), contactPoint (WhatsApp)
 - `WebSite` — name, url
 
 ### Security & cache headers (`vercel.json`)
@@ -305,7 +305,9 @@ xeic-runners/
 │   │
 │   ├── assets/
 │   │   ├── images/
-│   │   │   ├── xeicrunners.png            # Club logo (also used as favicon)
+│   │   │   ├── xeicrunners.png            # Club logo (hero image)
+│   │   │   ├── favicon-circle.png         # 512×512 circular favicon (browser tab)
+│   │   │   ├── apple-touch-icon.png       # 180×180 circular icon (iOS/Android home screen)
 │   │   │   ├── strava-icon.png            # Strava branding icon
 │   │   │   ├── fundadors/                 # Founders photos (Teo, Robert, Jordi, Saber)
 │   │   │   └── galeria/                   # Club photos (used in galleries + OG images)
@@ -319,6 +321,7 @@ xeic-runners/
 │   │       ├── es.json                    # Spanish
 │   │       └── en.json                    # English
 │   │
+│   ├── favicon.ico                        # 3-size circular ICO (16×16, 32×32, 48×48) — replaces Angular default
 │   ├── index.html                         # Base SEO meta, OG tags, JSON-LD, favicon
 │   ├── robots.txt                         # Search engine directives + sitemap pointer
 │   ├── sitemap.xml                        # 5 URLs with priorities (weekly changefreq)
@@ -362,6 +365,22 @@ Tokens are defined in `src/styles/_variables.scss` and consumed via `@use '../..
 - Headings / labels — **Lexend** (400–800)
 - Body text — **Newsreader** (serif, with italic variant)
 - Icons — **Material Symbols Outlined**
+
+**Animation system** (`_variables.scss`):
+
+Custom easing curves are defined as SCSS variables and used across all components:
+
+| Variable      | Curve                          | Used for                              |
+| ------------- | ------------------------------ | ------------------------------------- |
+| `$ease-out`   | `cubic-bezier(0.23, 1, 0.32, 1)` | Entrances, hover responses, presses |
+| `$ease-in-out`| `cubic-bezier(0.77, 0, 0.175, 1)`| On-screen movement (rotations)     |
+
+Rules applied consistently across all components:
+- All transitions specify exact properties — never `transition: all`
+- Hover scale/transform effects are guarded with `@media (hover: hover) and (pointer: fine)` to prevent false triggers on touch devices
+- Every pressable element has `&:active { transform: scale(0.97); }`
+- Lang dropdown entrance uses `@starting-style` for a native CSS animate-in (no JS needed)
+- `prefers-reduced-motion` global rule in `styles.scss` — respects user accessibility preferences
 
 **Global utility classes** (`styles.scss`):
 
