@@ -6,9 +6,14 @@
   border-radius: $radius-3xl;
   overflow: hidden;
   border: 1px solid rgba($outline-variant, 0.2);
-  transition: box-shadow 0.3s ease;
+  transition: box-shadow 200ms $ease-out, transform 200ms $ease-out;
 
-  &:hover { box-shadow: $shadow-xl; }
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      box-shadow: $shadow-xl;
+      transform: translateY(-2px);
+    }
+  }
 
   &__image-wrapper {
     position: relative;
@@ -23,9 +28,11 @@
     display: block;
     object-fit: cover;
     object-position: center top;
-    transition: transform 0.5s ease;
+    transition: transform 400ms $ease-out;
 
-    .event-card:hover & { transform: scale(1.05); }
+    @media (hover: hover) and (pointer: fine) {
+      .event-card:hover & { transform: scale(1.05); }
+    }
   }
 
   &__date-badge {

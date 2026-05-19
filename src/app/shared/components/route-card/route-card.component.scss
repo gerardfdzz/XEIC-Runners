@@ -9,9 +9,14 @@
   overflow: hidden;
   border: 1px solid rgba($outline-variant, 0.2);
   box-shadow: $shadow-sm;
-  transition: box-shadow 0.3s ease;
+  transition: box-shadow 200ms $ease-out, transform 200ms $ease-out;
 
-  &:hover { box-shadow: $shadow-xl; }
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      box-shadow: $shadow-xl;
+      transform: translateY(-2px);
+    }
+  }
 
   &__image-wrapper {
     position: relative;
@@ -23,9 +28,11 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.5s ease;
+    transition: transform 400ms $ease-out;
 
-    .route-card:hover & { transform: scale(1.05); }
+    @media (hover: hover) and (pointer: fine) {
+      .route-card:hover & { transform: scale(1.05); }
+    }
   }
 
   &__image-overlay {
@@ -129,9 +136,13 @@
     font-size: $text-label-lg;
     font-weight: $fw-semibold;
     color: $on-primary;
-    transition: transform 0.15s ease;
+    transition: transform 150ms $ease-out, opacity 150ms $ease-out;
 
-    &:active { transform: scale(0.98); }
+    @media (hover: hover) and (pointer: fine) {
+      &:hover { opacity: 0.88; }
+    }
+
+    &:active { transform: scale(0.97); }
 
     .material-symbols-outlined { font-size: 18px; }
   }

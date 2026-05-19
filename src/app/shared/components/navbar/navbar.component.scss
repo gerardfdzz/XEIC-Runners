@@ -25,9 +25,11 @@
     font-weight: $fw-extrabold;
     color: $primary;
     letter-spacing: -0.02em;
-    transition: opacity 0.2s ease;
+    transition: opacity 150ms $ease-out;
 
-    &:hover { opacity: 0.8; }
+    @media (hover: hover) and (pointer: fine) {
+      &:hover { opacity: 0.8; }
+    }
   }
 
   &__links {
@@ -43,10 +45,12 @@
     font-size: $text-label-lg;
     font-weight: $fw-medium;
     color: $on-surface-variant;
-    transition: color 0.3s ease;
+    transition: color 150ms $ease-out;
     padding-bottom: 2px;
 
-    &:hover { color: $primary; }
+    @media (hover: hover) and (pointer: fine) {
+      &:hover { color: $primary; }
+    }
 
     &--active {
       color: $secondary;
@@ -70,9 +74,11 @@
     font-size: $text-label-lg;
     font-weight: $fw-semibold;
     color: $on-surface-variant;
-    transition: color 0.2s ease;
+    transition: color 150ms $ease-out;
 
-    &:hover { color: $primary; }
+    @media (hover: hover) and (pointer: fine) {
+      &:hover { color: $primary; }
+    }
 
     .material-symbols-outlined { font-size: 16px; }
   }
@@ -88,6 +94,13 @@
     overflow: hidden;
     min-width: 80px;
     z-index: 100;
+    transform-origin: top right;
+    transition: opacity 150ms $ease-out, transform 150ms $ease-out;
+
+    @starting-style {
+      opacity: 0;
+      transform: scale(0.92) translateY(-4px);
+    }
   }
 
   &__lang-option {
@@ -98,9 +111,11 @@
     font-family: $font-lexend;
     font-size: $text-label-lg;
     color: $on-surface;
-    transition: background 0.15s ease;
+    transition: background 120ms $ease-out;
 
-    &:hover { background: $surface-container; }
+    @media (hover: hover) and (pointer: fine) {
+      &:hover { background: $surface-container; }
+    }
 
     &--active {
       color: $primary;
@@ -136,10 +151,12 @@
     font-weight: $fw-semibold;
     color: $on-surface;
     padding: 10px 0;
-    transition: color 0.2s ease;
+    transition: color 150ms $ease-out;
     border-bottom: 1px solid rgba($outline-variant, 0.15);
 
-    &:hover { color: $primary; }
+    @media (hover: hover) and (pointer: fine) {
+      &:hover { color: $primary; }
+    }
     &:last-of-type { border-bottom: none; }
   }
 

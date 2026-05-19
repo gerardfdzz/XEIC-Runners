@@ -173,8 +173,12 @@
     font-weight: $fw-bold;
     font-size: $text-headline-md;
     box-shadow: $shadow-xl;
-    transition: transform 0.2s ease;
+    transition: transform 160ms $ease-out, box-shadow 200ms $ease-out;
 
-    &:hover { transform: scale(1.05); }
+    @media (hover: hover) and (pointer: fine) {
+      &:hover { transform: scale(1.03); box-shadow: $shadow-2xl; }
+    }
+
+    &:active { transform: scale(0.97); }
   }
 }

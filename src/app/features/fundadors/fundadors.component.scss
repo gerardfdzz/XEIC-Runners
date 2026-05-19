@@ -69,7 +69,9 @@
   &__visual {
     position: relative;
 
-    &:hover .founders-hero__image { transform: scale(1.02); }
+    @media (hover: hover) and (pointer: fine) {
+      &:hover .founders-hero__image { transform: scale(1.02); }
+    }
   }
 
   &__image-bg {
@@ -79,9 +81,11 @@
     border-radius: $radius-xl;
     opacity: 0.2;
     transform: rotate(3deg);
-    transition: transform 0.5s ease;
+    transition: transform 500ms $ease-in-out;
 
-    .founders-hero__visual:hover & { transform: rotate(0deg); }
+    @media (hover: hover) and (pointer: fine) {
+      .founders-hero__visual:hover & { transform: rotate(0deg); }
+    }
   }
 
   &__image {
@@ -93,7 +97,7 @@
     height: 400px;
     width: 100%;
     border: 4px solid $surface-container-lowest;
-    transition: transform 0.5s ease;
+    transition: transform 500ms $ease-out;
   }
 }
 
@@ -251,9 +255,11 @@
     padding: 32px;
     font-size: 72px;
     color: rgba($secondary, 0.2);
-    transition: transform 0.5s ease;
+    transition: transform 400ms $ease-out;
 
-    .founders-values__card:hover & { transform: scale(1.1); }
+    @media (hover: hover) and (pointer: fine) {
+      .founders-values__card:hover & { transform: scale(1.1); }
+    }
   }
 
   &__card-icon {
@@ -329,14 +335,16 @@
     aspect-ratio: 1;
     background: $surface-container-highest;
 
-    &:hover .founders-team__photo { transform: scale(1.05); }
+    @media (hover: hover) and (pointer: fine) {
+      &:hover .founders-team__photo { transform: scale(1.05); }
+    }
   }
 
   &__photo {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.5s ease;
+    transition: transform 400ms $ease-out;
   }
 
   &__name { @include headline-md; color: $primary; margin-bottom: 4px; }
@@ -404,9 +412,13 @@
     font-weight: $fw-bold;
     font-size: $text-headline-md;
     box-shadow: $shadow-lg;
-    transition: transform 0.2s ease;
+    transition: transform 160ms $ease-out, box-shadow 200ms $ease-out;
 
-    &:hover { transform: scale(1.05); }
+    @media (hover: hover) and (pointer: fine) {
+      &:hover { transform: scale(1.03); box-shadow: $shadow-2xl; }
+    }
+
+    &:active { transform: scale(0.97); }
   }
 
   &__btn-more {
@@ -418,8 +430,12 @@
     font-family: $font-lexend;
     font-weight: $fw-bold;
     font-size: $text-headline-md;
-    transition: background 0.2s ease;
+    transition: background 200ms $ease-out, transform 160ms $ease-out;
 
-    &:hover { background: rgba(255,255,255,0.1); }
+    @media (hover: hover) and (pointer: fine) {
+      &:hover { background: rgba(255,255,255,0.1); }
+    }
+
+    &:active { transform: scale(0.97); }
   }
 }

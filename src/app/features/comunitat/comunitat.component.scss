@@ -126,11 +126,15 @@
     font-size: $text-label-lg;
     font-weight: $fw-semibold;
     color: $primary;
-    transition: gap 0.2s ease;
 
-    &:hover { gap: 12px; }
+    .material-symbols-outlined {
+      font-size: 16px;
+      transition: transform 200ms $ease-out;
+    }
 
-    .material-symbols-outlined { font-size: 16px; }
+    @media (hover: hover) and (pointer: fine) {
+      &:hover .material-symbols-outlined { transform: translateX(5px); }
+    }
   }
 
   &__grid {
@@ -151,9 +155,11 @@
     display: flex;
     flex-direction: column;
     gap: 12px;
-    transition: box-shadow 0.2s ease;
+    transition: box-shadow 200ms $ease-out, transform 200ms $ease-out;
 
-    &:hover { box-shadow: $shadow-md; }
+    @media (hover: hover) and (pointer: fine) {
+      &:hover { box-shadow: $shadow-md; transform: translateY(-1px); }
+    }
   }
 
   &__card-top {
@@ -235,9 +241,14 @@
     font-size: $text-label-lg;
     font-weight: $fw-semibold;
     color: $secondary;
-    transition: gap 0.2s ease;
 
-    &:hover { gap: 16px; }
+    svg {
+      transition: transform 200ms $ease-out;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      &:hover svg { transform: translateX(5px); }
+    }
   }
 
   &__ig-icon {
@@ -280,9 +291,11 @@
   &__photo {
     width: 100%;
     display: block;
-    transition: transform 0.5s ease;
+    transition: transform 400ms $ease-out;
 
-    .community-gallery__item:hover & { transform: scale(1.05); }
+    @media (hover: hover) and (pointer: fine) {
+      .community-gallery__item:hover & { transform: scale(1.05); }
+    }
   }
 
   &__quote-icon {
@@ -337,9 +350,13 @@
     font-weight: $fw-bold;
     font-size: $text-headline-md;
     box-shadow: $shadow-xl;
-    transition: transform 0.2s ease;
+    transition: transform 160ms $ease-out, box-shadow 200ms $ease-out;
 
-    &:hover { transform: scale(1.05); }
+    @media (hover: hover) and (pointer: fine) {
+      &:hover { transform: scale(1.03); box-shadow: $shadow-2xl; }
+    }
+
+    &:active { transform: scale(0.97); }
   }
 
   &__ig-btn-icon {

@@ -85,9 +85,11 @@ ul, ol {
   box-shadow: $shadow-xl;
   overflow: hidden;
 
-  &:hover {
-    box-shadow: $shadow-2xl;
-    transform: scale(1.05);
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      box-shadow: $shadow-2xl;
+      transform: scale(1.03);
+    }
   }
 }
 
@@ -99,7 +101,9 @@ ul, ol {
   border-radius: $radius-xl;
   background: transparent;
 
-  &:hover { background: rgba($primary, 0.05); }
+  @media (hover: hover) and (pointer: fine) {
+    &:hover { background: rgba($primary, 0.05); }
+  }
 }
 
 .btn-pill {
@@ -112,5 +116,16 @@ ul, ol {
   font-weight: $fw-semibold;
   box-shadow: $shadow-md;
 
-  &:hover { transform: scale(1.05); }
+  @media (hover: hover) and (pointer: fine) {
+    &:hover { transform: scale(1.03); }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
