@@ -1,6 +1,6 @@
 # XEIC RUNNERS
 
-Official website of the XEIC RUNNERS running club from La Sénia (Terres de l'Ebre, Catalonia). Built with Angular 17 standalone components, plain SCSS + BEM, and live integrations with Strava, Instagram, and Google Sheets. Deployed on Vercel.
+Official website of the XEIC RUNNERS running club from La Sénia (Terres de l'Ebre, Catalunya). Built with Angular 17 standalone components, plain SCSS + BEM, and live integrations with Strava, Instagram, and Google Sheets. Deployed on Vercel.
 
 ## Tech stack
 
