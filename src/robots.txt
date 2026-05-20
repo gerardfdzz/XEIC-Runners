@@ -1,4 +1,140 @@
+# robots.txt — XEIC RUNNERS (https://www.xeicrunners.com)
+# Last updated: 2026-05-20
+
+# -------------------------------------------------------
+# API endpoints — no crawlable (serverless functions)
+# -------------------------------------------------------
 User-agent: *
+Disallow: /api/
+
+# -------------------------------------------------------
+# Legitimate search engines — full access
+# -------------------------------------------------------
+User-agent: Googlebot
 Allow: /
 
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Googlebot-Video
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+User-agent: YandexBot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+# -------------------------------------------------------
+# AI assistants — permitted to index content
+# -------------------------------------------------------
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+# -------------------------------------------------------
+# Social media crawlers — for link previews
+# -------------------------------------------------------
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+User-agent: WhatsApp
+Allow: /
+
+# -------------------------------------------------------
+# Aggressive SEO scrapers — blocked
+# -------------------------------------------------------
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+User-agent: BLEXBot
+Disallow: /
+
+User-agent: PetalBot
+Disallow: /
+
+# -------------------------------------------------------
+# AI training scrapers without consent — blocked
+# -------------------------------------------------------
+User-agent: Bytespider
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: FacebookBot
+Disallow: /
+
+User-agent: Omgilibot
+Disallow: /
+
+User-agent: Diffbot
+Disallow: /
+
+# -------------------------------------------------------
+# Generic scrapers & tools — blocked
+# -------------------------------------------------------
+User-agent: Scrapy
+Disallow: /
+
+User-agent: python-requests
+Disallow: /
+
+User-agent: Go-http-client
+Disallow: /
+
+User-agent: HTTrack
+Disallow: /
+
+User-agent: SiteSnagger
+Disallow: /
+
+User-agent: WebCopier
+Disallow: /
+
+# -------------------------------------------------------
 Sitemap: https://www.xeicrunners.com/sitemap.xml
