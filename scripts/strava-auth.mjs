@@ -58,7 +58,7 @@ rl.question('Enganxa el "code" aquí: ', async (code) => {
       process.exit(1);
     }
 
-    console.log('\n✅  Èxit! Afegeix aquestes variables al teu .env i a Netlify:\n');
+    console.log('\n✅  Èxit! Afegeix aquestes variables al teu .env i a Vercel:\n');
     console.log(`STRAVA_CLIENT_ID=${CLIENT_ID}`);
     console.log(`STRAVA_CLIENT_SECRET=${CLIENT_SECRET}`);
     console.log(`STRAVA_REFRESH_TOKEN=${data.refresh_token}`);
