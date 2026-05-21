@@ -57,7 +57,6 @@
           {{ monthGroupLabel(group.year, group.month) }}
         </h3>
 
-        <!-- Mobile: photo grid -->
         <div class="events-photo-grid">
           @for (event of group.events; track event.id) {
             <button
@@ -75,7 +74,6 @@
           }
         </div>
 
-        <!-- Desktop: card grid -->
         <div class="events-list__grid events-list__grid--past events-list__grid--desktop-only">
           @for (event of group.events; track event.id) {
             <app-event-card [event]="event" [hideMeta]="true" (imageClick)="openLightbox(event, false)" />

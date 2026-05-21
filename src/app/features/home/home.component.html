@@ -142,7 +142,7 @@
       </div>
       <div class="events-preview__grid">
         @for (event of upcomingEvents(); track event.id) {
-          <app-event-card [event]="event" />
+          <app-event-card [event]="event" (imageClick)="openLightbox(event)" />
         }
       </div>
     </div>
@@ -283,3 +283,18 @@
     </a>
   </div>
 </section>
+
+@if (selectedEvent()) {
+  <div class="home-lightbox" (click)="closeLightbox()" role="dialog" aria-modal="true">
+    <button class="home-lightbox__close" (click)="closeLightbox()" aria-label="Tancar">
+      <span class="material-symbols-outlined">close</span>
+    </button>
+    <div class="home-lightbox__content" (click)="$event.stopPropagation()">
+      <img
+        [src]="selectedEvent()!.imageUrl"
+        [alt]="selectedEvent()!.title"
+        class="home-lightbox__img"
+      />
+    </div>
+  </div>
+}

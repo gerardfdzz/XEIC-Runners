@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { forkJoin } from 'rxjs';
@@ -30,6 +30,22 @@ export class HomeComponent implements OnInit {
   featuredRoutes = signal<XeicRoute[]>([]);
   routeCount = signal<string>('...');
   memberCount = signal<string>('...');
+  selectedEvent = signal<XeicEvent | null>(null);
+
+  openLightbox(event: XeicEvent): void {
+    this.selectedEvent.set(event);
+    document.body.style.overflow = 'hidden';
+  }
+
+  closeLightbox(): void {
+    this.selectedEvent.set(null);
+    document.body.style.overflow = '';
+  }
+
+  @HostListener('document:keydown.escape')
+  onEscape(): void {
+    if (this.selectedEvent()) this.closeLightbox();
+  }
 
   private readonly CLUB_IMAGE =
     'https://www.xeicrunners.com/assets/images/galeria/foto-xeic.jpg';

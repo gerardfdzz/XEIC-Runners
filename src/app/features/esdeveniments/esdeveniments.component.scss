@@ -140,8 +140,6 @@
   to { transform: rotate(360deg); }
 }
 
-// ─── Photo grid (mobile past events) ───────────────────────────────────────
-
 .events-photo-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -184,8 +182,6 @@
 
   @include md { display: grid; }
 }
-
-// ─── Lightbox ───────────────────────────────────────────────────────────────
 
 .events-lightbox {
   position: fixed;
