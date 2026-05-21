@@ -38,7 +38,7 @@
     } @else {
       <div class="events-list__grid">
         @for (event of upcoming; track event.id) {
-          <app-event-card [event]="event" />
+          <app-event-card [event]="event" (imageClick)="openLightbox(event, false)" />
         }
       </div>
     }
@@ -56,15 +56,61 @@
         <h3 class="events-list__month-title">
           {{ monthGroupLabel(group.year, group.month) }}
         </h3>
-        <div class="events-list__grid events-list__grid--past">
+
+        <!-- Mobile: photo grid -->
+        <div class="events-photo-grid">
           @for (event of group.events; track event.id) {
-            <app-event-card [event]="event" [hideMeta]="true" />
+            <button
+              class="events-photo-grid__item"
+              (click)="openLightbox(event, false)"
+              [attr.aria-label]="event.title"
+            >
+              <img
+                [src]="event.imageUrl"
+                [alt]="event.title"
+                class="events-photo-grid__img"
+                loading="lazy"
+              />
+            </button>
+          }
+        </div>
+
+        <!-- Desktop: card grid -->
+        <div class="events-list__grid events-list__grid--past events-list__grid--desktop-only">
+          @for (event of group.events; track event.id) {
+            <app-event-card [event]="event" [hideMeta]="true" (imageClick)="openLightbox(event, false)" />
           }
         </div>
       }
     }
   </div>
 </section>
+
+@if (selectedEvent()) {
+  <div class="events-lightbox" (click)="closeLightbox()" role="dialog" aria-modal="true">
+    <button class="events-lightbox__close" (click)="closeLightbox()" aria-label="Tancar">
+      <span class="material-symbols-outlined">close</span>
+    </button>
+    <div class="events-lightbox__content" (click)="$event.stopPropagation()">
+      <img
+        [src]="selectedEvent()!.imageUrl"
+        [alt]="selectedEvent()!.title"
+        class="events-lightbox__img"
+      />
+      @if (showLightboxMeta) {
+        <div class="events-lightbox__meta">
+          <span class="events-lightbox__date">
+            {{ selectedEvent()!.date | date:'d MMM yyyy' }}
+          </span>
+          <span class="events-lightbox__location">
+            <span class="material-symbols-outlined">location_on</span>
+            {{ selectedEvent()!.location }}
+          </span>
+        </div>
+      }
+    </div>
+  </div>
+}
 
 <section class="events-cta grainy-gradient">
   <div class="events-cta__inner">

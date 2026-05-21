@@ -13,6 +13,8 @@ export interface XeicEvent {
   difficulty: EventDifficulty;
   tags: string[];
   imageUrl: string;
+  imageWidth?: number;
+  imageHeight?: number;
   description?: string;
   registrationUrl?: string;
   isCustom?: boolean;

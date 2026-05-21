@@ -1,5 +1,5 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, inject, OnInit, signal, HostListener } from '@angular/core';
+import { CommonModule, DatePipe } from '@angular/common';
 import { forkJoin } from 'rxjs';
 import { I18nService } from '../../core/services/i18n.service';
 import { SeoService } from '../../core/services/seo.service';
@@ -17,7 +17,7 @@ const CLUB_IMAGE =
 @Component({
   selector: 'app-esdeveniments',
   standalone: true,
-  imports: [CommonModule, EventCardComponent],
+  imports: [CommonModule, DatePipe, EventCardComponent],
   templateUrl: './esdeveniments.component.html',
   styleUrl: './esdeveniments.component.scss',
 })
@@ -32,6 +32,24 @@ export class EsdevenimentsComponent implements OnInit {
   past: XeicEvent[] = [];
   pastByMonth: { year: number; month: number; events: XeicEvent[] }[] = [];
   loading = true;
+  selectedEvent = signal<XeicEvent | null>(null);
+  showLightboxMeta = false;
+
+  openLightbox(event: XeicEvent, showMeta = false): void {
+    this.selectedEvent.set(event);
+    this.showLightboxMeta = showMeta;
+    document.body.style.overflow = 'hidden';
+  }
+
+  closeLightbox(): void {
+    this.selectedEvent.set(null);
+    document.body.style.overflow = '';
+  }
+
+  @HostListener('document:keydown.escape')
+  onEscape(): void {
+    if (this.selectedEvent()) this.closeLightbox();
+  }
 
   private readonly localeMap: Record<string, string> = {
     ca: 'ca-ES', es: 'es-ES', en: 'en-US',
@@ -175,6 +193,7 @@ export class EsdevenimentsComponent implements OnInit {
       difficulty: 'Iniciació',
       tags: ['Sortida'],
       imageUrl: item.imageUrl,
+      ...(item.width && item.height ? { imageWidth: item.width, imageHeight: item.height } : {}),
     };
   }
 }

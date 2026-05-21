@@ -1,10 +1,12 @@
 <div class="event-card">
-  <div class="event-card__image-wrapper">
+  <div class="event-card__image-wrapper" [style.aspect-ratio]="imageAspectRatio" (click)="imageClick.emit()">
     <img
       [src]="event.imageUrl"
       [alt]="event.title"
       class="event-card__image"
       loading="lazy"
+      [width]="event.imageWidth ?? 1080"
+      [height]="event.imageHeight ?? 1920"
     />
     @if (!hideMeta) {
       <div class="event-card__date-badge">

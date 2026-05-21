@@ -64,7 +64,7 @@ module.exports = async function handler(req, res) {
             (a, b) => (b.width > a.width ? b : a),
             candidates[0] ?? {}
           );
-          return { id: item.id, imageUrl: best.url ?? null, takenAt: item.taken_at };
+          return { id: item.id, imageUrl: best.url ?? null, width: best.width ?? null, height: best.height ?? null, takenAt: item.taken_at };
         })
         .filter((i) => i.imageUrl);
       items = items.concat(reelItems);
