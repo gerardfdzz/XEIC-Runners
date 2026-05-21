@@ -1,4 +1,4 @@
-import { Component, Input, inject } from '@angular/core';
+import { Component, Input, Output, EventEmitter, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { XeicEvent } from '../../../core/models/event.model';
 import { I18nService } from '../../../core/services/i18n.service';
@@ -13,6 +13,7 @@ import { I18nService } from '../../../core/services/i18n.service';
 export class EventCardComponent {
   @Input({ required: true }) event!: XeicEvent;
   @Input() hideMeta = false;
+  @Output() imageClick = new EventEmitter<void>();
   protected i18n = inject(I18nService);
 
   private readonly localeMap: Record<string, string> = {
@@ -23,6 +24,12 @@ export class EventCardComponent {
 
   get locale(): string {
     return this.localeMap[this.i18n.currentLang()] ?? 'ca-ES';
+  }
+
+  get imageAspectRatio(): string {
+    const w = this.event.imageWidth;
+    const h = this.event.imageHeight;
+    return w && h ? `${w} / ${h}` : '9 / 16';
   }
 
   monthLabel(date: Date): string {
