@@ -145,6 +145,7 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 3px;
   margin-bottom: 40px;
+  opacity: 0.65;
 
   @include md { display: none; }
 
