@@ -126,8 +126,10 @@ Route type is inferred from Strava's `type` + `sub_type` fields:
 `api/instagram.js` fetches highlight stories from `@xeicrunners` using Instagram's private API. Requires only a `sessionid` cookie — no official API key.
 
 ```
-GET /api/instagram → { items: [{ id, imageUrl, takenAt }] }
+GET /api/instagram → { items: [{ id, imageUrl, width, height, takenAt }] }
 ```
+
+`width` and `height` are the pixel dimensions of the best available image candidate. They are used to set the correct `aspect-ratio` on event cards and avoid layout shift (CLS).
 
 **How to get the session ID:**
 
@@ -189,6 +191,8 @@ All sources are fetched in parallel with `forkJoin`. Any failure silently falls 
 | ------------ | -------------------- | -------------------------- |
 | **Upcoming** | Strava group events  | Google Sheet (future rows) |
 | **Past**     | Instagram highlights | Google Sheet (past rows)   |
+
+**Past events display:** rendered as a photo grid (3 columns on mobile, 4 on tablet/desktop), grouped by month. Clicking any image opens a full-screen lightbox. Image `width`/`height` from the Instagram API are used to set the correct `aspect-ratio` on each card, preventing CLS.
 
 ---
 
@@ -283,17 +287,17 @@ xeic-runners/
 │   │   │
 │   │   ├── shared/
 │   │   │   └── components/
-│   │   │       ├── event-card/            # Event card: image, date badge, tags
+│   │   │       ├── event-card/            # Event card: image (aspect-ratio from Instagram dims), date badge, tags. @Output imageClick for lightbox
 │   │   │       ├── footer/                # Logo, tagline, social links
 │   │   │       ├── mobile-nav/            # Fixed bottom bar (< md breakpoint)
 │   │   │       ├── navbar/                # Top nav with language selector + WhatsApp CTA
 │   │   │       └── route-card/            # Route card with stats and Strava link
 │   │   │
 │   │   ├── features/
-│   │   │   ├── home/                      # Hero · Founders · Events · Routes · Community · CTA
+│   │   │   ├── home/                      # Hero · Founders · Events (with lightbox) · Routes · Community · CTA
 │   │   │   ├── fundadors/                 # History · Values bento · Team · CTA
 │   │   │   ├── rutes/                     # Hero · Sticky filters · Responsive grid
-│   │   │   ├── esdeveniments/             # Upcoming (Strava) · Past (Instagram/Sheet)
+│   │   │   ├── esdeveniments/             # Upcoming cards (lightbox on click) · Past photo grid 3/4 col (lightbox on click)
 │   │   │   └── comunitat/                 # Live stats · Recent activities · Gallery · CTA
 │   │   │
 │   │   ├── app.component.ts               # Shell: Navbar + RouterOutlet + Footer + MobileNav
