@@ -41,7 +41,7 @@ export class FundadorsComponent implements OnInit {
       name: 'Teo Arasa',
       role: 'founders.team.teo.role',
       quote: 'founders.team.teo.quote',
-      imageUrl: '../../assets/images/fundadors/Teo.png',
+      imageUrl: 'assets/images/fundadors/Teo.png',
       isFounder: true,
     },
     {
@@ -49,7 +49,7 @@ export class FundadorsComponent implements OnInit {
       name: 'Robert Benet',
       role: 'founders.team.robert.role',
       quote: 'founders.team.robert.quote',
-      imageUrl: '../../assets/images/fundadors/Robert.png',
+      imageUrl: 'assets/images/fundadors/Robert.png',
       isFounder: true,
     },
     {
@@ -57,7 +57,7 @@ export class FundadorsComponent implements OnInit {
       name: 'Jordi Escubedo',
       role: 'founders.team.jordi.role',
       quote: 'founders.team.jordi.quote',
-      imageUrl: '../../assets/images/fundadors/Jordi.png',
+      imageUrl: 'assets/images/fundadors/Jordi.png',
       isFounder: true,
     },
     {
@@ -65,7 +65,7 @@ export class FundadorsComponent implements OnInit {
       name: 'Saber Chelli',
       role: 'founders.team.saber.role',
       quote: 'founders.team.saber.quote',
-      imageUrl: '../../assets/images/fundadors/Saber.png',
+      imageUrl: 'assets/images/fundadors/Saber.png',
       isFounder: true,
     },
   ];
