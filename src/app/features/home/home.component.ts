@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal, HostListener } from '@angular/core';
+import { Component, ElementRef, ViewChild, inject, OnInit, signal, HostListener, AfterViewChecked } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { forkJoin } from 'rxjs';
@@ -19,7 +19,7 @@ import { StravaGroupEvent } from '../../core/models/strava.model';
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, AfterViewChecked {
   protected i18n = inject(I18nService);
   private seo = inject(SeoService);
   private routesService = inject(StravaRoutesService);
@@ -32,14 +32,29 @@ export class HomeComponent implements OnInit {
   memberCount = signal<string>('...');
   selectedEvent = signal<XeicEvent | null>(null);
 
+  @ViewChild('lightboxClose') private lightboxCloseRef?: ElementRef<HTMLButtonElement>;
+  private lastFocusedEl: HTMLElement | null = null;
+  private pendingFocus = false;
+
   openLightbox(event: XeicEvent): void {
+    this.lastFocusedEl = document.activeElement as HTMLElement | null;
     this.selectedEvent.set(event);
     document.body.style.overflow = 'hidden';
+    this.pendingFocus = true;
   }
 
   closeLightbox(): void {
     this.selectedEvent.set(null);
     document.body.style.overflow = '';
+    this.lastFocusedEl?.focus?.();
+    this.lastFocusedEl = null;
+  }
+
+  ngAfterViewChecked(): void {
+    if (this.pendingFocus && this.lightboxCloseRef) {
+      this.lightboxCloseRef.nativeElement.focus();
+      this.pendingFocus = false;
+    }
   }
 
   @HostListener('document:keydown.escape')
