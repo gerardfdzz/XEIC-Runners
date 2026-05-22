@@ -48,6 +48,9 @@ module.exports = async function handler(req, res) {
     }
 
     const raw = await routesRes.json();
+    if (!Array.isArray(raw)) {
+      throw new Error(`Unexpected Strava routes payload: ${JSON.stringify(raw).slice(0, 200)}`);
+    }
 
     const routes = raw
       .filter((r) => !r.private)
