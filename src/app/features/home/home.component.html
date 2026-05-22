@@ -51,13 +51,25 @@
 
     <div class="hero__visual">
       <div class="hero__image-frame">
-        <img
-          src="../../../assets/images/xeicrunners.png"
-          alt="XEIC RUNNERS corrents pels camins de La Sénia"
-          class="hero__image"
-          width="640"
-          height="640"
-        />
+        <picture>
+          <source
+            type="image/webp"
+            srcset="
+              assets/images/xeicrunners-640.webp 640w,
+              assets/images/xeicrunners-1280.webp 1280w
+            "
+            sizes="(min-width: 768px) 50vw, 100vw"
+          />
+          <img
+            src="assets/images/xeicrunners.png"
+            alt="XEIC RUNNERS corrents pels camins de La Sénia"
+            class="hero__image"
+            width="640"
+            height="640"
+            fetchpriority="high"
+            decoding="async"
+          />
+        </picture>
       </div>
       <div class="hero__strava-card">
         <img
@@ -200,13 +212,26 @@
 
     <div class="routes-preview__map">
       <div class="routes-preview__map-frame">
-        <img
-          src="assets/images/galeria/foto-xeic.jpg"
-          alt="La Sénia, Tarragona"
-          class="routes-preview__map-img"
-          width="3024"
-          height="2269"
-        />
+        <picture>
+          <source
+            type="image/webp"
+            srcset="
+              assets/images/galeria/foto-xeic-480.webp 480w,
+              assets/images/galeria/foto-xeic-960.webp 960w,
+              assets/images/galeria/foto-xeic-1440.webp 1440w
+            "
+            sizes="(min-width: 1024px) 50vw, 100vw"
+          />
+          <img
+            src="assets/images/galeria/foto-xeic.jpg"
+            alt="La Sénia, Tarragona"
+            class="routes-preview__map-img"
+            width="3024"
+            height="2269"
+            loading="lazy"
+            decoding="async"
+          />
+        </picture>
         <div class="routes-preview__map-label glass-card">
           <p class="routes-preview__map-location">La Sénia, Tarragona</p>
         </div>
@@ -229,12 +254,24 @@
 
     <div class="community-preview__masonry">
       <div class="community-preview__item">
-        <img
-          src="assets/images/galeria/foto-trail-1.jpg"
-          alt="XEIC Runners comunitat"
-          class="community-preview__photo"
-          loading="lazy"
-        />
+        <picture>
+          <source
+            type="image/webp"
+            srcset="
+              assets/images/galeria/foto-trail-1-480.webp 480w,
+              assets/images/galeria/foto-trail-1-960.webp 960w,
+              assets/images/galeria/foto-trail-1-1440.webp 1440w
+            "
+            sizes="(min-width: 1024px) 25vw, 50vw"
+          />
+          <img
+            src="assets/images/galeria/foto-trail-1.jpg"
+            alt="XEIC Runners comunitat"
+            class="community-preview__photo"
+            loading="lazy"
+            decoding="async"
+          />
+        </picture>
       </div>
       <div
         class="community-preview__item community-preview__item--quote grainy-gradient"
@@ -285,11 +322,26 @@
 </section>
 
 @if (selectedEvent()) {
-  <div class="home-lightbox" (click)="closeLightbox()" role="dialog" aria-modal="true">
-    <button class="home-lightbox__close" (click)="closeLightbox()" aria-label="Tancar">
-      <span class="material-symbols-outlined">close</span>
+  <div
+    class="home-lightbox"
+    (click)="closeLightbox()"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="home-lightbox-title"
+  >
+    <button
+      #lightboxClose
+      class="home-lightbox__close"
+      type="button"
+      (click)="closeLightbox()"
+      [attr.aria-label]="i18n.t('common.close')"
+    >
+      <span class="material-symbols-outlined" aria-hidden="true">close</span>
     </button>
     <div class="home-lightbox__content" (click)="$event.stopPropagation()">
+      <h2 id="home-lightbox-title" class="visually-hidden">
+        {{ selectedEvent()!.title }}
+      </h2>
       <img
         [src]="selectedEvent()!.imageUrl"
         [alt]="selectedEvent()!.title"
