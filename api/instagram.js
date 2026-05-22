@@ -48,10 +48,7 @@ module.exports = async function handler(req, res) {
     }
 
     const data = await igRes.json();
-
-    const topLevelKeys = Object.keys(data ?? {});
     const reelsMap = data?.reels ?? data?.reels_media ?? {};
-    const reelsMapKeys = Object.keys(reelsMap);
 
     let items = [];
     for (const id of HIGHLIGHT_IDS) {
@@ -71,14 +68,11 @@ module.exports = async function handler(req, res) {
     }
     items.sort((a, b) => b.takenAt - a.takenAt);
 
-    return res.status(200).json({
-      items,
-      _debug: {
-        topLevelKeys,
-        reelsMapKeys,
-        highlightFound: reelsMapKeys.some(k => HIGHLIGHT_IDS.some(id => k.includes(id))),
-      },
-    });
+    const payload = { items };
+    _cache = payload;
+    _cacheExpiry = Date.now() + CACHE_TTL;
+
+    return res.status(200).json(payload);
 
   } catch (err) {
     console.error('[api/instagram]', err.message);
