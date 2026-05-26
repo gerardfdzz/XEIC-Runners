@@ -27,7 +27,7 @@ const IG_CACHE_TTL = 30 * 60 * 1000;
 let _igCache = null;
 let _igCacheExpiry = 0;
 
-const ROUTES_CACHE_TTL = 60 * 60 * 1000;
+const ROUTES_CACHE_TTL = 15 * 60 * 1000;
 let _routesCache = null;
 let _routesCacheExpiry = 0;
 
@@ -150,13 +150,16 @@ const server = createServer(async (req, res) => {
       }
 
       const raw = await routesRes.json();
+      if (!Array.isArray(raw)) {
+        throw new Error(`Unexpected Strava routes payload: ${JSON.stringify(raw).slice(0, 200)}`);
+      }
       const routes = raw
         .filter((r) => !r.private)
         .map((r) => ({
           id:            r.id_str,
           name:          r.name,
           description:   r.description || null,
-          distance:      Math.round(r.distance) / 1000,
+          distance:      parseFloat((r.distance / 1000).toFixed(1)),
           elevationGain: Math.round(r.elevation_gain),
           estimatedTime: r.estimated_moving_time,
           type:          mapRouteType(r.type, r.sub_type),
@@ -201,6 +204,9 @@ const server = createServer(async (req, res) => {
       fetch(`${API_BASE}/clubs/${CLUB_ID}/activities?per_page=30`, { headers: auth }),
       fetch(`${API_BASE}/clubs/${CLUB_ID}/group_events`,           { headers: auth }),
     ]);
+
+    if (!clubRes.ok)       throw new Error(`Club API: ${clubRes.status}`);
+    if (!activitiesRes.ok) throw new Error(`Activities API: ${activitiesRes.status}`);
 
     const [club, activities, groupEvents] = await Promise.all([
       clubRes.json(),

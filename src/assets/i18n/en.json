@@ -5,7 +5,13 @@
     "events": "Events",
     "routes": "Routes",
     "community": "Community",
-    "join": "Join us"
+    "join": "Join us",
+    "ariaPrimary": "Primary navigation",
+    "ariaLangToggle": "Change language",
+    "ariaMobileToggle": "Open menu"
+  },
+  "common": {
+    "close": "Close"
   },
   "home": {
     "hero": {

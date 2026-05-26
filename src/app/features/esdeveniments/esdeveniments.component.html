@@ -79,11 +79,26 @@
 </section>
 
 @if (selectedEvent()) {
-  <div class="events-lightbox" (click)="closeLightbox()" role="dialog" aria-modal="true">
-    <button class="events-lightbox__close" (click)="closeLightbox()" aria-label="Tancar">
-      <span class="material-symbols-outlined">close</span>
+  <div
+    class="events-lightbox"
+    (click)="closeLightbox()"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="events-lightbox-title"
+  >
+    <button
+      #lightboxClose
+      class="events-lightbox__close"
+      type="button"
+      (click)="closeLightbox()"
+      [attr.aria-label]="i18n.t('common.close')"
+    >
+      <span class="material-symbols-outlined" aria-hidden="true">close</span>
     </button>
     <div class="events-lightbox__content" (click)="$event.stopPropagation()">
+      <h2 id="events-lightbox-title" class="visually-hidden">
+        {{ selectedEvent()!.title }}
+      </h2>
       <img
         [src]="selectedEvent()!.imageUrl"
         [alt]="selectedEvent()!.title"
@@ -95,7 +110,7 @@
             {{ selectedEvent()!.date | date:'d MMM yyyy' }}
           </span>
           <span class="events-lightbox__location">
-            <span class="material-symbols-outlined">location_on</span>
+            <span class="material-symbols-outlined" aria-hidden="true">location_on</span>
             {{ selectedEvent()!.location }}
           </span>
         </div>

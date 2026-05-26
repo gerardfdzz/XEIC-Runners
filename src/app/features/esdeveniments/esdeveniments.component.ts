@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal, HostListener } from '@angular/core';
+import { Component, ElementRef, ViewChild, inject, OnInit, signal, HostListener, AfterViewChecked } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { forkJoin } from 'rxjs';
 import { I18nService } from '../../core/services/i18n.service';
@@ -21,7 +21,7 @@ const CLUB_IMAGE =
   templateUrl: './esdeveniments.component.html',
   styleUrl: './esdeveniments.component.scss',
 })
-export class EsdevenimentsComponent implements OnInit {
+export class EsdevenimentsComponent implements OnInit, AfterViewChecked {
   protected i18n = inject(I18nService);
   private seo = inject(SeoService);
   private strava = inject(StravaService);
@@ -35,15 +35,30 @@ export class EsdevenimentsComponent implements OnInit {
   selectedEvent = signal<XeicEvent | null>(null);
   showLightboxMeta = false;
 
+  @ViewChild('lightboxClose') private lightboxCloseRef?: ElementRef<HTMLButtonElement>;
+  private lastFocusedEl: HTMLElement | null = null;
+  private pendingFocus = false;
+
   openLightbox(event: XeicEvent, showMeta = false): void {
+    this.lastFocusedEl = document.activeElement as HTMLElement | null;
     this.selectedEvent.set(event);
     this.showLightboxMeta = showMeta;
     document.body.style.overflow = 'hidden';
+    this.pendingFocus = true;
   }
 
   closeLightbox(): void {
     this.selectedEvent.set(null);
     document.body.style.overflow = '';
+    this.lastFocusedEl?.focus?.();
+    this.lastFocusedEl = null;
+  }
+
+  ngAfterViewChecked(): void {
+    if (this.pendingFocus && this.lightboxCloseRef) {
+      this.lightboxCloseRef.nativeElement.focus();
+      this.pendingFocus = false;
+    }
   }
 
   @HostListener('document:keydown.escape')
