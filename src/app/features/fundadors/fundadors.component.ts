@@ -5,6 +5,7 @@ import { I18nService } from '../../core/services/i18n.service';
 import { StravaService } from '../../core/services/strava.service';
 import { SeoService } from '../../core/services/seo.service';
 import { Member } from '../../core/models/member.model';
+import { WHATSAPP_INVITE_URL } from '../../core/config';
 
 @Component({
   selector: 'app-fundadors',
@@ -17,6 +18,8 @@ export class FundadorsComponent implements OnInit {
   protected i18n = inject(I18nService);
   private strava = inject(StravaService);
   private seo = inject(SeoService);
+
+  protected readonly whatsappUrl = WHATSAPP_INVITE_URL;
 
   memberCount = signal<string>('...');
 

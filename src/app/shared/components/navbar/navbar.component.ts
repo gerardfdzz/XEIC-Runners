@@ -2,6 +2,7 @@ import { Component, inject, signal, HostListener, ElementRef } from '@angular/co
 import { CommonModule } from '@angular/common';
 import { RouterModule, RouterLinkActive } from '@angular/router';
 import { I18nService, Language } from '../../../core/services/i18n.service';
+import { WHATSAPP_INVITE_URL } from '../../../core/config';
 
 @Component({
   selector: 'app-navbar',
@@ -13,6 +14,8 @@ import { I18nService, Language } from '../../../core/services/i18n.service';
 export class NavbarComponent {
   protected i18n = inject(I18nService);
   private elRef = inject(ElementRef);
+
+  protected readonly whatsappUrl = WHATSAPP_INVITE_URL;
 
   protected mobileMenuOpen = signal(false);
   protected langMenuOpen = signal(false);
