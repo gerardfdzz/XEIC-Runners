@@ -1,0 +1,71 @@
+@use '../../../../styles/variables' as *;
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.85);
+  padding: 24px;
+
+  &__close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 44px;
+    height: 44px;
+    border-radius: $radius-full;
+    background: rgba(255, 255, 255, 0.12);
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 150ms $ease-out, transform 150ms $ease-out;
+
+    @media (hover: hover) and (pointer: fine) {
+      &:hover { background: rgba(255, 255, 255, 0.22); }
+    }
+
+    &:focus-visible {
+      outline: 2px solid #fff;
+      outline-offset: 2px;
+    }
+
+    &:active { transform: scale(0.95); }
+
+    .material-symbols-outlined { font-size: 24px; }
+  }
+
+  &__content {
+    max-width: min(90vw, 1080px);
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  &__img {
+    max-width: 100%;
+    max-height: 80vh;
+    object-fit: contain;
+    border-radius: $radius-lg;
+    background: #000;
+  }
+
+  &__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    color: #fff;
+    font-family: $font-lexend;
+    font-size: $text-label-lg;
+  }
+
+  &__location {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+}
