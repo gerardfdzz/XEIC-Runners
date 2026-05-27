@@ -22,6 +22,7 @@ export class I18nService {
   });
 
   constructor(private http: HttpClient) {
+    this.applyHtmlLang(this._lang());
     this.loadLanguage(this._lang());
   }
 
@@ -29,7 +30,14 @@ export class I18nService {
     if (!this.SUPPORTED.includes(lang)) return;
     localStorage.setItem(this.STORAGE_KEY, lang);
     this._lang.set(lang);
+    this.applyHtmlLang(lang);
     this.loadLanguage(lang);
+  }
+
+  private applyHtmlLang(lang: Language): void {
+    if (typeof document !== 'undefined') {
+      document.documentElement.lang = lang;
+    }
   }
 
   t(key: string): string {

@@ -1,5 +1,5 @@
 <header class="navbar" [class.navbar--scrolled]="scrolled()">
-  <nav class="navbar__inner">
+  <nav class="navbar__inner" [attr.aria-label]="i18n.t('nav.ariaPrimary')">
     <a routerLink="/" class="navbar__logo">XEIC RUNNERS</a>
 
     <ul class="navbar__links">
@@ -55,13 +55,18 @@
       <div class="navbar__lang">
         <button
           class="navbar__lang-toggle"
+          type="button"
+          [attr.aria-label]="i18n.t('nav.ariaLangToggle')"
+          [attr.aria-expanded]="langMenuOpen()"
+          aria-haspopup="menu"
+          aria-controls="navbar-lang-menu"
           (click)="langMenuOpen.set(!langMenuOpen())"
         >
           {{ i18n.langLabel() }}
-          <span class="material-symbols-outlined">expand_more</span>
+          <span class="material-symbols-outlined" aria-hidden="true">expand_more</span>
         </button>
         @if (langMenuOpen()) {
-          <div class="navbar__lang-menu">
+          <div class="navbar__lang-menu" id="navbar-lang-menu" role="menu">
             @for (lang of langs; track lang.code) {
               <button
                 class="navbar__lang-option"
@@ -86,9 +91,13 @@
 
       <button
         class="navbar__mobile-toggle"
+        type="button"
+        [attr.aria-label]="i18n.t('nav.ariaMobileToggle')"
+        [attr.aria-expanded]="mobileMenuOpen()"
+        aria-controls="navbar-mobile-menu"
         (click)="mobileMenuOpen.set(!mobileMenuOpen())"
       >
-        <span class="material-symbols-outlined">{{
+        <span class="material-symbols-outlined" aria-hidden="true">{{
           mobileMenuOpen() ? "close" : "menu"
         }}</span>
       </button>
@@ -96,7 +105,7 @@
   </nav>
 
   @if (mobileMenuOpen()) {
-    <div class="navbar__mobile-menu">
+    <div class="navbar__mobile-menu" id="navbar-mobile-menu">
       <a
         routerLink="/"
         (click)="mobileMenuOpen.set(false)"

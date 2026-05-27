@@ -11,13 +11,26 @@
     </div>
     <div class="founders-hero__visual">
       <div class="founders-hero__image-bg"></div>
-      <img
-        src="/../../../assets/images/fundadors/fundadors-1.jpg"
-        alt="XEIC Runners a La Sénia"
-        class="founders-hero__image"
-        width="5120"
-        height="3414"
-      />
+      <picture>
+        <source
+          type="image/webp"
+          srcset="
+            assets/images/fundadors/fundadors-1-480.webp 480w,
+            assets/images/fundadors/fundadors-1-960.webp 960w,
+            assets/images/fundadors/fundadors-1-1440.webp 1440w
+          "
+          sizes="(min-width: 768px) 50vw, 100vw"
+        />
+        <img
+          src="assets/images/fundadors/fundadors-1.jpg"
+          alt="XEIC Runners a La Sénia"
+          class="founders-hero__image"
+          width="5120"
+          height="3414"
+          fetchpriority="high"
+          decoding="async"
+        />
+      </picture>
     </div>
   </div>
 </section>
@@ -47,14 +60,26 @@
     <div class="founders-history__gallery">
       <div class="founders-history__col founders-history__col--offset">
         <div class="founders-history__photo-frame">
-          <img
-            src="../../../assets/images/fundadors/fundadors-2.jpg"
-            alt="Running gear"
-            class="founders-history__photo"
-            loading="lazy"
-            width="5120"
-            height="3414"
-          />
+          <picture>
+            <source
+              type="image/webp"
+              srcset="
+                assets/images/fundadors/fundadors-2-480.webp 480w,
+                assets/images/fundadors/fundadors-2-960.webp 960w,
+                assets/images/fundadors/fundadors-2-1440.webp 1440w
+              "
+              sizes="(min-width: 1024px) 33vw, 50vw"
+            />
+            <img
+              src="assets/images/fundadors/fundadors-2.jpg"
+              alt="Running gear"
+              class="founders-history__photo"
+              loading="lazy"
+              decoding="async"
+              width="5120"
+              height="3414"
+            />
+          </picture>
         </div>
         <div class="founders-history__card">
           <span class="material-symbols-outlined founders-history__card-icon"

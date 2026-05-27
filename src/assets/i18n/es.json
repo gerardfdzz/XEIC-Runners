@@ -5,7 +5,10 @@
     "events": "Eventos",
     "routes": "Rutas",
     "community": "Comunidad",
-    "join": "Únete"
+    "join": "Únete",
+    "ariaPrimary": "Navegación principal",
+    "ariaLangToggle": "Cambiar idioma",
+    "ariaMobileToggle": "Abrir menú"
   },
   "common": {
     "close": "Cerrar"

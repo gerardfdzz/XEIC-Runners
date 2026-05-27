@@ -5,7 +5,10 @@
     "events": "Esdeveniments",
     "routes": "Rutes",
     "community": "Comunitat",
-    "join": "Uneix-te"
+    "join": "Uneix-te",
+    "ariaPrimary": "Navegació principal",
+    "ariaLangToggle": "Canviar idioma",
+    "ariaMobileToggle": "Obrir menú"
   },
   "common": {
     "close": "Tancar"
