@@ -65,7 +65,8 @@ export class LightboxComponent implements AfterViewInit, OnDestroy {
 
   @HostListener('document:keydown.tab', ['$event'])
   @HostListener('document:keydown.shift.tab', ['$event'])
-  onTab(event: KeyboardEvent): void {
+  onTab(event: Event): void {
+    if (!(event instanceof KeyboardEvent)) return;
     const dialog = this.dialogRef?.nativeElement;
     if (!dialog) return;
 
