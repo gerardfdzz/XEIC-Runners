@@ -1,0 +1,40 @@
+<div
+  #dialog
+  class="lightbox"
+  role="dialog"
+  aria-modal="true"
+  [attr.aria-labelledby]="labelledBy"
+  (click)="onOverlayClick()"
+>
+  <button
+    #closeBtn
+    class="lightbox__close"
+    type="button"
+    [attr.aria-label]="i18n.t('common.close')"
+    (click)="close()"
+  >
+    <span class="material-symbols-outlined" aria-hidden="true">close</span>
+  </button>
+
+  <div class="lightbox__content" (click)="onContentClick($event)">
+    <h2 [id]="labelledBy" class="visually-hidden">{{ event.title }}</h2>
+
+    <img
+      [src]="event.imageUrl"
+      [alt]="event.title"
+      class="lightbox__img"
+    />
+
+    @if (showMeta) {
+      <div class="lightbox__meta">
+        <span class="lightbox__date">
+          {{ event.date | date:'d MMM yyyy' }}
+        </span>
+        <span class="lightbox__location">
+          <span class="material-symbols-outlined" aria-hidden="true">location_on</span>
+          {{ event.location }}
+        </span>
+      </div>
+    }
+  </div>
+</div>

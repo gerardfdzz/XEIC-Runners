@@ -15,7 +15,7 @@
       <p class="hero__subtitle">{{ i18n.t("home.hero.subtitle") }}</p>
       <div class="hero__actions">
         <a
-          href="https://chat.whatsapp.com/GQj4ET5Bt84IgBLtLKwpwx?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQPOTM2NjE5NzQzMzkyNDU5AAGnkLfEewKCANv5brMZbnOgR5donAQwSYtOzCHXZQGOXv6mbYORq69F0ik71eA_aem_YWdncwBKjk5hjNoEkFPA6kU1K5Xs&brid=YWdncwFIRsqUftDhoI0fTw6tmbFH"
+          [href]="whatsappUrl"
           target="_blank"
           rel="noopener noreferrer"
           class="btn-primary"
@@ -274,7 +274,7 @@
     <h2 class="home-cta__title">{{ i18n.t("home.cta.title") }}</h2>
     <p class="home-cta__subtitle">{{ i18n.t("home.cta.subtitle") }}</p>
     <a
-      href="https://chat.whatsapp.com/GQj4ET5Bt84IgBLtLKwpwx?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQPOTM2NjE5NzQzMzkyNDU5AAGnkLfEewKCANv5brMZbnOgR5donAQwSYtOzCHXZQGOXv6mbYORq69F0ik71eA_aem_YWdncwBKjk5hjNoEkFPA6kU1K5Xs&brid=YWdncwFIRsqUftDhoI0fTw6tmbFH"
+      [href]="whatsappUrl"
       target="_blank"
       rel="noopener noreferrer"
       class="home-cta__btn"
@@ -284,17 +284,10 @@
   </div>
 </section>
 
-@if (selectedEvent()) {
-  <div class="home-lightbox" (click)="closeLightbox()" role="dialog" aria-modal="true">
-    <button class="home-lightbox__close" (click)="closeLightbox()" aria-label="Tancar">
-      <span class="material-symbols-outlined">close</span>
-    </button>
-    <div class="home-lightbox__content" (click)="$event.stopPropagation()">
-      <img
-        [src]="selectedEvent()!.imageUrl"
-        [alt]="selectedEvent()!.title"
-        class="home-lightbox__img"
-      />
-    </div>
-  </div>
+@if (selectedEvent(); as ev) {
+  <app-lightbox
+    [event]="ev"
+    labelledBy="home-lightbox-title"
+    (closed)="closeLightbox()"
+  />
 }

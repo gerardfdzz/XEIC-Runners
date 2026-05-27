@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal, HostListener } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { forkJoin } from 'rxjs';
 import { I18nService } from '../../core/services/i18n.service';
@@ -6,18 +6,17 @@ import { SeoService } from '../../core/services/seo.service';
 import { StravaService } from '../../core/services/strava.service';
 import { InstagramService } from '../../core/services/instagram.service';
 import { EventsSheetService } from '../../core/services/events-sheet.service';
+import { EventMergeService } from '../../core/services/event-merge.service';
 import { EventCardComponent } from '../../shared/components/event-card/event-card.component';
-import { XeicEvent, EventType } from '../../core/models/event.model';
-import { StravaGroupEvent } from '../../core/models/strava.model';
+import { LightboxComponent } from '../../shared/components/lightbox/lightbox.component';
+import { WHATSAPP_INVITE_URL } from '../../core/config';
+import { XeicEvent } from '../../core/models/event.model';
 import { InstagramItem } from '../../core/models/instagram.model';
-
-const CLUB_IMAGE =
-  'https://www.xeicrunners.com/assets/images/galeria/foto-xeic.jpg';
 
 @Component({
   selector: 'app-esdeveniments',
   standalone: true,
-  imports: [CommonModule, DatePipe, EventCardComponent],
+  imports: [CommonModule, DatePipe, EventCardComponent, LightboxComponent],
   templateUrl: './esdeveniments.component.html',
   styleUrl: './esdeveniments.component.scss',
 })
@@ -27,6 +26,9 @@ export class EsdevenimentsComponent implements OnInit {
   private strava = inject(StravaService);
   private instagram = inject(InstagramService);
   private sheet = inject(EventsSheetService);
+  private eventMerge = inject(EventMergeService);
+
+  protected readonly whatsappUrl = WHATSAPP_INVITE_URL;
 
   upcoming: XeicEvent[] = [];
   past: XeicEvent[] = [];
@@ -46,11 +48,6 @@ export class EsdevenimentsComponent implements OnInit {
     document.body.style.overflow = '';
   }
 
-  @HostListener('document:keydown.escape')
-  onEscape(): void {
-    if (this.selectedEvent()) this.closeLightbox();
-  }
-
   private readonly localeMap: Record<string, string> = {
     ca: 'ca-ES', es: 'es-ES', en: 'en-US',
   };
@@ -60,13 +57,6 @@ export class EsdevenimentsComponent implements OnInit {
     const date = new Date(year, month, 1);
     const m = date.toLocaleDateString(locale, { month: 'long' });
     return `${m.charAt(0).toUpperCase()}${m.slice(1)} ${year}`;
-  }
-
-  private isStrictlyBeforeToday(date: Date): boolean {
-    const pad = (n: number) => String(n).padStart(2, '0');
-    const toStr = (d: Date) =>
-      `${d.getFullYear()}${pad(d.getMonth() + 1)}${pad(d.getDate())}`;
-    return toStr(date) < toStr(new Date());
   }
 
   ngOnInit(): void {
@@ -84,88 +74,25 @@ export class EsdevenimentsComponent implements OnInit {
     }).subscribe(({ groupEvents, igItems, sheetEvents }) => {
       this.loading = false;
 
-      if (groupEvents.length > 0) {
-        this.upcoming = groupEvents
-          .filter(
-            (e) =>
-              e.upcoming_occurrences?.length > 0 &&
-              !this.isStrictlyBeforeToday(
-                new Date(e.upcoming_occurrences[0]),
-              ),
-          )
-          .sort(
-            (a, b) =>
-              new Date(a.upcoming_occurrences[0]).getTime() -
-              new Date(b.upcoming_occurrences[0]).getTime(),
-          )
-          .map((e) => this.stravaToXeicEvent(e, sheetEvents));
-      } else {
-        this.upcoming = sheetEvents
-          .filter((e) => !this.isStrictlyBeforeToday(e.date))
-          .sort((a, b) => a.date.getTime() - b.date.getTime());
-      }
+      this.upcoming = this.eventMerge.mergeUpcomingEvents(
+        groupEvents,
+        sheetEvents,
+      );
 
       const igPast = igItems
         .map((item) => this.instagramToXeicEvent(item))
-        .filter((e) => this.isStrictlyBeforeToday(e.date));
+        .filter((e) => this.eventMerge.isStrictlyBeforeToday(e.date));
 
       if (igPast.length > 0) {
         this.past = igPast.sort((a, b) => b.date.getTime() - a.date.getTime());
       } else {
         this.past = sheetEvents
-          .filter((e) => this.isStrictlyBeforeToday(e.date))
+          .filter((e) => this.eventMerge.isStrictlyBeforeToday(e.date))
           .sort((a, b) => b.date.getTime() - a.date.getTime());
       }
 
       this.pastByMonth = this.groupByMonth(this.past);
     });
-  }
-
-  private stravaToXeicEvent(
-    e: StravaGroupEvent,
-    sheetEvents: XeicEvent[],
-  ): XeicEvent {
-    const date = new Date(e.upcoming_occurrences[0]);
-    const typeMap: Record<string, EventType> = {
-      Run: 'training',
-      TrailRun: 'race',
-      Walk: 'social',
-      Hike: 'social',
-      Ride: 'training',
-    };
-
-    const sheetMatch = sheetEvents.find(
-      (s) => s.title.trim().toLowerCase() === e.title.trim().toLowerCase(),
-    );
-
-    return {
-      id: `strava-${e.id}`,
-      title: e.title,
-      date,
-      time: date.toTimeString().slice(0, 5),
-      location: e.address || 'La Sénia',
-      type: typeMap[e.activity_type] ?? 'social',
-      difficulty: 'Iniciació',
-      tags: sheetMatch?.tags?.length
-        ? sheetMatch.tags
-        : [this.mapActivityTag(e.activity_type, e.title)],
-      imageUrl: sheetMatch?.imageUrl ?? CLUB_IMAGE,
-      description: sheetMatch?.description ?? e.description ?? undefined,
-    };
-  }
-
-  private mapActivityTag(activityType: string, title: string): string {
-    const t = title.toLowerCase();
-    if (t.includes('trail')) return 'Trail';
-    if (t.includes('senderisme') || t.includes('hike')) return 'Senderisme';
-    if (t.includes('caminada') || t.includes('walk')) return 'Caminada';
-
-    const map: Record<string, string> = {
-      Run: 'Cursa',
-      Walk: 'Caminada',
-      Hike: 'Senderisme',
-    };
-    return map[activityType] ?? activityType ?? 'Social';
   }
 
   private groupByMonth(events: XeicEvent[]): { year: number; month: number; events: XeicEvent[] }[] {
@@ -189,7 +116,7 @@ export class EsdevenimentsComponent implements OnInit {
       date,
       time: date.toTimeString().slice(0, 5),
       location: 'La Sénia',
-      type: 'training' as EventType,
+      type: 'training',
       difficulty: 'Iniciació',
       tags: ['Sortida'],
       imageUrl: item.imageUrl,

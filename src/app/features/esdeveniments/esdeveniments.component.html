@@ -78,30 +78,13 @@
   </div>
 </section>
 
-@if (selectedEvent()) {
-  <div class="events-lightbox" (click)="closeLightbox()" role="dialog" aria-modal="true">
-    <button class="events-lightbox__close" (click)="closeLightbox()" aria-label="Tancar">
-      <span class="material-symbols-outlined">close</span>
-    </button>
-    <div class="events-lightbox__content" (click)="$event.stopPropagation()">
-      <img
-        [src]="selectedEvent()!.imageUrl"
-        [alt]="selectedEvent()!.title"
-        class="events-lightbox__img"
-      />
-      @if (showLightboxMeta) {
-        <div class="events-lightbox__meta">
-          <span class="events-lightbox__date">
-            {{ selectedEvent()!.date | date:'d MMM yyyy' }}
-          </span>
-          <span class="events-lightbox__location">
-            <span class="material-symbols-outlined">location_on</span>
-            {{ selectedEvent()!.location }}
-          </span>
-        </div>
-      }
-    </div>
-  </div>
+@if (selectedEvent(); as ev) {
+  <app-lightbox
+    [event]="ev"
+    [showMeta]="showLightboxMeta"
+    labelledBy="events-lightbox-title"
+    (closed)="closeLightbox()"
+  />
 }
 
 <section class="events-cta grainy-gradient">
@@ -109,7 +92,7 @@
     <h2 class="events-cta__title">{{ i18n.t("events.ctaTitle") }}</h2>
     <p class="events-cta__subtitle">{{ i18n.t("events.ctaSubtitle") }}</p>
     <a
-      href="https://chat.whatsapp.com/GQj4ET5Bt84IgBLtLKwpwx?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQPOTM2NjE5NzQzMzkyNDU5AAGnkLfEewKCANv5brMZbnOgR5donAQwSYtOzCHXZQGOXv6mbYORq69F0ik71eA_aem_YWdncwBKjk5hjNoEkFPA6kU1K5Xs&brid=YWdncwFIRsqUftDhoI0fTw6tmbFH"
+      [href]="whatsappUrl"
       target="_blank"
       rel="noopener noreferrer"
       class="events-cta__btn"
