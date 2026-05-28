@@ -13,6 +13,16 @@
   "common": {
     "close": "Tancar"
   },
+  "notifications": {
+    "region": "Notificacions"
+  },
+  "errors": {
+    "generic": "Hi ha hagut un problema. Torna-ho a provar d'aquí una estona.",
+    "strava": "No hem pogut connectar amb Strava ara mateix.",
+    "routes": "No s'han pogut carregar les rutes de Strava.",
+    "instagram": "No s'han pogut carregar les fotos d'Instagram.",
+    "sheet": "No s'ha pogut carregar el calendari d'esdeveniments."
+  },
   "home": {
     "hero": {
       "badge": "Social Run Club · La Sénia",

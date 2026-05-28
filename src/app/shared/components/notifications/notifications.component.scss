@@ -1,0 +1,59 @@
+@use '../../../../styles/variables' as *;
+
+.notifications {
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  z-index: 900;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: min(420px, calc(100vw - 32px));
+  pointer-events: none;
+
+  &__item {
+    pointer-events: auto;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 14px;
+    border-radius: $radius-md;
+    color: #fff;
+    background: $on-surface;
+    box-shadow: $shadow-lg;
+    font-family: $font-lexend;
+    font-size: $text-label-lg;
+    line-height: $lh-label;
+
+    &--info { background: $on-surface; }
+    &--success { background: #2e7d32; }
+    &--warning { background: #b26a00; }
+    &--error { background: $error; }
+  }
+
+  &__message {
+    flex: 1;
+  }
+
+  &__close {
+    background: transparent;
+    border: none;
+    color: inherit;
+    width: 24px;
+    height: 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: $radius-full;
+    cursor: pointer;
+    opacity: 0.85;
+
+    &:hover,
+    &:focus-visible {
+      opacity: 1;
+      outline: none;
+    }
+
+    .material-symbols-outlined { font-size: 18px; }
+  }
+}
