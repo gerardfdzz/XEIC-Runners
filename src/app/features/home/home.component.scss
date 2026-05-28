@@ -384,7 +384,10 @@
 
   &__item-arrow {
     font-size: 20px;
-    color: $outline;
+    /* Bumped from $outline (#897362, ~4.5:1 borderline) to
+       $on-surface-variant (#564334, ~7.5:1) so the icon glyph passes the
+       WCAG 1.4.3 contrast threshold over the white card background. */
+    color: $on-surface-variant;
     transition: color 150ms $ease-out;
   }
 

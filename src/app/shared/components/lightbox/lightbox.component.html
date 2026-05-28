@@ -1,3 +1,5 @@
+
+<!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events,@angular-eslint/template/interactive-supports-focus -->
 <div
   #dialog
   class="lightbox"
@@ -16,6 +18,7 @@
     <span class="material-symbols-outlined" aria-hidden="true">close</span>
   </button>
 
+  <!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events,@angular-eslint/template/interactive-supports-focus -->
   <div class="lightbox__content" (click)="onContentClick($event)">
     <h2 [id]="labelledBy" class="visually-hidden">{{ event.title }}</h2>
 

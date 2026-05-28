@@ -1,212 +1,78 @@
+// Local dev server that emulates /api/* on http://localhost:3000.
+// Mirrors the production serverless handlers by importing the same helpers
+// from api/_lib/. Caching policy and validation logic are kept in sync.
+
 import { createServer } from 'node:http';
 import { readFileSync, existsSync } from 'node:fs';
 import { resolve } from 'node:path';
+import {
+  CLUB_ID,
+  STRAVA_API_BASE,
+  getAccessToken,
+  mapStravaRouteType,
+} from '../api/_lib/strava.mjs';
+import {
+  IG_API_URL,
+  buildInstagramHeaders,
+  extractHighlightItems,
+  isInstagramEnabled,
+} from '../api/_lib/instagram.mjs';
 
+// Tiny .env loader; we don't pull dotenv to avoid a runtime dep for dev only.
 const envPath = resolve(process.cwd(), '.env');
 if (existsSync(envPath)) {
-  readFileSync(envPath, 'utf-8').split('\n').forEach((line) => {
-    const [key, ...rest] = line.split('=');
-    if (key && !key.startsWith('#') && rest.length) {
-      process.env[key.trim()] = rest.join('=').trim();
-    }
-  });
+  readFileSync(envPath, 'utf-8')
+    .split('\n')
+    .forEach((line) => {
+      const [key, ...rest] = line.split('=');
+      if (key && !key.startsWith('#') && rest.length) {
+        process.env[key.trim()] = rest.join('=').trim();
+      }
+    });
 }
 
 const PORT = 3000;
-const CLUB_ID = 1576309;
-const TOKEN_URL = 'https://www.strava.com/oauth/token';
-const API_BASE = 'https://www.strava.com/api/v3';
+const STRAVA_TTL = 5 * 60 * 1000;
+const ROUTES_TTL = 15 * 60 * 1000;
+const IG_TTL = 30 * 60 * 1000;
 
-let _cache = null;
-let _cacheExpiry = 0;
-const CACHE_TTL = 5 * 60 * 1000;
+let _strava = { data: null, expiry: 0 };
+let _routes = { data: null, expiry: 0 };
+let _ig = { data: null, expiry: 0 };
 
-const HIGHLIGHT_IDS = ['18071980868164936'];
-const IG_API = `https://i.instagram.com/api/v1/feed/reels_media/?${HIGHLIGHT_IDS.map(id => `reel_ids=highlight:${id}`).join('&')}`;
-const IG_CACHE_TTL = 30 * 60 * 1000;
-let _igCache = null;
-let _igCacheExpiry = 0;
+const HEADERS = {
+  'Content-Type': 'application/json',
+  'Access-Control-Allow-Origin': '*',
+};
 
-const ROUTES_CACHE_TTL = 15 * 60 * 1000;
-let _routesCache = null;
-let _routesCacheExpiry = 0;
+const sendJson = (res, status, body) => {
+  res.writeHead(status, HEADERS);
+  res.end(JSON.stringify(body));
+};
 
-async function getAccessToken() {
-  const res = await fetch(TOKEN_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      client_id:     process.env.STRAVA_CLIENT_ID,
-      client_secret: process.env.STRAVA_CLIENT_SECRET,
-      refresh_token: process.env.STRAVA_REFRESH_TOKEN,
-      grant_type:    'refresh_token',
-    }),
-  });
-  const data = await res.json();
-  if (!data.access_token) throw new Error(`Token refresh failed: ${JSON.stringify(data)}`);
-  return data.access_token;
-}
-
-const server = createServer(async (req, res) => {
-  const HEADERS = {
-    'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*',
-  };
-
-  if (req.method === 'OPTIONS') {
-    res.writeHead(204, HEADERS);
-    res.end();
-    return;
-  }
-
-  if (req.url.startsWith('/api/instagram')) {
-    try {
-      if (_igCache && Date.now() < _igCacheExpiry) {
-        res.writeHead(200, HEADERS);
-        res.end(JSON.stringify(_igCache));
-        return;
-      }
-
-      const rawSession = process.env.INSTAGRAM_SESSION_ID;
-      if (!rawSession || rawSession.includes('your_')) {
-        throw new Error('Falta INSTAGRAM_SESSION_ID al .env');
-      }
-      const sessionId = decodeURIComponent(rawSession);
-
-      console.log('📸  Fetching Instagram highlights...');
-      const igRes = await fetch(IG_API, {
-        headers: {
-          'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1',
-          'Cookie': `sessionid=${sessionId}`,
-          'X-IG-App-ID': '936619743392459',
-          'Accept': '*/*',
-          'Accept-Language': 'ca-ES,ca;q=0.9,en;q=0.8',
-          'Accept-Encoding': 'gzip, deflate, br',
-          'Origin': 'https://www.instagram.com',
-          'Referer': 'https://www.instagram.com/',
-          'Sec-Fetch-Mode': 'cors',
-          'Sec-Fetch-Site': 'same-site',
-          'Sec-Fetch-Dest': 'empty',
-          'X-Requested-With': 'XMLHttpRequest',
-        },
-      });
-
-      if (!igRes.ok) {
-        const body = await igRes.text();
-        throw new Error(`Instagram HTTP ${igRes.status}: ${body.slice(0, 300)}`);
-      }
-
-      const data = await igRes.json();
-
-      let items = [];
-      for (const id of HIGHLIGHT_IDS) {
-        const reel = data?.reels?.[`highlight:${id}`];
-        if (!reel) continue;
-        const reelItems = (reel.items ?? [])
-          .map((item) => {
-            const candidates = item.image_versions2?.candidates ?? [];
-            const best = candidates.reduce((a, b) => (b.width > a.width ? b : a), candidates[0] ?? {});
-            return { id: item.id, imageUrl: best.url ?? null, takenAt: item.taken_at };
-          })
-          .filter((i) => i.imageUrl);
-        items = items.concat(reelItems);
-      }
-      items.sort((a, b) => b.takenAt - a.takenAt);
-
-      _igCache       = { items };
-      _igCacheExpiry = Date.now() + IG_CACHE_TTL;
-      console.log(`✅  Instagram: ${items.length} highlights`);
-
-      res.writeHead(200, HEADERS);
-      res.end(JSON.stringify(_igCache));
-    } catch (err) {
-      console.error('❌  Instagram:', err.message);
-      res.writeHead(500, HEADERS);
-      res.end(JSON.stringify({ error: err.message, items: [] }));
-    }
-    return;
-  }
-
-  if (req.url.startsWith('/api/routes')) {
-    try {
-      if (_routesCache && Date.now() < _routesCacheExpiry) {
-        res.writeHead(200, HEADERS);
-        res.end(JSON.stringify(_routesCache));
-        return;
-      }
-
-      const athleteId = process.env.STRAVA_ATHLETE_ID;
-      if (!athleteId) throw new Error('Falta STRAVA_ATHLETE_ID al .env');
-
-      console.log('🗺️  Fetching Strava routes...');
-      const accessToken = await getAccessToken();
-      const routesRes = await fetch(`${API_BASE}/athletes/${athleteId}/routes?per_page=50`, {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      });
-
-      if (!routesRes.ok) {
-        const body = await routesRes.text();
-        throw new Error(`Strava routes HTTP ${routesRes.status}: ${body.slice(0, 200)}`);
-      }
-
-      const raw = await routesRes.json();
-      if (!Array.isArray(raw)) {
-        throw new Error(`Unexpected Strava routes payload: ${JSON.stringify(raw).slice(0, 200)}`);
-      }
-      const routes = raw
-        .filter((r) => !r.private)
-        .map((r) => ({
-          id:            r.id_str,
-          name:          r.name,
-          description:   r.description || null,
-          distance:      parseFloat((r.distance / 1000).toFixed(1)),
-          elevationGain: Math.round(r.elevation_gain),
-          estimatedTime: r.estimated_moving_time,
-          type:          mapRouteType(r.type, r.sub_type),
-          mapImageUrl:   r.map_urls?.url ?? null,
-          stravaUrl:     `https://www.strava.com/routes/${r.id_str}`,
-        }));
-
-      _routesCache       = { routes };
-      _routesCacheExpiry = Date.now() + ROUTES_CACHE_TTL;
-      console.log(`✅  Routes: ${routes.length} rutes`);
-
-      res.writeHead(200, HEADERS);
-      res.end(JSON.stringify(_routesCache));
-    } catch (err) {
-      console.error('❌  Routes:', err.message);
-      res.writeHead(500, HEADERS);
-      res.end(JSON.stringify({ error: err.message, routes: [] }));
-    }
-    return;
-  }
-
-  if (!req.url.startsWith('/api/strava')) {
-    res.writeHead(404, HEADERS);
-    res.end(JSON.stringify({ error: 'Not found' }));
-    return;
-  }
-
+async function handleStrava(res) {
   try {
-    if (_cache && Date.now() < _cacheExpiry) {
-      res.writeHead(200, HEADERS);
-      res.end(JSON.stringify(_cache));
-      return;
+    if (_strava.data && Date.now() < _strava.expiry) {
+      return sendJson(res, 200, _strava.data);
     }
-
     console.log('🔄  Refreshing Strava token...');
     const accessToken = await getAccessToken();
     const auth = { Authorization: `Bearer ${accessToken}` };
 
     console.log('📡  Fetching club + activities + group events...');
     const [clubRes, activitiesRes, groupEventsRes] = await Promise.all([
-      fetch(`${API_BASE}/clubs/${CLUB_ID}`,                        { headers: auth }),
-      fetch(`${API_BASE}/clubs/${CLUB_ID}/activities?per_page=30`, { headers: auth }),
-      fetch(`${API_BASE}/clubs/${CLUB_ID}/group_events`,           { headers: auth }),
+      fetch(`${STRAVA_API_BASE}/clubs/${CLUB_ID}`, { headers: auth }),
+      fetch(`${STRAVA_API_BASE}/clubs/${CLUB_ID}/activities?per_page=30`, {
+        headers: auth,
+      }),
+      fetch(`${STRAVA_API_BASE}/clubs/${CLUB_ID}/group_events`, {
+        headers: auth,
+      }),
     ]);
 
-    if (!clubRes.ok)       throw new Error(`Club API: ${clubRes.status}`);
-    if (!activitiesRes.ok) throw new Error(`Activities API: ${activitiesRes.status}`);
+    if (!clubRes.ok) throw new Error(`Club API: ${clubRes.status}`);
+    if (!activitiesRes.ok)
+      throw new Error(`Activities API: ${activitiesRes.status}`);
 
     const [club, activities, groupEvents] = await Promise.all([
       clubRes.json(),
@@ -214,40 +80,142 @@ const server = createServer(async (req, res) => {
       groupEventsRes.ok ? groupEventsRes.json() : Promise.resolve([]),
     ]);
 
-    _cache = {
-      club,
-      activities,
-      groupEvents: Array.isArray(groupEvents) ? groupEvents : [],
+    _strava = {
+      data: {
+        club,
+        activities,
+        groupEvents: Array.isArray(groupEvents) ? groupEvents : [],
+      },
+      expiry: Date.now() + STRAVA_TTL,
     };
-    _cacheExpiry = Date.now() + CACHE_TTL;
-
-    console.log(`✅  Club: ${club.name} · ${club.member_count} membres · ${activities.length} activitats · ${_cache.groupEvents.length} events`);
-
-    res.writeHead(200, HEADERS);
-    res.end(JSON.stringify(_cache));
+    console.log(
+      `✅  Club: ${club.name} · ${club.member_count} membres · ${activities.length} activitats · ${_strava.data.groupEvents.length} events`,
+    );
+    sendJson(res, 200, _strava.data);
   } catch (err) {
     console.error('❌ ', err.message);
-    res.writeHead(500, HEADERS);
-    res.end(JSON.stringify({ error: err.message }));
+    sendJson(res, 500, { error: err.message });
   }
-});
-
-function mapRouteType(type, subType) {
-  if (subType === 4) return 'mountain';
-  if (type === 2 && subType === 1) return 'road';
-  if (type === 5) return 'mountain';
-  if (type === 3) return 'mixed';
-  return 'mixed';
 }
+
+async function handleRoutes(res) {
+  try {
+    if (_routes.data && Date.now() < _routes.expiry) {
+      return sendJson(res, 200, _routes.data);
+    }
+    const athleteId = process.env.STRAVA_ATHLETE_ID;
+    if (!athleteId) throw new Error('Falta STRAVA_ATHLETE_ID al .env');
+
+    console.log('🗺️  Fetching Strava routes...');
+    const accessToken = await getAccessToken();
+    const routesRes = await fetch(
+      `${STRAVA_API_BASE}/athletes/${athleteId}/routes?per_page=50`,
+      { headers: { Authorization: `Bearer ${accessToken}` } },
+    );
+
+    if (!routesRes.ok) {
+      const body = await routesRes.text();
+      throw new Error(
+        `Strava routes HTTP ${routesRes.status}: ${body.slice(0, 200)}`,
+      );
+    }
+    const raw = await routesRes.json();
+    if (!Array.isArray(raw)) {
+      throw new Error(
+        `Unexpected Strava routes payload: ${JSON.stringify(raw).slice(0, 200)}`,
+      );
+    }
+    const routes = raw
+      .filter((r) => !r.private)
+      .map((r) => ({
+        id: r.id_str,
+        name: r.name,
+        description: r.description || null,
+        distance: parseFloat((r.distance / 1000).toFixed(1)),
+        elevationGain: Math.round(r.elevation_gain),
+        estimatedTime: r.estimated_moving_time,
+        type: mapStravaRouteType(r.type, r.sub_type),
+        mapImageUrl: r.map_urls?.url ?? null,
+        stravaUrl: `https://www.strava.com/routes/${r.id_str}`,
+      }));
+
+    _routes = { data: { routes }, expiry: Date.now() + ROUTES_TTL };
+    console.log(`✅  Routes: ${routes.length} rutes`);
+    sendJson(res, 200, _routes.data);
+  } catch (err) {
+    console.error('❌  Routes:', err.message);
+    sendJson(res, 500, { error: err.message, routes: [] });
+  }
+}
+
+async function handleInstagram(res) {
+  // Feature flag mirrors api/instagram.mjs behaviour so disabling IG via
+  // INSTAGRAM_ENABLED=false works locally too.
+  if (!isInstagramEnabled()) {
+    return sendJson(res, 200, { items: [], disabled: true });
+  }
+  try {
+    if (_ig.data && Date.now() < _ig.expiry) {
+      return sendJson(res, 200, _ig.data);
+    }
+    const rawSession = process.env.INSTAGRAM_SESSION_ID;
+    if (!rawSession || rawSession.includes('your_')) {
+      throw new Error('Falta INSTAGRAM_SESSION_ID al .env');
+    }
+    const sessionId = decodeURIComponent(rawSession);
+
+    console.log('📸  Fetching Instagram highlights...');
+    const igRes = await fetch(IG_API_URL, {
+      headers: buildInstagramHeaders(sessionId),
+    });
+    if (!igRes.ok) {
+      const body = await igRes.text();
+      throw new Error(
+        `Instagram HTTP ${igRes.status}: ${body.slice(0, 300)}`,
+      );
+    }
+    const data = await igRes.json();
+    const items = extractHighlightItems(data);
+
+    _ig = { data: { items }, expiry: Date.now() + IG_TTL };
+    console.log(`✅  Instagram: ${items.length} highlights`);
+    sendJson(res, 200, _ig.data);
+  } catch (err) {
+    console.error('❌  Instagram:', err.message);
+    sendJson(res, 500, { error: err.message, items: [] });
+  }
+}
+
+const server = createServer(async (req, res) => {
+  if (req.method === 'OPTIONS') {
+    res.writeHead(204, HEADERS);
+    res.end();
+    return;
+  }
+
+  if (req.url.startsWith('/api/strava')) return handleStrava(res);
+  if (req.url.startsWith('/api/routes')) return handleRoutes(res);
+  if (req.url.startsWith('/api/instagram')) return handleInstagram(res);
+
+  sendJson(res, 404, { error: 'Not found' });
+});
 
 server.listen(PORT, () => {
   console.log(`\n🚀  Dev API running at:`);
   console.log(`     http://localhost:${PORT}/api/strava`);
   console.log(`     http://localhost:${PORT}/api/instagram`);
   console.log(`     http://localhost:${PORT}/api/routes\n`);
-  const missing = ['STRAVA_CLIENT_ID', 'STRAVA_CLIENT_SECRET', 'STRAVA_REFRESH_TOKEN', 'STRAVA_ATHLETE_ID', 'INSTAGRAM_SESSION_ID']
-    .filter((k) => !process.env[k] || process.env[k].includes('your_'));
+  const missing = [
+    'STRAVA_CLIENT_ID',
+    'STRAVA_CLIENT_SECRET',
+    'STRAVA_REFRESH_TOKEN',
+    'STRAVA_ATHLETE_ID',
+    'INSTAGRAM_SESSION_ID',
+  ].filter((k) => !process.env[k] || process.env[k].includes('your_'));
   if (missing.length) {
     console.warn(`⚠️   Falten variables al .env: ${missing.join(', ')}\n`);
+  }
+  if (!isInstagramEnabled()) {
+    console.warn('ℹ️   INSTAGRAM_ENABLED=false — IG endpoint serves an empty list.\n');
   }
 });
