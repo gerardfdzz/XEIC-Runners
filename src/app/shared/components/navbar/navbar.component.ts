@@ -47,7 +47,7 @@ export class NavbarComponent {
   }
 
   protected setLang(lang: Language): void {
-    this.i18n.setLanguage(lang);
+    this.i18n.setLanguage(lang).subscribe();
     this.langMenuOpen.set(false);
   }
 }
