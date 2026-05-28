@@ -1,37 +1,35 @@
 <section class="events-hero">
   <div class="events-hero__blob"></div>
   <div class="events-hero__inner">
-    <span class="events-hero__badge">{{ i18n.t("events.badge") }}</span>
-    <h1 class="events-hero__title">{{ i18n.t("events.title") }}</h1>
-    <p class="events-hero__subtitle">{{ i18n.t("events.subtitle") }}</p>
+    <span class="events-hero__badge">{{ i18n.t('events.badge') }}</span>
+    <h1 class="events-hero__title">{{ i18n.t('events.title') }}</h1>
+    <p class="events-hero__subtitle">{{ i18n.t('events.subtitle') }}</p>
   </div>
 </section>
 
 <section class="events-list">
   <div class="events-list__inner">
     <h2 class="events-list__section-title">
-      <span class="material-symbols-outlined events-list__section-icon"
-        >upcoming</span
-      >
-      {{ i18n.t("events.upcoming") }}
+      <span class="material-symbols-outlined events-list__section-icon">upcoming</span>
+      {{ i18n.t('events.upcoming') }}
     </h2>
 
     @if (loading) {
       <div class="events-list__loading">
         <span class="material-symbols-outlined">sync</span>
-        {{ i18n.t("events.loading") }}
+        {{ i18n.t('events.loading') }}
       </div>
     } @else if (upcoming.length === 0) {
       <div class="events-list__empty">
         <span class="material-symbols-outlined">event_busy</span>
-        <p>{{ i18n.t("events.noEvents") }}</p>
+        <p>{{ i18n.t('events.noEvents') }}</p>
         <a
           href="https://www.strava.com/clubs/1576309"
           target="_blank"
           rel="noopener noreferrer"
           class="events-list__empty-link"
         >
-          {{ i18n.t("events.viewClub") }}
+          {{ i18n.t('events.viewClub') }}
           <span class="material-symbols-outlined">open_in_new</span>
         </a>
       </div>
@@ -45,14 +43,11 @@
 
     @if (pastByMonth.length > 0) {
       <h2 class="events-list__section-title events-list__section-title--past">
-        <span
-          class="material-symbols-outlined events-list__section-icon events-list__section-icon--past"
-          >history</span
-        >
-        {{ i18n.t("events.past") }}
+        <span class="material-symbols-outlined events-list__section-icon events-list__section-icon--past">history</span>
+        {{ i18n.t('events.past') }}
       </h2>
 
-      @for (group of pastByMonth; track group.year + "-" + group.month) {
+      @for (group of pastByMonth; track group.year + '-' + group.month) {
         <h3 class="events-list__month-title">
           {{ monthGroupLabel(group.year, group.month) }}
         </h3>
@@ -64,12 +59,7 @@
               (click)="openLightbox(event, false)"
               [attr.aria-label]="event.title"
             >
-              <img
-                [src]="event.imageUrl"
-                [alt]="event.title"
-                class="events-photo-grid__img"
-                loading="lazy"
-              />
+              <img [src]="event.imageUrl" [alt]="event.title" class="events-photo-grid__img" loading="lazy" />
             </button>
           }
         </div>
@@ -89,15 +79,10 @@
 
 <section class="events-cta grainy-gradient">
   <div class="events-cta__inner">
-    <h2 class="events-cta__title">{{ i18n.t("events.ctaTitle") }}</h2>
-    <p class="events-cta__subtitle">{{ i18n.t("events.ctaSubtitle") }}</p>
-    <a
-      [href]="whatsappUrl"
-      target="_blank"
-      rel="noopener noreferrer"
-      class="events-cta__btn"
-    >
-      {{ i18n.t("events.ctaButton") }}
+    <h2 class="events-cta__title">{{ i18n.t('events.ctaTitle') }}</h2>
+    <p class="events-cta__subtitle">{{ i18n.t('events.ctaSubtitle') }}</p>
+    <a [href]="whatsappUrl" target="_blank" rel="noopener noreferrer" class="events-cta__btn">
+      {{ i18n.t('events.ctaButton') }}
     </a>
   </div>
 </section>

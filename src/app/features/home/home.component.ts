@@ -75,10 +75,7 @@ export class HomeComponent implements OnInit {
       groupEvents: this.strava.getGroupEvents(),
       sheetEvents: this.sheet.getEvents(),
     }).subscribe(({ groupEvents, sheetEvents }) => {
-      const upcoming = this.eventMerge.mergeUpcomingEvents(
-        groupEvents,
-        sheetEvents,
-      );
+      const upcoming = this.eventMerge.mergeUpcomingEvents(groupEvents, sheetEvents);
       this.upcomingEvents.set(upcoming.slice(0, 3));
     });
   }

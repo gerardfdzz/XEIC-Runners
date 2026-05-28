@@ -12,10 +12,7 @@ export class StravaRoutesService {
       map((res) => res.routes ?? []),
       shareReplay(1),
       catchError((err) => {
-        console.warn(
-          '[StravaRoutesService] Error carregant rutes:',
-          err.message,
-        );
+        console.warn('[StravaRoutesService] Error carregant rutes:', err.message);
         return of<XeicRoute[]>([]);
       }),
     );

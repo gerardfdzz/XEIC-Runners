@@ -1,16 +1,34 @@
 @use 'variables' as *;
 
-@mixin sm { @media (min-width: #{$bp-sm}) { @content; } }
-@mixin md { @media (min-width: #{$bp-md}) { @content; } }
-@mixin lg { @media (min-width: #{$bp-lg}) { @content; } }
-@mixin xl { @media (min-width: #{$bp-xl}) { @content; } }
+@mixin sm {
+  @media (min-width: #{$bp-sm}) {
+    @content;
+  }
+}
+@mixin md {
+  @media (min-width: #{$bp-md}) {
+    @content;
+  }
+}
+@mixin lg {
+  @media (min-width: #{$bp-lg}) {
+    @content;
+  }
+}
+@mixin xl {
+  @media (min-width: #{$bp-xl}) {
+    @content;
+  }
+}
 
 @mixin container {
   max-width: $container-max;
   margin-inline: auto;
   padding-inline: $margin-mobile;
 
-  @include md { padding-inline: $margin-desktop; }
+  @include md {
+    padding-inline: $margin-desktop;
+  }
 }
 
 @mixin flex-center {
@@ -106,10 +124,17 @@
   font-size: $text-headline-md;
   border: none;
   cursor: pointer;
-  transition: transform 160ms $ease-out, box-shadow 200ms $ease-out, opacity 150ms $ease-out, background 200ms $ease-out, border-color 150ms $ease-out;
+  transition:
+    transform 160ms $ease-out,
+    box-shadow 200ms $ease-out,
+    opacity 150ms $ease-out,
+    background 200ms $ease-out,
+    border-color 150ms $ease-out;
   text-decoration: none;
 
-  &:active { transform: scale(0.97); }
+  &:active {
+    transform: scale(0.97);
+  }
 }
 
 @mixin circle($size) {

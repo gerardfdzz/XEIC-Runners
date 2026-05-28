@@ -8,8 +8,8 @@
   text-align: center;
   background:
     linear-gradient(rgba(0, 0, 0, 0.52), rgba(0, 0, 0, 0.52)),
-    url('https://apropebre.cat/wp-content/uploads/2026/04/DSC09104-1024x683.jpg')
-    center / cover no-repeat;
+    url('https://apropebre.cat/wp-content/uploads/2026/04/DSC09104-1024x683.jpg') center / cover
+      no-repeat;
 
   &__inner {
     @include container;
@@ -48,7 +48,9 @@
   padding-block: 48px;
   background: $surface-container-low;
 
-  &__inner { @include container; }
+  &__inner {
+    @include container;
+  }
 
   &__grid {
     display: grid;
@@ -56,7 +58,9 @@
     gap: 24px;
     text-align: center;
 
-    @include md { grid-template-columns: repeat(4, 1fr); }
+    @include md {
+      grid-template-columns: repeat(4, 1fr);
+    }
   }
 
   &__card {
@@ -92,7 +96,9 @@
   padding-block: 64px;
   background: $surface-container-low;
 
-  &__inner { @include container; }
+  &__inner {
+    @include container;
+  }
 
   &__header {
     display: flex;
@@ -116,7 +122,9 @@
     object-fit: cover;
   }
 
-  &__title { @include headline-lg; }
+  &__title {
+    @include headline-lg;
+  }
 
   &__strava-link {
     display: flex;
@@ -133,7 +141,9 @@
     }
 
     @media (hover: hover) and (pointer: fine) {
-      &:hover .material-symbols-outlined { transform: translateX(5px); }
+      &:hover .material-symbols-outlined {
+        transform: translateX(5px);
+      }
     }
   }
 
@@ -142,8 +152,12 @@
     grid-template-columns: 1fr;
     gap: 16px;
 
-    @include sm { grid-template-columns: repeat(2, 1fr); }
-    @include lg { grid-template-columns: repeat(4, 1fr); }
+    @include sm {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    @include lg {
+      grid-template-columns: repeat(4, 1fr);
+    }
   }
 
   &__card {
@@ -155,10 +169,15 @@
     display: flex;
     flex-direction: column;
     gap: 12px;
-    transition: box-shadow 200ms $ease-out, transform 200ms $ease-out;
+    transition:
+      box-shadow 200ms $ease-out,
+      transform 200ms $ease-out;
 
     @media (hover: hover) and (pointer: fine) {
-      &:hover { box-shadow: $shadow-md; transform: translateY(-1px); }
+      &:hover {
+        box-shadow: $shadow-md;
+        transform: translateY(-1px);
+      }
     }
   }
 
@@ -211,16 +230,22 @@
     font-size: $text-label-sm;
     color: $on-surface-variant;
 
-    .material-symbols-outlined { font-size: 14px; }
+    .material-symbols-outlined {
+      font-size: 14px;
+    }
   }
 }
 
 .community-gallery {
   padding-block: 64px 112px;
 
-  @include md { padding-bottom: 64px; }
+  @include md {
+    padding-bottom: 64px;
+  }
 
-  &__inner { @include container; }
+  &__inner {
+    @include container;
+  }
 
   &__header {
     display: flex;
@@ -231,7 +256,9 @@
     gap: 16px;
   }
 
-  &__title { @include headline-lg; }
+  &__title {
+    @include headline-lg;
+  }
 
   &__ig-link {
     display: flex;
@@ -247,7 +274,9 @@
     }
 
     @media (hover: hover) and (pointer: fine) {
-      &:hover svg { transform: translateX(5px); }
+      &:hover svg {
+        transform: translateX(5px);
+      }
     }
   }
 
@@ -261,9 +290,15 @@
     columns: 1;
     gap: $gutter;
 
-    @include sm { columns: 2; }
-    @include md { columns: 3; }
-    @include lg { columns: 4; }
+    @include sm {
+      columns: 2;
+    }
+    @include md {
+      columns: 3;
+    }
+    @include lg {
+      columns: 4;
+    }
   }
 
   &__item {
@@ -295,7 +330,9 @@
     transition: transform 400ms $ease-out;
 
     @media (hover: hover) and (pointer: fine) {
-      .community-gallery__item:hover & { transform: scale(1.05); }
+      .community-gallery__item:hover & {
+        transform: scale(1.05);
+      }
     }
   }
 
@@ -351,13 +388,20 @@
     font-weight: $fw-bold;
     font-size: $text-headline-md;
     box-shadow: $shadow-xl;
-    transition: transform 160ms $ease-out, box-shadow 200ms $ease-out;
+    transition:
+      transform 160ms $ease-out,
+      box-shadow 200ms $ease-out;
 
     @media (hover: hover) and (pointer: fine) {
-      &:hover { transform: scale(1.03); box-shadow: $shadow-2xl; }
+      &:hover {
+        transform: scale(1.03);
+        box-shadow: $shadow-2xl;
+      }
     }
 
-    &:active { transform: scale(0.97); }
+    &:active {
+      transform: scale(0.97);
+    }
   }
 
   &__ig-btn-icon {

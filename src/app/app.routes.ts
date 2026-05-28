@@ -3,8 +3,7 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
   {
     path: '',
-    loadComponent: () =>
-      import('./features/home/home.component').then((m) => m.HomeComponent),
+    loadComponent: () => import('./features/home/home.component').then((m) => m.HomeComponent),
     title: 'XEIC RUNNERS · El club de running de La Sénia',
   },
   {
@@ -16,13 +15,14 @@ export const routes: Routes = [
   {
     path: 'esdeveniments',
     loadComponent: () =>
-      import('./features/esdeveniments/esdeveniments.component').then((m) => m.EsdevenimentsComponent),
+      import('./features/esdeveniments/esdeveniments.component').then(
+        (m) => m.EsdevenimentsComponent,
+      ),
     title: 'Esdeveniments · XEIC RUNNERS',
   },
   {
     path: 'rutes',
-    loadComponent: () =>
-      import('./features/rutes/rutes.component').then((m) => m.RutesComponent),
+    loadComponent: () => import('./features/rutes/rutes.component').then((m) => m.RutesComponent),
     title: 'Rutes · XEIC RUNNERS',
   },
   {

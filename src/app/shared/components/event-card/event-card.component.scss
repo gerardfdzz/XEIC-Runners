@@ -6,7 +6,9 @@
   border-radius: $radius-3xl;
   overflow: hidden;
   border: 1px solid rgba($outline-variant, 0.2);
-  transition: box-shadow 200ms $ease-out, transform 200ms $ease-out;
+  transition:
+    box-shadow 200ms $ease-out,
+    transform 200ms $ease-out;
 
   @media (hover: hover) and (pointer: fine) {
     &:hover {
@@ -16,11 +18,21 @@
   }
 
   &__image-wrapper {
+    /* Element is a <button> for keyboard accessibility; reset native
+       chrome so it visually behaves like the previous <div> wrapper. */
+    display: block;
+    padding: 0;
+    text-align: left;
     position: relative;
     width: 100%;
     overflow: hidden;
     cursor: pointer;
     max-height: 72vw;
+
+    &:focus-visible {
+      outline: 2px solid $primary;
+      outline-offset: 2px;
+    }
 
     @include md {
       max-height: none;
@@ -37,7 +49,9 @@
     transition: transform 400ms $ease-out;
 
     @media (hover: hover) and (pointer: fine) {
-      .event-card:hover & { transform: scale(1.02); }
+      .event-card:hover & {
+        transform: scale(1.02);
+      }
     }
   }
 
@@ -118,8 +132,20 @@
   font-size: $text-label-sm;
   font-weight: $fw-semibold;
 
-  &--primary  { background: rgba($primary, 0.1);   color: $primary; }
-  &--tertiary { background: rgba($tertiary, 0.1);  color: $tertiary; }
-  &--secondary{ background: rgba($secondary, 0.1); color: $secondary; }
-  &--default  { background: $surface-container;    color: $on-surface-variant; }
+  &--primary {
+    background: rgba($primary, 0.1);
+    color: $primary;
+  }
+  &--tertiary {
+    background: rgba($tertiary, 0.1);
+    color: $tertiary;
+  }
+  &--secondary {
+    background: rgba($secondary, 0.1);
+    color: $secondary;
+  }
+  &--default {
+    background: $surface-container;
+    color: $on-surface-variant;
+  }
 }

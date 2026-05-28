@@ -49,7 +49,9 @@ export class EsdevenimentsComponent implements OnInit {
   }
 
   private readonly localeMap: Record<string, string> = {
-    ca: 'ca-ES', es: 'es-ES', en: 'en-US',
+    ca: 'ca-ES',
+    es: 'es-ES',
+    en: 'en-US',
   };
 
   monthGroupLabel(year: number, month: number): string {
@@ -62,8 +64,10 @@ export class EsdevenimentsComponent implements OnInit {
   ngOnInit(): void {
     this.seo.update({
       title: 'Esdeveniments i Sortides · XEIC RUNNERS',
-      description: 'Pròxims esdeveniments i sortides de XEIC RUNNERS a La Sénia i les Terres de l\'Ebre. Quedades setmanals de running, trail i senderisme obertes a tothom.',
-      keywords: 'esdeveniments running La Sénia, sortides trail Terres de l\'Ebre, quedades running XEIC, events running Tarragona, senderisme La Sénia',
+      description:
+        "Pròxims esdeveniments i sortides de XEIC RUNNERS a La Sénia i les Terres de l'Ebre. Quedades setmanals de running, trail i senderisme obertes a tothom.",
+      keywords:
+        "esdeveniments running La Sénia, sortides trail Terres de l'Ebre, quedades running XEIC, events running Tarragona, senderisme La Sénia",
       ogImage: 'https://www.xeicrunners.com/assets/images/galeria/foto-xeic.jpg',
     });
 
@@ -74,10 +78,7 @@ export class EsdevenimentsComponent implements OnInit {
     }).subscribe(({ groupEvents, igItems, sheetEvents }) => {
       this.loading = false;
 
-      this.upcoming = this.eventMerge.mergeUpcomingEvents(
-        groupEvents,
-        sheetEvents,
-      );
+      this.upcoming = this.eventMerge.mergeUpcomingEvents(groupEvents, sheetEvents);
 
       const igPast = igItems
         .map((item) => this.instagramToXeicEvent(item))
@@ -95,7 +96,9 @@ export class EsdevenimentsComponent implements OnInit {
     });
   }
 
-  private groupByMonth(events: XeicEvent[]): { year: number; month: number; events: XeicEvent[] }[] {
+  private groupByMonth(
+    events: XeicEvent[],
+  ): { year: number; month: number; events: XeicEvent[] }[] {
     const map = new Map<string, XeicEvent[]>();
     for (const e of events) {
       const key = `${e.date.getFullYear()}-${e.date.getMonth()}`;

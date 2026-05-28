@@ -1,9 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
-import {
-  HttpTestingController,
-  provideHttpClientTesting,
-} from '@angular/common/http/testing';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { EventsSheetService } from './events-sheet.service';
 
 describe('EventsSheetService', () => {
@@ -39,7 +36,7 @@ describe('EventsSheetService', () => {
       expect(e.description).toBe('Una descripció');
       expect(e.registrationUrl).toBeUndefined();
       expect(e.date.getFullYear()).toBe(2026);
-      expect(e.date.getMonth()).toBe(5); // June (0-indexed)
+      expect(e.date.getMonth()).toBe(5);
       expect(e.date.getDate()).toBe(1);
       done();
     });
@@ -50,10 +47,10 @@ describe('EventsSheetService', () => {
   it('skips rows missing required fields', (done) => {
     const csv = [
       'title,date,time,location,type,difficulty,tags,imageurl',
-      ',01/06/2026,19:30,X,training,Iniciació,,assets/x.jpg', // no title
+      ',01/06/2026,19:30,X,training,Iniciació,,assets/x.jpg',
       'OK,01/06/2026,19:30,X,training,Iniciació,,assets/x.jpg',
-      'NoDate,,19:30,X,training,Iniciació,,assets/x.jpg', // no date
-      'NoImg,01/06/2026,19:30,X,training,Iniciació,,', // no imageurl
+      'NoDate,,19:30,X,training,Iniciació,,assets/x.jpg',
+      'NoImg,01/06/2026,19:30,X,training,Iniciació,,',
     ].join('\n');
 
     service.getEvents().subscribe((events) => {

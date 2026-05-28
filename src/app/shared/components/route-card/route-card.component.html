@@ -1,12 +1,7 @@
 <article class="route-card">
   <div class="route-card__image-wrapper">
     @if (route.mapImageUrl) {
-      <img
-        [src]="route.mapImageUrl"
-        [alt]="route.name"
-        class="route-card__image"
-        loading="lazy"
-      />
+      <img [src]="route.mapImageUrl" [alt]="route.name" class="route-card__image" loading="lazy" />
     } @else {
       <div class="route-card__image-placeholder">
         <span class="material-symbols-outlined">route</span>
@@ -18,13 +13,7 @@
       <span [class]="typeChipClass()">{{ typeLabel() }}</span>
     </div>
 
-    <img
-      src="assets/images/strava-icon.png"
-      alt="Strava"
-      class="route-card__strava-badge"
-      width="512"
-      height="512"
-    />
+    <img src="assets/images/strava-icon.png" alt="Strava" class="route-card__strava-badge" width="512" height="512" />
   </div>
 
   <div class="route-card__body">
@@ -36,28 +25,16 @@
 
     <div class="route-card__stats">
       <div class="route-card__stat">
-        <span class="route-card__stat-label">{{
-          i18n.t("routes.stats.distance")
-        }}</span>
-        <span class="route-card__stat-value"
-          >{{ route.distance }}<small>km</small></span
-        >
+        <span class="route-card__stat-label">{{ i18n.t('routes.stats.distance') }}</span>
+        <span class="route-card__stat-value">{{ route.distance }}<small>km</small></span>
       </div>
       <div class="route-card__stat route-card__stat--bordered">
-        <span class="route-card__stat-label">{{
-          i18n.t("routes.stats.elevation")
-        }}</span>
-        <span class="route-card__stat-value"
-          >{{ route.elevationGain }}<small>m+</small></span
-        >
+        <span class="route-card__stat-label">{{ i18n.t('routes.stats.elevation') }}</span>
+        <span class="route-card__stat-value">{{ route.elevationGain }}<small>m+</small></span>
       </div>
       <div class="route-card__stat">
-        <span class="route-card__stat-label">{{
-          i18n.t("routes.stats.time")
-        }}</span>
-        <span class="route-card__stat-value">{{
-          formatTime(route.estimatedTime)
-        }}</span>
+        <span class="route-card__stat-label">{{ i18n.t('routes.stats.time') }}</span>
+        <span class="route-card__stat-value">{{ formatTime(route.estimatedTime) }}</span>
       </div>
     </div>
 
@@ -67,7 +44,7 @@
       rel="noopener noreferrer"
       class="route-card__strava-btn grainy-gradient"
     >
-      <span>{{ i18n.t("routes.viewOnStrava") }}</span>
+      <span>{{ i18n.t('routes.viewOnStrava') }}</span>
       <span class="material-symbols-outlined">open_in_new</span>
     </a>
   </div>

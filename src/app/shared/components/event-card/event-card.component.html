@@ -1,5 +1,11 @@
 <div class="event-card">
-  <div class="event-card__image-wrapper" [style.aspect-ratio]="imageAspectRatio" (click)="imageClick.emit()">
+  <button
+    type="button"
+    class="event-card__image-wrapper"
+    [style.aspect-ratio]="imageAspectRatio"
+    [attr.aria-label]="event.title"
+    (click)="imageClick.emit()"
+  >
     <img
       [src]="event.imageUrl"
       [alt]="event.title"
@@ -9,12 +15,12 @@
       [height]="event.imageHeight ?? 1920"
     />
     @if (!hideMeta) {
-      <div class="event-card__date-badge">
+      <span class="event-card__date-badge" aria-hidden="true">
         <span class="event-card__date-month">{{ monthLabel(event.date) }}</span>
         <span class="event-card__date-day">{{ dayLabel(event.date) }}</span>
-      </div>
+      </span>
     }
-  </div>
+  </button>
 
   @if (!hideMeta) {
     <div class="event-card__body">
@@ -34,8 +40,7 @@
         @if (event.distance) {
           <div class="event-card__meta-item">
             <span class="material-symbols-outlined">distance</span>
-            {{ event.distance
-            }}{{ event.elevationGain ? " · " + event.elevationGain : "" }}
+            {{ event.distance }}{{ event.elevationGain ? ' · ' + event.elevationGain : '' }}
           </div>
         }
       </div>

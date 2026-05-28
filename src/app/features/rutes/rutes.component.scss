@@ -8,7 +8,9 @@
   align-items: flex-end;
   overflow: hidden;
 
-  @include md { height: 384px; }
+  @include md {
+    height: 384px;
+  }
 
   &__overlay {
     position: absolute;
@@ -76,14 +78,19 @@
   border-bottom: 1px solid rgba($outline-variant, 0.2);
   box-shadow: $shadow-sm;
 
-  &__inner { @include container; padding-block: 16px; }
+  &__inner {
+    @include container;
+    padding-block: 16px;
+  }
 
   &__search-row {
     display: flex;
     flex-direction: column;
     gap: 12px;
 
-    @include sm { flex-direction: row; }
+    @include sm {
+      flex-direction: row;
+    }
   }
 
   &__search {
@@ -111,14 +118,18 @@
     font-size: $text-body-md;
     color: $on-surface;
     outline: none;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
 
     &:focus {
       border-color: $primary;
       box-shadow: 0 0 0 3px rgba($primary, 0.15);
     }
 
-    &::placeholder { color: $on-surface-variant; }
+    &::placeholder {
+      color: $on-surface-variant;
+    }
   }
 
   &__chips {
@@ -135,7 +146,9 @@
   font-family: $font-lexend;
   font-size: $text-label-lg;
   font-weight: $fw-semibold;
-  transition: border-color 0.2s ease, color 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    color 0.2s ease;
   cursor: pointer;
 
   &--active {
@@ -177,7 +190,9 @@
     @include container;
     padding-block: 24px 112px;
 
-    @include md { padding-bottom: 64px; }
+    @include md {
+      padding-bottom: 64px;
+    }
   }
 
   &__list {
@@ -185,8 +200,12 @@
     grid-template-columns: 1fr;
     gap: $gutter;
 
-    @include md { grid-template-columns: repeat(2, 1fr); }
-    @include lg { grid-template-columns: repeat(3, 1fr); }
+    @include md {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    @include lg {
+      grid-template-columns: repeat(3, 1fr);
+    }
   }
 
   &__empty {
@@ -215,7 +234,10 @@
 }
 
 .rutes-strava-cta {
-  &__inner { @include container; margin-bottom: 48px; }
+  &__inner {
+    @include container;
+    margin-bottom: 48px;
+  }
 
   &__card {
     border-radius: $radius-3xl;
@@ -242,7 +264,9 @@
     object-fit: cover;
   }
 
-  &__title { @include headline-lg; }
+  &__title {
+    @include headline-lg;
+  }
 
   &__text {
     @include body-lg;
@@ -260,13 +284,20 @@
     font-weight: $fw-bold;
     font-size: $text-headline-md;
     box-shadow: $shadow-xl;
-    transition: transform 160ms $ease-out, box-shadow 200ms $ease-out;
+    transition:
+      transform 160ms $ease-out,
+      box-shadow 200ms $ease-out;
 
     @media (hover: hover) and (pointer: fine) {
-      &:hover { transform: scale(1.03); box-shadow: $shadow-2xl; }
+      &:hover {
+        transform: scale(1.03);
+        box-shadow: $shadow-2xl;
+      }
     }
 
-    &:active { transform: scale(0.97); }
+    &:active {
+      transform: scale(0.97);
+    }
   }
 }
 
@@ -276,7 +307,9 @@
   right: 24px;
   z-index: 40;
 
-  @include md { display: none; }
+  @include md {
+    display: none;
+  }
 
   &__btn {
     width: 56px;
@@ -289,7 +322,9 @@
     justify-content: center;
     transition: transform 150ms $ease-out;
 
-    &:active { transform: scale(0.9); }
+    &:active {
+      transform: scale(0.9);
+    }
   }
 
   &__icon {

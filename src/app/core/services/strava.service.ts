@@ -1,11 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, shareReplay, catchError, of, map } from 'rxjs';
-import {
-  StravaData,
-  StravaActivity,
-  StravaGroupEvent,
-} from '../models/strava.model';
+import { StravaData, StravaActivity, StravaGroupEvent } from '../models/strava.model';
 
 @Injectable({ providedIn: 'root' })
 export class StravaService {
@@ -16,10 +12,7 @@ export class StravaService {
     .pipe(
       shareReplay(1),
       catchError((err) => {
-        console.warn(
-          "[StravaService] No s'ha pogut obtenir dades de Strava:",
-          err.message,
-        );
+        console.warn("[StravaService] No s'ha pogut obtenir dades de Strava:", err.message);
         return of(null);
       }),
     );

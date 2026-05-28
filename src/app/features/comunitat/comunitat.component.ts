@@ -41,8 +41,10 @@ export class ComunitatComponent implements OnInit {
   ngOnInit(): void {
     this.seo.update({
       title: 'Comunitat · XEIC RUNNERS',
-      description: 'La comunitat XEIC RUNNERS: runners de La Sénia i les Terres de l\'Ebre units per l\'esport. Activitats recents, fotos de sortides i connexió amb el nostre club de Strava.',
-      keywords: 'comunitat runners La Sénia, club Strava XEIC, running social Terres de l\'Ebre, Instagram xeicrunners, running club Tarragona',
+      description:
+        "La comunitat XEIC RUNNERS: runners de La Sénia i les Terres de l'Ebre units per l'esport. Activitats recents, fotos de sortides i connexió amb el nostre club de Strava.",
+      keywords:
+        "comunitat runners La Sénia, club Strava XEIC, running social Terres de l'Ebre, Instagram xeicrunners, running club Tarragona",
       ogImage: 'https://www.xeicrunners.com/assets/images/galeria/foto-xeic.jpg',
     });
 
@@ -56,19 +58,14 @@ export class ComunitatComponent implements OnInit {
 
       if (!data) {
         this.stats = FALLBACK_STATS.map((s) =>
-          s.labelKey === 'community.stats.routes'
-            ? { ...s, value: routeCount }
-            : s,
+          s.labelKey === 'community.stats.routes' ? { ...s, value: routeCount } : s,
         );
         return;
       }
 
       this.memberCount = `${data.club.member_count}`;
 
-      const totalKm = data.activities.reduce(
-        (acc, a) => acc + a.distance / 1000,
-        0,
-      );
+      const totalKm = data.activities.reduce((acc, a) => acc + a.distance / 1000, 0);
 
       this.stats = [
         {

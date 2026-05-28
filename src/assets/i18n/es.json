@@ -13,6 +13,16 @@
   "common": {
     "close": "Cerrar"
   },
+  "notifications": {
+    "region": "Notificaciones"
+  },
+  "errors": {
+    "generic": "Ha habido un problema. Vuelve a intentarlo en un rato.",
+    "strava": "No hemos podido conectar con Strava ahora mismo.",
+    "routes": "No se han podido cargar las rutas de Strava.",
+    "instagram": "No se han podido cargar las fotos de Instagram.",
+    "sheet": "No se ha podido cargar el calendario de eventos."
+  },
   "home": {
     "hero": {
       "badge": "Social Run Club · La Sénia",
