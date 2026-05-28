@@ -22,10 +22,14 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    transition: background 150ms $ease-out, transform 150ms $ease-out;
+    transition:
+      background 150ms $ease-out,
+      transform 150ms $ease-out;
 
     @media (hover: hover) and (pointer: fine) {
-      &:hover { background: rgba(255, 255, 255, 0.22); }
+      &:hover {
+        background: rgba(255, 255, 255, 0.22);
+      }
     }
 
     &:focus-visible {
@@ -33,9 +37,13 @@
       outline-offset: 2px;
     }
 
-    &:active { transform: scale(0.95); }
+    &:active {
+      transform: scale(0.95);
+    }
 
-    .material-symbols-outlined { font-size: 24px; }
+    .material-symbols-outlined {
+      font-size: 24px;
+    }
   }
 
   &__content {

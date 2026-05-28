@@ -12,9 +12,7 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
   const notifications = inject(NotificationService);
   const i18n = inject(I18nService);
   const silent = req.headers.get('X-Silent') === 'true';
-  const sanitisedReq = silent
-    ? req.clone({ headers: req.headers.delete('X-Silent') })
-    : req;
+  const sanitisedReq = silent ? req.clone({ headers: req.headers.delete('X-Silent') }) : req;
 
   return next(sanitisedReq).pipe(
     catchError((err: unknown) => {
@@ -26,11 +24,7 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
   );
 };
 
-function messageFor(
-  err: HttpErrorResponse,
-  url: string,
-  i18n: I18nService,
-): string {
+function messageFor(err: HttpErrorResponse, url: string, i18n: I18nService): string {
   const key =
     url.includes('/api/strava') || url.includes('strava.com')
       ? 'errors.strava'

@@ -13,7 +13,9 @@
     inset: 0;
   }
 
-  &__blob { display: none; }
+  &__blob {
+    display: none;
+  }
 
   &__inner {
     @include container;
@@ -25,10 +27,16 @@
     align-items: center;
     padding-block: 80px;
 
-    @include md { grid-template-columns: 1fr 1fr; }
+    @include md {
+      grid-template-columns: 1fr 1fr;
+    }
   }
 
-  &__content { display: flex; flex-direction: column; gap: 24px; }
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
 
   &__badge {
     display: inline-block;
@@ -47,7 +55,9 @@
     line-height: 1;
   }
 
-  &__title-highlight { display: block; }
+  &__title-highlight {
+    display: block;
+  }
 
   &__subtitle {
     @include body-lg;
@@ -55,7 +65,11 @@
     max-width: 420px;
   }
 
-  &__actions { display: flex; flex-wrap: wrap; gap: 16px; }
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
 
   &__stats {
     display: flex;
@@ -64,7 +78,9 @@
     padding-top: 8px;
   }
 
-  &__stat { text-align: center; }
+  &__stat {
+    text-align: center;
+  }
 
   &__stat-value {
     display: block;
@@ -100,15 +116,17 @@
   &__image-frame {
     position: absolute;
     inset: 0;
-    background: rgba(255,255,255,0.4);
+    background: rgba(255, 255, 255, 0.4);
     backdrop-filter: blur(24px);
     border-radius: 40px;
-    border: 1px solid rgba(255,255,255,0.5);
+    border: 1px solid rgba(255, 255, 255, 0.5);
     box-shadow: $shadow-2xl;
     overflow: hidden;
 
     @media (hover: hover) and (pointer: fine) {
-      &:hover .hero__image { transform: scale(1.05); }
+      &:hover .hero__image {
+        transform: scale(1.05);
+      }
     }
   }
 
@@ -134,7 +152,9 @@
     gap: 12px;
     z-index: 2;
 
-    @include md { right: -32px; }
+    @include md {
+      right: -32px;
+    }
   }
 
   &__strava-icon {
@@ -168,7 +188,9 @@
     grid-template-columns: 1fr;
     gap: $gutter;
 
-    @include md { grid-template-columns: 8fr 4fr; }
+    @include md {
+      grid-template-columns: 8fr 4fr;
+    }
   }
 
   &__main {
@@ -182,19 +204,31 @@
     gap: 24px;
   }
 
-  &__title { @include headline-lg; color: $primary; }
+  &__title {
+    @include headline-lg;
+    color: $primary;
+  }
 
   &__grid {
     display: grid;
     grid-template-columns: 1fr;
     gap: 32px;
 
-    @include md { grid-template-columns: 1fr 1fr; }
+    @include md {
+      grid-template-columns: 1fr 1fr;
+    }
   }
 
-  &__block { display: flex; flex-direction: column; gap: 12px; }
+  &__block {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
 
-  &__block-title { @include headline-md; color: $secondary; }
+  &__block-title {
+    @include headline-md;
+    color: $secondary;
+  }
 
   &__block-text {
     @include body-lg;
@@ -217,7 +251,9 @@
     }
 
     @media (hover: hover) and (pointer: fine) {
-      &:hover .material-symbols-outlined { transform: translateX(6px); }
+      &:hover .material-symbols-outlined {
+        transform: translateX(6px);
+      }
     }
   }
 
@@ -239,7 +275,9 @@
     margin-bottom: 8px;
   }
 
-  &__community-title { @include headline-lg; }
+  &__community-title {
+    @include headline-lg;
+  }
 
   &__community-text {
     @include body-lg;
@@ -251,7 +289,9 @@
 .events-preview {
   padding-block: 96px;
 
-  &__inner { @include container; }
+  &__inner {
+    @include container;
+  }
 
   &__header {
     display: flex;
@@ -262,9 +302,15 @@
     margin-bottom: 48px;
   }
 
-  &__title { @include headline-lg; color: $on-background; }
+  &__title {
+    @include headline-lg;
+    color: $on-background;
+  }
 
-  &__subtitle { @include body-lg; color: $on-surface-variant; }
+  &__subtitle {
+    @include body-lg;
+    color: $on-surface-variant;
+  }
 
   &__link {
     display: flex;
@@ -281,7 +327,9 @@
     }
 
     @media (hover: hover) and (pointer: fine) {
-      &:hover .material-symbols-outlined { transform: translateX(6px); }
+      &:hover .material-symbols-outlined {
+        transform: translateX(6px);
+      }
     }
   }
 
@@ -290,7 +338,9 @@
     grid-template-columns: 1fr;
     gap: $gutter;
 
-    @include md { grid-template-columns: repeat(3, 1fr); }
+    @include md {
+      grid-template-columns: repeat(3, 1fr);
+    }
   }
 }
 
@@ -306,7 +356,9 @@
     gap: 64px;
     align-items: center;
 
-    @include md { flex-direction: row; }
+    @include md {
+      flex-direction: row;
+    }
   }
 
   &__content {
@@ -330,16 +382,23 @@
     box-shadow: $shadow-md;
   }
 
-  &__title { @include headline-lg; }
+  &__title {
+    @include headline-lg;
+  }
 
-  &__subtitle { @include body-lg; color: $on-surface-variant; }
+  &__subtitle {
+    @include body-lg;
+    color: $on-surface-variant;
+  }
 
   &__list {
     display: grid;
     grid-template-columns: 1fr;
     gap: 12px;
 
-    @include sm { grid-template-columns: repeat(2, 1fr); }
+    @include sm {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 
   &__item {
@@ -353,12 +412,20 @@
     transition: border-color 150ms $ease-out;
 
     @media (hover: hover) and (pointer: fine) {
-      &:hover { border-color: $primary; }
-      &:hover .routes-preview__item-arrow { color: $primary; }
+      &:hover {
+        border-color: $primary;
+      }
+      &:hover .routes-preview__item-arrow {
+        color: $primary;
+      }
     }
   }
 
-  &__item-left { display: flex; align-items: center; gap: 16px; }
+  &__item-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
 
   &__item-icon {
     width: 40px;
@@ -406,7 +473,9 @@
     }
 
     @media (hover: hover) and (pointer: fine) {
-      &:hover .material-symbols-outlined { transform: translateX(6px); }
+      &:hover .material-symbols-outlined {
+        transform: translateX(6px);
+      }
     }
   }
 
@@ -484,9 +553,15 @@
     columns: 1;
     gap: $gutter;
 
-    @include sm { columns: 2; }
-    @include md { columns: 3; }
-    @include lg { columns: 4; }
+    @include sm {
+      columns: 2;
+    }
+    @include md {
+      columns: 3;
+    }
+    @include lg {
+      columns: 4;
+    }
   }
 
   &__item {
@@ -513,7 +588,9 @@
     transition: transform 400ms $ease-out;
 
     @media (hover: hover) and (pointer: fine) {
-      .community-preview__item:hover & { transform: scale(1.05); }
+      .community-preview__item:hover & {
+        transform: scale(1.05);
+      }
     }
   }
 
@@ -558,7 +635,9 @@
     }
 
     @media (hover: hover) and (pointer: fine) {
-      &:hover .material-symbols-outlined { transform: translateX(6px); }
+      &:hover .material-symbols-outlined {
+        transform: translateX(6px);
+      }
     }
   }
 }
@@ -580,7 +659,9 @@
     gap: 24px;
   }
 
-  &__title { @include headline-xl; }
+  &__title {
+    @include headline-xl;
+  }
 
   &__subtitle {
     @include headline-md;
@@ -599,13 +680,20 @@
     font-weight: $fw-bold;
     font-size: $text-headline-md;
     box-shadow: $shadow-2xl;
-    transition: transform 160ms $ease-out, box-shadow 200ms $ease-out;
+    transition:
+      transform 160ms $ease-out,
+      box-shadow 200ms $ease-out;
     margin-top: 16px;
 
     @media (hover: hover) and (pointer: fine) {
-      &:hover { transform: scale(1.03); box-shadow: $shadow-2xl; }
+      &:hover {
+        transform: scale(1.03);
+        box-shadow: $shadow-2xl;
+      }
     }
 
-    &:active { transform: scale(0.97); }
+    &:active {
+      transform: scale(0.97);
+    }
   }
 }

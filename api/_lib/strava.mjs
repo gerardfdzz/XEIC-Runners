@@ -11,8 +11,7 @@ export const CLUB_ID = 1576309;
  * rejects the exchange.
  */
 export async function getAccessToken() {
-  const { STRAVA_CLIENT_ID, STRAVA_CLIENT_SECRET, STRAVA_REFRESH_TOKEN } =
-    process.env;
+  const { STRAVA_CLIENT_ID, STRAVA_CLIENT_SECRET, STRAVA_REFRESH_TOKEN } = process.env;
   if (!STRAVA_CLIENT_ID || !STRAVA_CLIENT_SECRET || !STRAVA_REFRESH_TOKEN) {
     throw new Error('Missing Strava environment variables.');
   }

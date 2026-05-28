@@ -1,9 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
-import {
-  HttpTestingController,
-  provideHttpClientTesting,
-} from '@angular/common/http/testing';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { EventsSheetService } from './events-sheet.service';
 
 describe('EventsSheetService', () => {
@@ -50,10 +47,10 @@ describe('EventsSheetService', () => {
   it('skips rows missing required fields', (done) => {
     const csv = [
       'title,date,time,location,type,difficulty,tags,imageurl',
-      ',01/06/2026,19:30,X,training,Iniciació,,assets/x.jpg', 
+      ',01/06/2026,19:30,X,training,Iniciació,,assets/x.jpg',
       'OK,01/06/2026,19:30,X,training,Iniciació,,assets/x.jpg',
-      'NoDate,,19:30,X,training,Iniciació,,assets/x.jpg', 
-      'NoImg,01/06/2026,19:30,X,training,Iniciació,,', 
+      'NoDate,,19:30,X,training,Iniciació,,assets/x.jpg',
+      'NoImg,01/06/2026,19:30,X,training,Iniciació,,',
     ].join('\n');
 
     service.getEvents().subscribe((events) => {

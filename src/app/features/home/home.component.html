@@ -5,46 +5,34 @@
 
   <div class="hero__inner">
     <div class="hero__content">
-      <span class="hero__badge">{{ i18n.t("home.hero.badge") }}</span>
+      <span class="hero__badge">{{ i18n.t('home.hero.badge') }}</span>
       <h1 class="hero__title">
-        {{ i18n.t("home.hero.title") }}
-        <span class="hero__title-highlight text-gradient">{{
-          i18n.t("home.hero.titleHighlight")
-        }}</span>
+        {{ i18n.t('home.hero.title') }}
+        <span class="hero__title-highlight text-gradient">{{ i18n.t('home.hero.titleHighlight') }}</span>
       </h1>
-      <p class="hero__subtitle">{{ i18n.t("home.hero.subtitle") }}</p>
+      <p class="hero__subtitle">{{ i18n.t('home.hero.subtitle') }}</p>
       <div class="hero__actions">
-        <a
-          [href]="whatsappUrl"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="btn-primary"
-          >{{ i18n.t("home.hero.cta1") }}</a
-        >
+        <a [href]="whatsappUrl" target="_blank" rel="noopener noreferrer" class="btn-primary">{{
+          i18n.t('home.hero.cta1')
+        }}</a>
         <button class="btn-ghost" (click)="scrollToOrigen()">
-          {{ i18n.t("home.hero.cta2") }}
+          {{ i18n.t('home.hero.cta2') }}
         </button>
       </div>
       <div class="hero__stats">
         <div class="hero__stat">
           <span class="hero__stat-value">{{ memberCount() }}</span>
-          <span class="hero__stat-label">{{
-            i18n.t("home.stats.members")
-          }}</span>
+          <span class="hero__stat-label">{{ i18n.t('home.stats.members') }}</span>
         </div>
         <div class="hero__stat-divider"></div>
         <div class="hero__stat">
           <span class="hero__stat-value">{{ routeCount() }}</span>
-          <span class="hero__stat-label">{{
-            i18n.t("home.stats.routes")
-          }}</span>
+          <span class="hero__stat-label">{{ i18n.t('home.stats.routes') }}</span>
         </div>
         <div class="hero__stat-divider"></div>
         <div class="hero__stat">
           <span class="hero__stat-value">2025</span>
-          <span class="hero__stat-label">{{
-            i18n.t("home.stats.founded")
-          }}</span>
+          <span class="hero__stat-label">{{ i18n.t('home.stats.founded') }}</span>
         </div>
       </div>
     </div>
@@ -54,10 +42,7 @@
         <picture>
           <source
             type="image/webp"
-            srcset="
-              assets/images/xeicrunners-640.webp 640w,
-              assets/images/xeicrunners-1280.webp 1280w
-            "
+            srcset="assets/images/xeicrunners-640.webp 640w, assets/images/xeicrunners-1280.webp 1280w"
             sizes="(min-width: 768px) 50vw, 100vw"
           />
           <img
@@ -72,19 +57,13 @@
         </picture>
       </div>
       <div class="hero__strava-card">
-        <img
-          src="assets/images/strava-icon.png"
-          alt="Strava"
-          class="hero__strava-icon"
-          width="512"
-          height="512"
-        />
+        <img src="assets/images/strava-icon.png" alt="Strava" class="hero__strava-icon" width="512" height="512" />
         <div>
           <p class="hero__strava-title">
-            {{ i18n.t("home.stravaCard.title") }}
+            {{ i18n.t('home.stravaCard.title') }}
           </p>
           <p class="hero__strava-sub">
-            {{ i18n.t("home.stravaCard.subtitle") }}
+            {{ i18n.t('home.stravaCard.subtitle') }}
           </p>
         </div>
       </div>
@@ -96,40 +75,38 @@
   <div class="founders-preview__inner">
     <div class="founders-preview__main">
       <h2 class="founders-preview__title">
-        {{ i18n.t("home.founders.title") }}
+        {{ i18n.t('home.founders.title') }}
       </h2>
       <div class="founders-preview__grid">
         <div class="founders-preview__block">
           <h3 class="founders-preview__block-title">
-            {{ i18n.t("home.founders.who") }}
+            {{ i18n.t('home.founders.who') }}
           </h3>
           <p class="founders-preview__block-text">
-            {{ i18n.t("home.founders.whoText") }}
+            {{ i18n.t('home.founders.whoText') }}
           </p>
         </div>
         <div class="founders-preview__block">
           <h3 class="founders-preview__block-title">
-            {{ i18n.t("home.founders.why") }}
+            {{ i18n.t('home.founders.why') }}
           </h3>
           <p class="founders-preview__block-text">
-            {{ i18n.t("home.founders.whyText") }}
+            {{ i18n.t('home.founders.whyText') }}
           </p>
         </div>
       </div>
       <a routerLink="/fundadors" class="founders-preview__link">
-        {{ i18n.t("home.founders.viewTeam") }}
+        {{ i18n.t('home.founders.viewTeam') }}
         <span class="material-symbols-outlined">arrow_forward</span>
       </a>
     </div>
     <div class="founders-preview__community grainy-gradient">
-      <span class="material-symbols-outlined founders-preview__community-icon"
-        >favorite</span
-      >
+      <span class="material-symbols-outlined founders-preview__community-icon">favorite</span>
       <h3 class="founders-preview__community-title">
-        {{ i18n.t("home.founders.community") }}
+        {{ i18n.t('home.founders.community') }}
       </h3>
       <p class="founders-preview__community-text">
-        {{ i18n.t("home.founders.communityText") }}
+        {{ i18n.t('home.founders.communityText') }}
       </p>
     </div>
   </div>
@@ -141,14 +118,14 @@
       <div class="events-preview__header">
         <div>
           <h2 class="events-preview__title">
-            {{ i18n.t("home.events.title") }}
+            {{ i18n.t('home.events.title') }}
           </h2>
           <p class="events-preview__subtitle">
-            {{ i18n.t("home.events.subtitle") }}
+            {{ i18n.t('home.events.subtitle') }}
           </p>
         </div>
         <a routerLink="/esdeveniments" class="events-preview__link">
-          {{ i18n.t("home.events.viewAll") }}
+          {{ i18n.t('home.events.viewAll') }}
           <span class="material-symbols-outlined">arrow_forward</span>
         </a>
       </div>
@@ -172,40 +149,31 @@
           width="512"
           height="512"
         />
-        <h2 class="routes-preview__title">{{ i18n.t("home.routes.title") }}</h2>
+        <h2 class="routes-preview__title">{{ i18n.t('home.routes.title') }}</h2>
       </div>
       <p class="routes-preview__subtitle">
-        {{ i18n.t("home.routes.subtitle") }}
+        {{ i18n.t('home.routes.subtitle') }}
       </p>
 
       <div class="routes-preview__list">
         @for (route of featuredRoutes(); track route.id) {
-          <a
-            [href]="route.stravaUrl"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="routes-preview__item"
-          >
+          <a [href]="route.stravaUrl" target="_blank" rel="noopener noreferrer" class="routes-preview__item">
             <div class="routes-preview__item-left">
               <div class="routes-preview__item-icon">
                 <span class="material-symbols-outlined">route</span>
               </div>
               <div>
                 <p class="routes-preview__item-name">{{ route.name }}</p>
-                <p class="routes-preview__item-meta">
-                  {{ route.distance }} km · {{ route.elevationGain }}m+
-                </p>
+                <p class="routes-preview__item-meta">{{ route.distance }} km · {{ route.elevationGain }}m+</p>
               </div>
             </div>
-            <span class="material-symbols-outlined routes-preview__item-arrow"
-              >open_in_new</span
-            >
+            <span class="material-symbols-outlined routes-preview__item-arrow">open_in_new</span>
           </a>
         }
       </div>
 
       <a routerLink="/rutes" class="routes-preview__all-link">
-        {{ i18n.t("home.routes.viewAll") }}
+        {{ i18n.t('home.routes.viewAll') }}
         <span class="material-symbols-outlined">arrow_forward</span>
       </a>
     </div>
@@ -216,8 +184,8 @@
           <source
             type="image/webp"
             srcset="
-              assets/images/galeria/foto-xeic-480.webp 480w,
-              assets/images/galeria/foto-xeic-960.webp 960w,
+              assets/images/galeria/foto-xeic-480.webp   480w,
+              assets/images/galeria/foto-xeic-960.webp   960w,
               assets/images/galeria/foto-xeic-1440.webp 1440w
             "
             sizes="(min-width: 1024px) 50vw, 100vw"
@@ -243,13 +211,11 @@
 <section class="community-preview">
   <div class="community-preview__inner">
     <h2 class="community-preview__title">
-      {{ i18n.t("home.community.title") }}
-      <span class="text-gradient">{{
-        i18n.t("home.community.titleHighlight")
-      }}</span>
+      {{ i18n.t('home.community.title') }}
+      <span class="text-gradient">{{ i18n.t('home.community.titleHighlight') }}</span>
     </h2>
     <p class="community-preview__subtitle">
-      {{ i18n.t("home.community.subtitle") }}
+      {{ i18n.t('home.community.subtitle') }}
     </p>
 
     <div class="community-preview__masonry">
@@ -258,8 +224,8 @@
           <source
             type="image/webp"
             srcset="
-              assets/images/galeria/foto-trail-1-480.webp 480w,
-              assets/images/galeria/foto-trail-1-960.webp 960w,
+              assets/images/galeria/foto-trail-1-480.webp   480w,
+              assets/images/galeria/foto-trail-1-960.webp   960w,
               assets/images/galeria/foto-trail-1-1440.webp 1440w
             "
             sizes="(min-width: 1024px) 25vw, 50vw"
@@ -273,14 +239,10 @@
           />
         </picture>
       </div>
-      <div
-        class="community-preview__item community-preview__item--quote grainy-gradient"
-      >
-        <p class="community-preview__quote">
-          "{{ i18n.t("home.community.quote1") }}"
-        </p>
+      <div class="community-preview__item community-preview__item--quote grainy-gradient">
+        <p class="community-preview__quote">"{{ i18n.t('home.community.quote1') }}"</p>
         <p class="community-preview__quote-author">
-          {{ i18n.t("home.community.quote1Author") }}
+          {{ i18n.t('home.community.quote1Author') }}
         </p>
       </div>
       <div class="community-preview__item">
@@ -294,13 +256,13 @@
       <div class="community-preview__item community-preview__item--stat">
         <p class="community-preview__stat-value">{{ memberCount() }}</p>
         <p class="community-preview__stat-label">
-          {{ i18n.t("home.community.activeMembers") }}
+          {{ i18n.t('home.community.activeMembers') }}
         </p>
       </div>
     </div>
 
     <a routerLink="/comunitat" class="community-preview__link">
-      {{ i18n.t("home.community.viewAll") }}
+      {{ i18n.t('home.community.viewAll') }}
       <span class="material-symbols-outlined">arrow_forward</span>
     </a>
   </div>
@@ -308,23 +270,14 @@
 
 <section class="home-cta grainy-gradient">
   <div class="home-cta__inner">
-    <h2 class="home-cta__title">{{ i18n.t("home.cta.title") }}</h2>
-    <p class="home-cta__subtitle">{{ i18n.t("home.cta.subtitle") }}</p>
-    <a
-      [href]="whatsappUrl"
-      target="_blank"
-      rel="noopener noreferrer"
-      class="home-cta__btn"
-    >
-      {{ i18n.t("home.cta.button") }}
+    <h2 class="home-cta__title">{{ i18n.t('home.cta.title') }}</h2>
+    <p class="home-cta__subtitle">{{ i18n.t('home.cta.subtitle') }}</p>
+    <a [href]="whatsappUrl" target="_blank" rel="noopener noreferrer" class="home-cta__btn">
+      {{ i18n.t('home.cta.button') }}
     </a>
   </div>
 </section>
 
 @if (selectedEvent(); as ev) {
-  <app-lightbox
-    [event]="ev"
-    labelledBy="home-lightbox-title"
-    (closed)="closeLightbox()"
-  />
+  <app-lightbox [event]="ev" labelledBy="home-lightbox-title" (closed)="closeLightbox()" />
 }

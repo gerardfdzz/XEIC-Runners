@@ -40,8 +40,7 @@
         @if (event.distance) {
           <div class="event-card__meta-item">
             <span class="material-symbols-outlined">distance</span>
-            {{ event.distance
-            }}{{ event.elevationGain ? " · " + event.elevationGain : "" }}
+            {{ event.distance }}{{ event.elevationGain ? ' · ' + event.elevationGain : '' }}
           </div>
         }
       </div>

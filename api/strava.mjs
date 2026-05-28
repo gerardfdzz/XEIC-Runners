@@ -1,8 +1,4 @@
-import {
-  CLUB_ID,
-  STRAVA_API_BASE,
-  getAccessToken,
-} from './_lib/strava.mjs';
+import { CLUB_ID, STRAVA_API_BASE, getAccessToken } from './_lib/strava.mjs';
 
 const CACHE_TTL = 5 * 60 * 1000;
 let _cache = null;
@@ -11,10 +7,7 @@ let _cacheExpiry = 0;
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Content-Type', 'application/json');
-  res.setHeader(
-    'Cache-Control',
-    'public, s-maxage=300, stale-while-revalidate=60',
-  );
+  res.setHeader('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=60');
 
   if (req.method === 'OPTIONS') {
     return res.status(204).end();
@@ -39,8 +32,7 @@ export default async function handler(req, res) {
     ]);
 
     if (!clubRes.ok) throw new Error(`Club API: ${clubRes.status}`);
-    if (!activitiesRes.ok)
-      throw new Error(`Activities API: ${activitiesRes.status}`);
+    if (!activitiesRes.ok) throw new Error(`Activities API: ${activitiesRes.status}`);
 
     const [club, activities, groupEvents] = await Promise.all([
       clubRes.json(),

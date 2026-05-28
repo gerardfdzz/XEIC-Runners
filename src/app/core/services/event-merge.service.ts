@@ -5,15 +5,11 @@ import { StravaGroupEvent } from '../models/strava.model';
 
 @Injectable({ providedIn: 'root' })
 export class EventMergeService {
- 
   isStrictlyBeforeToday(date: Date, now: Date = new Date()): boolean {
     return this.toYmd(date) < this.toYmd(now);
   }
 
-  mergeUpcomingEvents(
-    groupEvents: StravaGroupEvent[],
-    sheetEvents: XeicEvent[],
-  ): XeicEvent[] {
+  mergeUpcomingEvents(groupEvents: StravaGroupEvent[], sheetEvents: XeicEvent[]): XeicEvent[] {
     if (groupEvents.length > 0) {
       return groupEvents
         .filter(

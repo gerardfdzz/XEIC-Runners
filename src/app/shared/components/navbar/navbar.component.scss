@@ -11,7 +11,9 @@
   border-bottom: 1px solid rgba($outline-variant, 0.3);
   transition: box-shadow 0.3s ease;
 
-  &--scrolled { box-shadow: $shadow-md; }
+  &--scrolled {
+    box-shadow: $shadow-md;
+  }
 
   &__inner {
     @include container;
@@ -28,7 +30,9 @@
     transition: opacity 150ms $ease-out;
 
     @media (hover: hover) and (pointer: fine) {
-      &:hover { opacity: 0.8; }
+      &:hover {
+        opacity: 0.8;
+      }
     }
   }
 
@@ -37,7 +41,9 @@
     gap: 32px;
     align-items: center;
 
-    @include md { display: flex; }
+    @include md {
+      display: flex;
+    }
   }
 
   &__link {
@@ -49,7 +55,9 @@
     padding-bottom: 2px;
 
     @media (hover: hover) and (pointer: fine) {
-      &:hover { color: $primary; }
+      &:hover {
+        color: $primary;
+      }
     }
 
     &--active {
@@ -64,7 +72,9 @@
     gap: 16px;
   }
 
-  &__lang { position: relative; }
+  &__lang {
+    position: relative;
+  }
 
   &__lang-toggle {
     display: flex;
@@ -77,10 +87,14 @@
     transition: color 150ms $ease-out;
 
     @media (hover: hover) and (pointer: fine) {
-      &:hover { color: $primary; }
+      &:hover {
+        color: $primary;
+      }
     }
 
-    .material-symbols-outlined { font-size: 16px; }
+    .material-symbols-outlined {
+      font-size: 16px;
+    }
   }
 
   &__lang-menu {
@@ -95,7 +109,9 @@
     min-width: 80px;
     z-index: 100;
     transform-origin: top right;
-    transition: opacity 150ms $ease-out, transform 150ms $ease-out;
+    transition:
+      opacity 150ms $ease-out,
+      transform 150ms $ease-out;
 
     @starting-style {
       opacity: 0;
@@ -114,7 +130,9 @@
     transition: background 120ms $ease-out;
 
     @media (hover: hover) and (pointer: fine) {
-      &:hover { background: $surface-container; }
+      &:hover {
+        background: $surface-container;
+      }
     }
 
     &--active {
@@ -125,13 +143,17 @@
 
   &__join {
     display: none;
-    @include md { display: inline-flex; }
+    @include md {
+      display: inline-flex;
+    }
   }
 
   &__mobile-toggle {
     display: flex;
     color: $on-surface;
-    @include md { display: none; }
+    @include md {
+      display: none;
+    }
   }
 
   &__mobile-menu {
@@ -141,7 +163,9 @@
     flex-direction: column;
     gap: 4px;
     background: $surface;
-    @include md { display: none; }
+    @include md {
+      display: none;
+    }
   }
 
   &__mobile-link {
@@ -155,9 +179,13 @@
     border-bottom: 1px solid rgba($outline-variant, 0.15);
 
     @media (hover: hover) and (pointer: fine) {
-      &:hover { color: $primary; }
+      &:hover {
+        color: $primary;
+      }
     }
-    &:last-of-type { border-bottom: none; }
+    &:last-of-type {
+      border-bottom: none;
+    }
   }
 
   &__mobile-join {

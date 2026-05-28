@@ -43,13 +43,18 @@ button {
   border: none;
 }
 
-ul, ol {
+ul,
+ol {
   list-style: none;
 }
 
 .material-symbols-outlined {
   font-family: 'Material Symbols Outlined', sans-serif;
-  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
   display: inline-block;
   vertical-align: middle;
   line-height: 1;
@@ -115,7 +120,9 @@ ul, ol {
   background: transparent;
 
   @media (hover: hover) and (pointer: fine) {
-    &:hover { background: rgba($primary, 0.05); }
+    &:hover {
+      background: rgba($primary, 0.05);
+    }
   }
 }
 
@@ -130,12 +137,16 @@ ul, ol {
   box-shadow: $shadow-md;
 
   @media (hover: hover) and (pointer: fine) {
-    &:hover { transform: scale(1.03); }
+    &:hover {
+      transform: scale(1.03);
+    }
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;

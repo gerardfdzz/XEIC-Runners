@@ -43,10 +43,7 @@ export function extractHighlightItems(data) {
     const reelItems = (reel.items ?? [])
       .map((item) => {
         const candidates = item.image_versions2?.candidates ?? [];
-        const best = candidates.reduce(
-          (a, b) => (b.width > a.width ? b : a),
-          candidates[0] ?? {},
-        );
+        const best = candidates.reduce((a, b) => (b.width > a.width ? b : a), candidates[0] ?? {});
         return {
           id: item.id,
           imageUrl: best.url ?? null,

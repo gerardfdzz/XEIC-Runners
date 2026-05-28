@@ -9,7 +9,9 @@
   overflow: hidden;
   border: 1px solid rgba($outline-variant, 0.2);
   box-shadow: $shadow-sm;
-  transition: box-shadow 200ms $ease-out, transform 200ms $ease-out;
+  transition:
+    box-shadow 200ms $ease-out,
+    transform 200ms $ease-out;
 
   @media (hover: hover) and (pointer: fine) {
     &:hover {
@@ -31,14 +33,16 @@
     transition: transform 400ms $ease-out;
 
     @media (hover: hover) and (pointer: fine) {
-      .route-card:hover & { transform: scale(1.05); }
+      .route-card:hover & {
+        transform: scale(1.05);
+      }
     }
   }
 
   &__image-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.2), transparent);
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.2), transparent);
   }
 
   &__tags {
@@ -136,15 +140,23 @@
     font-size: $text-label-lg;
     font-weight: $fw-semibold;
     color: $on-primary;
-    transition: transform 150ms $ease-out, opacity 150ms $ease-out;
+    transition:
+      transform 150ms $ease-out,
+      opacity 150ms $ease-out;
 
     @media (hover: hover) and (pointer: fine) {
-      &:hover { opacity: 0.88; }
+      &:hover {
+        opacity: 0.88;
+      }
     }
 
-    &:active { transform: scale(0.97); }
+    &:active {
+      transform: scale(0.97);
+    }
 
-    .material-symbols-outlined { font-size: 18px; }
+    .material-symbols-outlined {
+      font-size: 18px;
+    }
   }
 }
 
@@ -156,10 +168,28 @@
   font-weight: $fw-semibold;
   backdrop-filter: blur(4px);
 
-  &--mountain { background: rgba($tertiary-fixed, 0.9);           color: $on-tertiary-fixed; }
-  &--road     { background: rgba($primary-fixed, 0.9);            color: $on-primary-fixed; }
-  &--mixed    { background: rgba($surface-container-lowest, 0.9); color: $on-surface; }
-  &--easy     { background: rgba($tertiary-container, 0.8);       color: $on-tertiary-container; }
-  &--medium   { background: rgba($primary-container, 0.8);        color: $on-primary-container; }
-  &--xeic     { background: $secondary-container;                 color: $on-secondary; }
+  &--mountain {
+    background: rgba($tertiary-fixed, 0.9);
+    color: $on-tertiary-fixed;
+  }
+  &--road {
+    background: rgba($primary-fixed, 0.9);
+    color: $on-primary-fixed;
+  }
+  &--mixed {
+    background: rgba($surface-container-lowest, 0.9);
+    color: $on-surface;
+  }
+  &--easy {
+    background: rgba($tertiary-container, 0.8);
+    color: $on-tertiary-container;
+  }
+  &--medium {
+    background: rgba($primary-container, 0.8);
+    color: $on-primary-container;
+  }
+  &--xeic {
+    background: $secondary-container;
+    color: $on-secondary;
+  }
 }

@@ -1,8 +1,4 @@
-import {
-  STRAVA_API_BASE,
-  getAccessToken,
-  mapStravaRouteType,
-} from './_lib/strava.mjs';
+import { STRAVA_API_BASE, getAccessToken, mapStravaRouteType } from './_lib/strava.mjs';
 
 const CACHE_TTL = 15 * 60 * 1000;
 let _cache = null;
@@ -24,23 +20,18 @@ export default async function handler(req, res) {
     if (!athleteId) throw new Error('Missing STRAVA_ATHLETE_ID env var.');
 
     const accessToken = await getAccessToken();
-    const routesRes = await fetch(
-      `${STRAVA_API_BASE}/athletes/${athleteId}/routes?per_page=50`,
-      { headers: { Authorization: `Bearer ${accessToken}` } },
-    );
+    const routesRes = await fetch(`${STRAVA_API_BASE}/athletes/${athleteId}/routes?per_page=50`, {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
 
     if (!routesRes.ok) {
       const body = await routesRes.text();
-      throw new Error(
-        `Strava routes responded ${routesRes.status}: ${body.slice(0, 200)}`,
-      );
+      throw new Error(`Strava routes responded ${routesRes.status}: ${body.slice(0, 200)}`);
     }
 
     const raw = await routesRes.json();
     if (!Array.isArray(raw)) {
-      throw new Error(
-        `Unexpected Strava routes payload: ${JSON.stringify(raw).slice(0, 200)}`,
-      );
+      throw new Error(`Unexpected Strava routes payload: ${JSON.stringify(raw).slice(0, 200)}`);
     }
 
     const routes = raw

@@ -1,11 +1,6 @@
 <div class="notifications" role="region" [attr.aria-label]="i18n.t('notifications.region')">
   @for (n of notifications.items(); track n.id) {
-    <div
-      class="notifications__item"
-      [class]="'notifications__item--' + n.kind"
-      role="status"
-      aria-live="polite"
-    >
+    <div class="notifications__item" [class]="'notifications__item--' + n.kind" role="status" aria-live="polite">
       <span class="notifications__message">{{ n.message }}</span>
       <button
         type="button"

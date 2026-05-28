@@ -47,11 +47,7 @@ export class I18nService {
     const keys = key.split('.');
     let value: unknown = this._translations();
     for (const k of keys) {
-      if (
-        value &&
-        typeof value === 'object' &&
-        k in (value as Record<string, unknown>)
-      ) {
+      if (value && typeof value === 'object' && k in (value as Record<string, unknown>)) {
         value = (value as Record<string, unknown>)[k];
       } else {
         return key;

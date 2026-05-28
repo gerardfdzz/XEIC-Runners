@@ -50,12 +50,8 @@ describe('EventMergeService', () => {
   describe('mapActivityTag', () => {
     it('title keywords take precedence over activity_type', () => {
       expect(service.mapActivityTag('Run', 'Trail nocturn')).toBe('Trail');
-      expect(service.mapActivityTag('Run', 'Senderisme als Ports')).toBe(
-        'Senderisme',
-      );
-      expect(service.mapActivityTag('Run', 'Caminada amb gossos')).toBe(
-        'Caminada',
-      );
+      expect(service.mapActivityTag('Run', 'Senderisme als Ports')).toBe('Senderisme');
+      expect(service.mapActivityTag('Run', 'Caminada amb gossos')).toBe('Caminada');
     });
 
     it('falls back to activity_type mapping when title has no keyword', () => {
@@ -117,10 +113,7 @@ describe('EventMergeService', () => {
     });
 
     it('falls back to "La Sénia" when no address is provided', () => {
-      const result = service.stravaToXeicEvent(
-        { ...baseStrava, address: '' },
-        [],
-      );
+      const result = service.stravaToXeicEvent({ ...baseStrava, address: '' }, []);
       expect(result.location).toBe('La Sénia');
     });
   });
@@ -139,15 +132,17 @@ describe('EventMergeService', () => {
         activity_type: 'Run',
         created_at: '',
         start_date: '',
-        upcoming_occurrences: [
-          new Date(2026, 4, 28).toISOString(),
-        ],
+        upcoming_occurrences: [new Date(2026, 4, 28).toISOString()],
         address: '',
         route_id: null,
         organizing_athlete: { firstname: '', lastname: '' },
       };
-      const sooner: StravaGroupEvent = { ...later, id: 1, title: 'A',
-        upcoming_occurrences: [tomorrow.toISOString()] };
+      const sooner: StravaGroupEvent = {
+        ...later,
+        id: 1,
+        title: 'A',
+        upcoming_occurrences: [tomorrow.toISOString()],
+      };
       jasmine.clock().install();
       jasmine.clock().mockDate(today);
       try {
@@ -164,14 +159,26 @@ describe('EventMergeService', () => {
       try {
         const sheet: XeicEvent[] = [
           {
-            id: 'sheet-1', title: 'past', date: yesterday,
-            time: '10:00', location: '', type: 'social', difficulty: 'Iniciació',
-            tags: [], imageUrl: '',
+            id: 'sheet-1',
+            title: 'past',
+            date: yesterday,
+            time: '10:00',
+            location: '',
+            type: 'social',
+            difficulty: 'Iniciació',
+            tags: [],
+            imageUrl: '',
           },
           {
-            id: 'sheet-2', title: 'future', date: tomorrow,
-            time: '10:00', location: '', type: 'social', difficulty: 'Iniciació',
-            tags: [], imageUrl: '',
+            id: 'sheet-2',
+            title: 'future',
+            date: tomorrow,
+            time: '10:00',
+            location: '',
+            type: 'social',
+            difficulty: 'Iniciació',
+            tags: [],
+            imageUrl: '',
           },
         ];
         const out = service.mergeUpcomingEvents([], sheet);

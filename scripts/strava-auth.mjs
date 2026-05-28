@@ -4,17 +4,19 @@ import { resolve } from 'node:path';
 
 const envPath = resolve(process.cwd(), '.env');
 if (!existsSync(envPath)) {
-  console.error('❌  No s\'ha trobat .env. Copia .env.example → .env i omple-ho primer.');
+  console.error("❌  No s'ha trobat .env. Copia .env.example → .env i omple-ho primer.");
   process.exit(1);
 }
 
 const env = {};
-readFileSync(envPath, 'utf-8').split('\n').forEach((line) => {
-  const [key, ...rest] = line.split('=');
-  if (key && !key.startsWith('#')) env[key.trim()] = rest.join('=').trim();
-});
+readFileSync(envPath, 'utf-8')
+  .split('\n')
+  .forEach((line) => {
+    const [key, ...rest] = line.split('=');
+    if (key && !key.startsWith('#')) env[key.trim()] = rest.join('=').trim();
+  });
 
-const CLIENT_ID     = env['STRAVA_CLIENT_ID'];
+const CLIENT_ID = env['STRAVA_CLIENT_ID'];
 const CLIENT_SECRET = env['STRAVA_CLIENT_SECRET'];
 
 if (!CLIENT_ID || !CLIENT_SECRET || CLIENT_ID.includes('your_')) {
@@ -23,8 +25,8 @@ if (!CLIENT_ID || !CLIENT_SECRET || CLIENT_ID.includes('your_')) {
 }
 
 const REDIRECT_URI = 'http://localhost';
-const SCOPE        = 'read,activity:read';
-const authUrl      = `https://www.strava.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code&scope=${SCOPE}`;
+const SCOPE = 'read,activity:read';
+const authUrl = `https://www.strava.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code&scope=${SCOPE}`;
 
 console.log('\n🔑  Autenticació Strava\n');
 console.log('1. Obre aquesta URL al navegador:');
@@ -37,14 +39,17 @@ const rl = createInterface({ input: process.stdin, output: process.stdout });
 rl.question('Enganxa el "code" aquí: ', async (code) => {
   rl.close();
   code = code.trim();
-  if (!code) { console.error('❌  Codi buit.'); process.exit(1); }
+  if (!code) {
+    console.error('❌  Codi buit.');
+    process.exit(1);
+  }
 
   try {
     const res = await fetch('https://www.strava.com/oauth/token', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        client_id:     CLIENT_ID,
+        client_id: CLIENT_ID,
         client_secret: CLIENT_SECRET,
         code,
         grant_type: 'authorization_code',

@@ -39,9 +39,7 @@ export default async function handler(req, res) {
 
     if (!igRes.ok) {
       const body = await igRes.text();
-      throw new Error(
-        `Instagram responded ${igRes.status}: ${body.slice(0, 300)}`,
-      );
+      throw new Error(`Instagram responded ${igRes.status}: ${body.slice(0, 300)}`);
     }
 
     const data = await igRes.json();

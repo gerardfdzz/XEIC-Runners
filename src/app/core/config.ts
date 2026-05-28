@@ -5,5 +5,4 @@ export const STRAVA_CLUB_URL = 'https://www.strava.com/clubs/1576309';
 
 export const INSTAGRAM_PROFILE_URL = 'https://www.instagram.com/xeicrunners/';
 
-export const CLUB_IMAGE_URL =
-  'https://www.xeicrunners.com/assets/images/galeria/foto-xeic.jpg';
+export const CLUB_IMAGE_URL = 'https://www.xeicrunners.com/assets/images/galeria/foto-xeic.jpg';

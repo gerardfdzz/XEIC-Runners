@@ -8,17 +8,11 @@
   </div>
   <div class="rutes-hero__inner">
     <div class="rutes-hero__strava">
-      <img
-        src="assets/images/strava-icon.png"
-        alt="Strava"
-        class="rutes-hero__strava-icon"
-      />
-      <span class="rutes-hero__strava-label">{{
-        i18n.t("routes.connectedStrava")
-      }}</span>
+      <img src="assets/images/strava-icon.png" alt="Strava" class="rutes-hero__strava-icon" />
+      <span class="rutes-hero__strava-label">{{ i18n.t('routes.connectedStrava') }}</span>
     </div>
-    <h1 class="rutes-hero__title">{{ i18n.t("routes.heroTitle") }}</h1>
-    <p class="rutes-hero__subtitle">{{ i18n.t("routes.heroSubtitle") }}</p>
+    <h1 class="rutes-hero__title">{{ i18n.t('routes.heroTitle') }}</h1>
+    <p class="rutes-hero__subtitle">{{ i18n.t('routes.heroSubtitle') }}</p>
   </div>
 </section>
 
@@ -26,9 +20,7 @@
   <div class="rutes-filters__inner">
     <div class="rutes-filters__search-row">
       <div class="rutes-filters__search">
-        <span class="material-symbols-outlined rutes-filters__search-icon"
-          >search</span
-        >
+        <span class="material-symbols-outlined rutes-filters__search-icon">search</span>
         <input
           [(ngModel)]="searchQuery"
           [placeholder]="i18n.t('routes.search')"
@@ -38,11 +30,8 @@
       </div>
       <div class="rutes-filters__chips no-scrollbar">
         @for (filter of filters; track filter.key) {
-          <button
-            (click)="setFilter(filter.key)"
-            [class]="filterClass(filter.key)"
-          >
-            {{ i18n.t("routes.filters." + filter.translationKey) }}
+          <button (click)="setFilter(filter.key)" [class]="filterClass(filter.key)">
+            {{ i18n.t('routes.filters.' + filter.translationKey) }}
           </button>
         }
       </div>
@@ -53,11 +42,9 @@
 <div id="rutes-results" class="rutes-results-count">
   <div class="rutes-results-count__inner">
     @if (loading()) {
-      <p class="rutes-results-count__text">{{ i18n.t("routes.loading") }}</p>
+      <p class="rutes-results-count__text">{{ i18n.t('routes.loading') }}</p>
     } @else {
-      <p class="rutes-results-count__text">
-        {{ filteredRoutes().length }} {{ i18n.t("routes.resultsFound") }}
-      </p>
+      <p class="rutes-results-count__text">{{ filteredRoutes().length }} {{ i18n.t('routes.resultsFound') }}</p>
     }
   </div>
 </div>
@@ -66,23 +53,19 @@
   <div class="rutes-grid__inner">
     @if (loading()) {
       <div class="rutes-grid__empty">
-        <span
-          class="material-symbols-outlined rutes-grid__empty-icon"
-          style="animation: spin 1.2s linear infinite"
+        <span class="material-symbols-outlined rutes-grid__empty-icon" style="animation: spin 1.2s linear infinite"
           >sync</span
         >
         <p class="rutes-grid__empty-title">
-          {{ i18n.t("routes.loadingShort") }}
+          {{ i18n.t('routes.loadingShort') }}
         </p>
       </div>
     } @else if (filteredRoutes().length === 0) {
       <div class="rutes-grid__empty">
-        <span class="material-symbols-outlined rutes-grid__empty-icon"
-          >search_off</span
-        >
-        <p class="rutes-grid__empty-title">{{ i18n.t("routes.noRoutes") }}</p>
+        <span class="material-symbols-outlined rutes-grid__empty-icon">search_off</span>
+        <p class="rutes-grid__empty-title">{{ i18n.t('routes.noRoutes') }}</p>
         <p class="rutes-grid__empty-text">
-          {{ i18n.t("routes.noRoutesHint") }}
+          {{ i18n.t('routes.noRoutesHint') }}
         </p>
       </div>
     } @else {
@@ -99,16 +82,12 @@
   <div class="rutes-strava-cta__inner">
     <div class="rutes-strava-cta__card grainy-gradient">
       <div class="rutes-strava-cta__content">
-        <img
-          src="assets/images/strava-icon.png"
-          alt="Strava"
-          class="rutes-strava-cta__icon"
-        />
+        <img src="assets/images/strava-icon.png" alt="Strava" class="rutes-strava-cta__icon" />
         <h3 class="rutes-strava-cta__title">
-          {{ i18n.t("routes.stravaFollow") }}
+          {{ i18n.t('routes.stravaFollow') }}
         </h3>
         <p class="rutes-strava-cta__text">
-          {{ i18n.t("routes.ctaText") }}
+          {{ i18n.t('routes.ctaText') }}
         </p>
         <a
           href="https://www.strava.com/clubs/1576309"
@@ -116,7 +95,7 @@
           rel="noopener noreferrer"
           class="rutes-strava-cta__btn"
         >
-          {{ i18n.t("routes.followStravaBtn") }}
+          {{ i18n.t('routes.followStravaBtn') }}
         </a>
       </div>
     </div>
@@ -131,10 +110,6 @@
     class="rutes-fab__btn"
     [attr.aria-label]="i18n.t('routes.stravaFollow')"
   >
-    <img
-      src="assets/images/strava-icon.png"
-      alt="Strava"
-      class="rutes-fab__icon"
-    />
+    <img src="assets/images/strava-icon.png" alt="Strava" class="rutes-fab__icon" />
   </a>
 </div>

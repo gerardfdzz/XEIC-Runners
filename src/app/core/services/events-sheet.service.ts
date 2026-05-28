@@ -19,10 +19,7 @@ export class EventsSheetService {
       map((csv) => this.parseCsv(csv)),
       shareReplay(1),
       catchError((err) => {
-        console.warn(
-          '[EventsSheetService] Error carregant el Google Sheet:',
-          err.message,
-        );
+        console.warn('[EventsSheetService] Error carregant el Google Sheet:', err.message);
         return of<XeicEvent[]>([]);
       }),
     );
@@ -35,16 +32,12 @@ export class EventsSheetService {
       .filter((l) => l.trim());
     if (lines.length < 2) return [];
 
-    const headers = this.parseCsvRow(lines[0]).map((h) =>
-      h.trim().toLowerCase(),
-    );
+    const headers = this.parseCsvRow(lines[0]).map((h) => h.trim().toLowerCase());
     const events: XeicEvent[] = [];
 
     for (let i = 1; i < lines.length; i++) {
       const cols = this.parseCsvRow(lines[i]);
-      const row = Object.fromEntries(
-        headers.map((h, j) => [h, (cols[j] ?? '').trim()]),
-      );
+      const row = Object.fromEntries(headers.map((h, j) => [h, (cols[j] ?? '').trim()]));
 
       if (!row['title'] || !row['date'] || !row['imageurl']) continue;
 
@@ -52,9 +45,7 @@ export class EventsSheetService {
       if (!date) continue;
 
       const type: EventType = this.validType(row['type']);
-      const difficulty: EventDifficulty = this.validDifficulty(
-        row['difficulty'],
-      );
+      const difficulty: EventDifficulty = this.validDifficulty(row['difficulty']);
       const tags: string[] = row['tags']
         ? row['tags']
             .split('|')
@@ -130,8 +121,6 @@ export class EventsSheetService {
 
   private validDifficulty(raw: string): EventDifficulty {
     const allowed: EventDifficulty[] = ['Iniciació', 'Mitjà', 'Xeic!'];
-    return allowed.includes(raw as EventDifficulty)
-      ? (raw as EventDifficulty)
-      : 'Iniciació';
+    return allowed.includes(raw as EventDifficulty) ? (raw as EventDifficulty) : 'Iniciació';
   }
 }

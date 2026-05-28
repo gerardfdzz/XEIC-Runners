@@ -71,8 +71,7 @@ async function handleStrava(res) {
     ]);
 
     if (!clubRes.ok) throw new Error(`Club API: ${clubRes.status}`);
-    if (!activitiesRes.ok)
-      throw new Error(`Activities API: ${activitiesRes.status}`);
+    if (!activitiesRes.ok) throw new Error(`Activities API: ${activitiesRes.status}`);
 
     const [club, activities, groupEvents] = await Promise.all([
       clubRes.json(),
@@ -108,22 +107,17 @@ async function handleRoutes(res) {
 
     console.log('🗺️  Fetching Strava routes...');
     const accessToken = await getAccessToken();
-    const routesRes = await fetch(
-      `${STRAVA_API_BASE}/athletes/${athleteId}/routes?per_page=50`,
-      { headers: { Authorization: `Bearer ${accessToken}` } },
-    );
+    const routesRes = await fetch(`${STRAVA_API_BASE}/athletes/${athleteId}/routes?per_page=50`, {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
 
     if (!routesRes.ok) {
       const body = await routesRes.text();
-      throw new Error(
-        `Strava routes HTTP ${routesRes.status}: ${body.slice(0, 200)}`,
-      );
+      throw new Error(`Strava routes HTTP ${routesRes.status}: ${body.slice(0, 200)}`);
     }
     const raw = await routesRes.json();
     if (!Array.isArray(raw)) {
-      throw new Error(
-        `Unexpected Strava routes payload: ${JSON.stringify(raw).slice(0, 200)}`,
-      );
+      throw new Error(`Unexpected Strava routes payload: ${JSON.stringify(raw).slice(0, 200)}`);
     }
     const routes = raw
       .filter((r) => !r.private)
@@ -170,9 +164,7 @@ async function handleInstagram(res) {
     });
     if (!igRes.ok) {
       const body = await igRes.text();
-      throw new Error(
-        `Instagram HTTP ${igRes.status}: ${body.slice(0, 300)}`,
-      );
+      throw new Error(`Instagram HTTP ${igRes.status}: ${body.slice(0, 300)}`);
     }
     const data = await igRes.json();
     const items = extractHighlightItems(data);
