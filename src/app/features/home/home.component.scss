@@ -585,6 +585,12 @@
 
   &__photo {
     width: 100%;
+    /* height: auto restores the implicit behaviour the <img> had before
+       we added intrinsic width/height attributes for CLS. Without it,
+       the browser falls back to the HTML height attribute (e.g. 4000px)
+       and the photo stretches vertically. */
+    height: auto;
+    display: block;
     transition: transform 400ms $ease-out;
 
     @media (hover: hover) and (pointer: fine) {
