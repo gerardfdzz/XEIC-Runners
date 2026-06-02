@@ -148,29 +148,32 @@
 
   &__grid {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 16px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
 
-    @include sm {
-      grid-template-columns: repeat(2, 1fr);
-    }
     @include lg {
       grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
     }
   }
 
   &__card {
     background: $surface-container-lowest;
     border-radius: $radius-2xl;
-    padding: 20px;
+    padding: 14px;
     border: 1px solid rgba($outline-variant, 0.2);
     box-shadow: $shadow-sm;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
     transition:
       box-shadow 200ms $ease-out,
       transform 200ms $ease-out;
+
+    @include md {
+      padding: 20px;
+      gap: 12px;
+    }
 
     @media (hover: hover) and (pointer: fine) {
       &:hover {
@@ -187,15 +190,22 @@
   }
 
   &__type-icon {
-    font-size: 24px;
+    font-size: 20px;
     color: $primary;
     background: rgba($primary, 0.08);
     border-radius: $radius-full;
-    width: 40px;
-    height: 40px;
+    width: 34px;
+    height: 34px;
+    flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: center;
+
+    @include md {
+      font-size: 24px;
+      width: 40px;
+      height: 40px;
+    }
   }
 
   &__athlete {
@@ -204,6 +214,9 @@
     font-weight: $fw-semibold;
     color: $secondary;
     text-align: right;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   &__name {

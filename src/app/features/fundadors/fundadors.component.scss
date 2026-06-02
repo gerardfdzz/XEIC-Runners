@@ -179,8 +179,12 @@
 
   &__gallery {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     gap: 16px;
+
+    @include md {
+      grid-template-columns: 1fr 1fr;
+    }
   }
 
   &__col {
@@ -189,7 +193,9 @@
     gap: 16px;
 
     &--offset {
-      padding-top: 48px;
+      @include md {
+        padding-top: 48px;
+      }
     }
   }
 
@@ -201,11 +207,12 @@
 
   &__photo {
     width: 100%;
-    height: 256px;
+    height: auto;
+    aspect-ratio: 3 / 2;
     object-fit: cover;
 
     &--tall {
-      height: 320px;
+      aspect-ratio: 4 / 3;
     }
   }
 

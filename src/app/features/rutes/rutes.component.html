@@ -30,14 +30,53 @@
           class="rutes-filters__input"
         />
       </div>
-      <div class="rutes-filters__chips no-scrollbar">
-        @for (filter of filters; track filter.key) {
-          <button (click)="setFilter(filter.key)" [class]="filterClass(filter.key)">
-            {{ i18n.t('routes.filters.' + filter.translationKey) }}
-          </button>
+      <button
+        class="rutes-filters__toggle"
+        [class.rutes-filters__toggle--active]="toggleActive()"
+        (click)="toggleFilters()"
+        [attr.aria-expanded]="filtersOpen()"
+        aria-label="Filtres avançats"
+      >
+        <span class="material-symbols-outlined">tune</span>
+        @if (hasActiveFilters()) {
+          <span class="rutes-filters__toggle-badge">{{ activeRangeCount() }}</span>
         }
-      </div>
+      </button>
     </div>
+
+    @if (filtersOpen()) {
+      <div class="rutes-filters__advanced">
+        <div class="rutes-filters__filter-row">
+          <div class="rutes-filters__chips no-scrollbar">
+            @for (filter of filters; track filter.key) {
+              <button (click)="setFilter(filter.key)" [class]="filterClass(filter.key)">
+                {{ filterLabel(filter.translationKey) }}
+              </button>
+            }
+          </div>
+        </div>
+
+        <div class="rutes-filters__filter-row">
+          <div class="rutes-filters__chips no-scrollbar">
+            @for (r of distanceRanges; track r.key) {
+              <button (click)="setDistanceFilter(r.key)" [class]="distanceChipClass(r.key)">
+                {{ r.label }}
+              </button>
+            }
+          </div>
+        </div>
+
+        <div class="rutes-filters__filter-row">
+          <div class="rutes-filters__chips no-scrollbar">
+            @for (r of elevationRanges; track r.key) {
+              <button (click)="setElevationFilter(r.key)" [class]="elevationChipClass(r.key)">
+                {{ r.label }}
+              </button>
+            }
+          </div>
+        </div>
+      </div>
+    }
   </div>
 </section>
 
@@ -46,7 +85,7 @@
     @if (loading()) {
       <p class="rutes-results-count__text">{{ i18n.t('routes.loading') }}</p>
     } @else {
-      <p class="rutes-results-count__text">{{ filteredRoutes().length }} {{ i18n.t('routes.resultsFound') }}</p>
+      <p class="rutes-results-count__text">{{ resultCount() }} {{ i18n.t('routes.resultsFound') }}</p>
     }
   </div>
 </div>
@@ -55,14 +94,12 @@
   <div class="rutes-grid__inner">
     @if (loading()) {
       <div class="rutes-grid__empty">
-        <span class="material-symbols-outlined rutes-grid__empty-icon" style="animation: spin 1.2s linear infinite"
-          >sync</span
-        >
+        <span class="material-symbols-outlined rutes-grid__empty-icon rutes-grid__empty-icon--spin">sync</span>
         <p class="rutes-grid__empty-title">
           {{ i18n.t('routes.loadingShort') }}
         </p>
       </div>
-    } @else if (filteredRoutes().length === 0) {
+    } @else if (hasNoResults()) {
       <div class="rutes-grid__empty">
         <span class="material-symbols-outlined rutes-grid__empty-icon">search_off</span>
         <p class="rutes-grid__empty-title">{{ i18n.t('routes.noRoutes') }}</p>
@@ -103,15 +140,3 @@
     </div>
   </div>
 </section>
-
-<div class="rutes-fab">
-  <a
-    href="https://www.strava.com/clubs/1576309"
-    target="_blank"
-    rel="noopener noreferrer"
-    class="rutes-fab__btn"
-    [attr.aria-label]="i18n.t('routes.stravaFollow')"
-  >
-    <img src="assets/images/strava-icon.png" alt="Strava" class="rutes-fab__icon" width="512" height="512" />
-  </a>
-</div>

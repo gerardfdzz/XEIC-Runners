@@ -85,12 +85,9 @@
 
   &__search-row {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    align-items: center;
     gap: 12px;
-
-    @include sm {
-      flex-direction: row;
-    }
   }
 
   &__search {
@@ -136,6 +133,72 @@
     display: flex;
     overflow-x: auto;
     gap: 8px;
+  }
+
+  &__toggle {
+    flex-shrink: 0;
+    position: relative;
+    width: 40px;
+    height: 40px;
+    border-radius: $radius-full;
+    border: 1px solid rgba($outline-variant, 0.4);
+    background: $surface-container-high;
+    color: $on-surface-variant;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition:
+      background 150ms $ease-out,
+      color 150ms $ease-out,
+      border-color 150ms $ease-out;
+
+    .material-symbols-outlined {
+      font-size: 20px;
+    }
+
+    &--active {
+      background: $primary-container;
+      color: $on-primary-fixed-variant;
+      border-color: transparent;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      &:hover:not(&--active) {
+        border-color: $primary;
+        color: $primary;
+      }
+    }
+  }
+
+  &__toggle-badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    width: 18px;
+    height: 18px;
+    border-radius: $radius-full;
+    background: $secondary;
+    color: #fff;
+    font-family: $font-lexend;
+    font-size: 10px;
+    font-weight: $fw-bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__advanced {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid rgba($outline-variant, 0.15);
+    animation: filters-in 180ms $ease-out both;
+  }
+
+  &__filter-row {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid rgba($outline-variant, 0.15);
   }
 }
 
@@ -218,6 +281,10 @@
     color: $outline;
     display: block;
     margin-bottom: 16px;
+
+    &--spin {
+      animation: spin 1.2s linear infinite;
+    }
   }
 
   &__empty-title {
@@ -301,36 +368,19 @@
   }
 }
 
-.rutes-fab {
-  position: fixed;
-  bottom: 96px;
-  right: 24px;
-  z-index: 40;
-
-  @include md {
-    display: none;
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
   }
+}
 
-  &__btn {
-    width: 56px;
-    height: 56px;
-    border-radius: $radius-full;
-    overflow: hidden;
-    box-shadow: $shadow-2xl;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 150ms $ease-out;
-
-    &:active {
-      transform: scale(0.9);
-    }
+@keyframes filters-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
   }
-
-  &__icon {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: $radius-full;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
