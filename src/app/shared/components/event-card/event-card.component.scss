@@ -18,8 +18,6 @@
   }
 
   &__image-wrapper {
-    /* Element is a <button> for keyboard accessibility; reset native
-       chrome so it visually behaves like the previous <div> wrapper. */
     display: block;
     padding: 0;
     text-align: left;

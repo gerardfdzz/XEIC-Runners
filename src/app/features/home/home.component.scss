@@ -451,9 +451,6 @@
 
   &__item-arrow {
     font-size: 20px;
-    /* Bumped from $outline (#897362, ~4.5:1 borderline) to
-       $on-surface-variant (#564334, ~7.5:1) so the icon glyph passes the
-       WCAG 1.4.3 contrast threshold over the white card background. */
     color: $on-surface-variant;
     transition: color 150ms $ease-out;
   }
@@ -585,10 +582,6 @@
 
   &__photo {
     width: 100%;
-    /* height: auto restores the implicit behaviour the <img> had before
-       we added intrinsic width/height attributes for CLS. Without it,
-       the browser falls back to the HTML height attribute (e.g. 4000px)
-       and the photo stretches vertically. */
     height: auto;
     display: block;
     transition: transform 400ms $ease-out;

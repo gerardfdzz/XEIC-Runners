@@ -266,7 +266,8 @@ xeic-runners/
 │
 ├── scripts/
 │   ├── dev-api.mjs            # Local API server (port 3000) — mirrors api/ functions
-│   └── strava-auth.mjs        # Interactive OAuth flow → prints STRAVA_REFRESH_TOKEN
+│   ├── strava-auth.mjs        # Interactive OAuth flow → prints STRAVA_REFRESH_TOKEN
+│   └── convert-webp.mjs       # Converts JPGs in assets/images to WebP at 480/960/1440px (requires sharp)
 │
 ├── src/
 │   ├── app/
@@ -296,9 +297,9 @@ xeic-runners/
 │   │   ├── features/
 │   │   │   ├── home/                      # Hero · Founders · Events (with lightbox) · Routes · Community · CTA
 │   │   │   ├── fundadors/                 # History · Values bento · Team · CTA
-│   │   │   ├── rutes/                     # Hero · Sticky filters · Responsive grid
+│   │   │   ├── rutes/                     # Hero · Sticky search + collapsible filters (terrain/distance/elevation) · Responsive grid
 │   │   │   ├── esdeveniments/             # Upcoming cards (lightbox on click) · Past photo grid 3/4 col (lightbox on click)
-│   │   │   └── comunitat/                 # Live stats · Recent activities · Gallery · CTA
+│   │   │   └── comunitat/                 # Live stats · Recent activities (2-col mobile) · Gallery · CTA
 │   │   │
 │   │   ├── app.component.ts               # Shell: Navbar + RouterOutlet + Footer + MobileNav
 │   │   ├── app.config.ts                  # provideRouter + provideHttpClient
@@ -314,13 +315,19 @@ xeic-runners/
 │   │   │   ├── favicon-circle.png         # 512×512 circular favicon (browser tab)
 │   │   │   ├── apple-touch-icon.png       # 180×180 circular icon (iOS/Android home screen)
 │   │   │   ├── strava-icon.png            # Strava branding icon
-│   │   │   ├── fundadors/                 # Founders photos (Teo, Robert, Jordi, Saber)
-│   │   │   └── galeria/                   # Club photos (used in galleries + OG images)
+│   │   │   ├── fundadors/                 # Founders photos — JPG + WebP at 480/960/1440px
+│   │   │   └── galeria/                   # Club photos — JPG + WebP at 480/960/1440px
 │   │   │       ├── foto-xeic.jpg          # Club members walking through La Sénia streets
 │   │   │       ├── foto-grup.jpg          # Group photo at the river
 │   │   │       ├── foto-rutes.jpg         # Landscape: lake at Parc Natural dels Ports
 │   │   │       ├── foto-trail-1.jpg       # Trail running through mountain forest
-│   │   │       └── foto-trail-2.jpg       # Runners on rocky viewpoint, Els Ports
+│   │   │       ├── foto-trail-2.jpg       # Runners on rocky viewpoint, Els Ports
+│   │   │       ├── foto-trail-3.jpg       # Trail running action shot
+│   │   │       ├── foto-trail-4.jpg       # Running through the forest
+│   │   │       ├── escales-1.jpg          # Runners on stairs, La Sénia
+│   │   │       ├── escales-2.jpg          # Stairs route background (Rutes hero)
+│   │   │       ├── plaça-1.jpg            # Plaça Major, La Sénia (Community hero)
+│   │   │       └── plaça-2.jpg            # Plaça Major gathering
 │   │   └── i18n/
 │   │       ├── ca.json                    # Catalan (primary language)
 │   │       ├── es.json                    # Spanish
