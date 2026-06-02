@@ -1,37 +1,35 @@
 <section class="events-hero">
   <div class="events-hero__blob"></div>
   <div class="events-hero__inner">
-    <span class="events-hero__badge">{{ i18n.t("events.badge") }}</span>
-    <h1 class="events-hero__title">{{ i18n.t("events.title") }}</h1>
-    <p class="events-hero__subtitle">{{ i18n.t("events.subtitle") }}</p>
+    <span class="events-hero__badge">{{ i18n.t('events.badge') }}</span>
+    <h1 class="events-hero__title">{{ i18n.t('events.title') }}</h1>
+    <p class="events-hero__subtitle">{{ i18n.t('events.subtitle') }}</p>
   </div>
 </section>
 
 <section class="events-list">
   <div class="events-list__inner">
     <h2 class="events-list__section-title">
-      <span class="material-symbols-outlined events-list__section-icon"
-        >upcoming</span
-      >
-      {{ i18n.t("events.upcoming") }}
+      <span class="material-symbols-outlined events-list__section-icon">upcoming</span>
+      {{ i18n.t('events.upcoming') }}
     </h2>
 
     @if (loading) {
       <div class="events-list__loading">
         <span class="material-symbols-outlined">sync</span>
-        {{ i18n.t("events.loading") }}
+        {{ i18n.t('events.loading') }}
       </div>
     } @else if (upcoming.length === 0) {
       <div class="events-list__empty">
         <span class="material-symbols-outlined">event_busy</span>
-        <p>{{ i18n.t("events.noEvents") }}</p>
+        <p>{{ i18n.t('events.noEvents') }}</p>
         <a
           href="https://www.strava.com/clubs/1576309"
           target="_blank"
           rel="noopener noreferrer"
           class="events-list__empty-link"
         >
-          {{ i18n.t("events.viewClub") }}
+          {{ i18n.t('events.viewClub') }}
           <span class="material-symbols-outlined">open_in_new</span>
         </a>
       </div>
@@ -45,14 +43,11 @@
 
     @if (pastByMonth.length > 0) {
       <h2 class="events-list__section-title events-list__section-title--past">
-        <span
-          class="material-symbols-outlined events-list__section-icon events-list__section-icon--past"
-          >history</span
-        >
-        {{ i18n.t("events.past") }}
+        <span class="material-symbols-outlined events-list__section-icon events-list__section-icon--past">history</span>
+        {{ i18n.t('events.past') }}
       </h2>
 
-      @for (group of pastByMonth; track group.year + "-" + group.month) {
+      @for (group of pastByMonth; track group.year + '-' + group.month) {
         <h3 class="events-list__month-title">
           {{ monthGroupLabel(group.year, group.month) }}
         </h3>
@@ -64,12 +59,7 @@
               (click)="openLightbox(event, false)"
               [attr.aria-label]="event.title"
             >
-              <img
-                [src]="event.imageUrl"
-                [alt]="event.title"
-                class="events-photo-grid__img"
-                loading="lazy"
-              />
+              <img [src]="event.imageUrl" [alt]="event.title" class="events-photo-grid__img" loading="lazy" />
             </button>
           }
         </div>
@@ -78,43 +68,21 @@
   </div>
 </section>
 
-@if (selectedEvent()) {
-  <div class="events-lightbox" (click)="closeLightbox()" role="dialog" aria-modal="true">
-    <button class="events-lightbox__close" (click)="closeLightbox()" aria-label="Tancar">
-      <span class="material-symbols-outlined">close</span>
-    </button>
-    <div class="events-lightbox__content" (click)="$event.stopPropagation()">
-      <img
-        [src]="selectedEvent()!.imageUrl"
-        [alt]="selectedEvent()!.title"
-        class="events-lightbox__img"
-      />
-      @if (showLightboxMeta) {
-        <div class="events-lightbox__meta">
-          <span class="events-lightbox__date">
-            {{ selectedEvent()!.date | date:'d MMM yyyy' }}
-          </span>
-          <span class="events-lightbox__location">
-            <span class="material-symbols-outlined">location_on</span>
-            {{ selectedEvent()!.location }}
-          </span>
-        </div>
-      }
-    </div>
-  </div>
+@if (selectedEvent(); as ev) {
+  <app-lightbox
+    [event]="ev"
+    [showMeta]="showLightboxMeta"
+    labelledBy="events-lightbox-title"
+    (closed)="closeLightbox()"
+  />
 }
 
 <section class="events-cta grainy-gradient">
   <div class="events-cta__inner">
-    <h2 class="events-cta__title">{{ i18n.t("events.ctaTitle") }}</h2>
-    <p class="events-cta__subtitle">{{ i18n.t("events.ctaSubtitle") }}</p>
-    <a
-      href="https://chat.whatsapp.com/GQj4ET5Bt84IgBLtLKwpwx?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQPOTM2NjE5NzQzMzkyNDU5AAGnkLfEewKCANv5brMZbnOgR5donAQwSYtOzCHXZQGOXv6mbYORq69F0ik71eA_aem_YWdncwBKjk5hjNoEkFPA6kU1K5Xs&brid=YWdncwFIRsqUftDhoI0fTw6tmbFH"
-      target="_blank"
-      rel="noopener noreferrer"
-      class="events-cta__btn"
-    >
-      {{ i18n.t("events.ctaButton") }}
+    <h2 class="events-cta__title">{{ i18n.t('events.ctaTitle') }}</h2>
+    <p class="events-cta__subtitle">{{ i18n.t('events.ctaSubtitle') }}</p>
+    <a [href]="whatsappUrl" target="_blank" rel="noopener noreferrer" class="events-cta__btn">
+      {{ i18n.t('events.ctaButton') }}
     </a>
   </div>
 </section>

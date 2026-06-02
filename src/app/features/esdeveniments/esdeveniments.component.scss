@@ -7,8 +7,7 @@
   overflow: hidden;
   background:
     linear-gradient(rgba(0, 0, 0, 0.52), rgba(0, 0, 0, 0.52)),
-    url('https://apropebre.cat/wp-content/uploads/2026/04/DSC09145-1024x683.jpg')
-    center / cover no-repeat;
+    url('/assets/images/galeria/plaça-2.jpg') center / cover no-repeat;
 
   &__inner {
     @include container;
@@ -45,9 +44,13 @@
 .events-list {
   padding-block: 64px 112px;
 
-  @include md { padding-bottom: 64px; }
+  @include md {
+    padding-bottom: 64px;
+  }
 
-  &__inner { @include container; }
+  &__inner {
+    @include container;
+  }
 
   &__section-title {
     @include headline-md;
@@ -71,14 +74,18 @@
     margin-bottom: 20px;
     margin-top: 40px;
 
-    &:first-of-type { margin-top: 0; }
+    &:first-of-type {
+      margin-top: 0;
+    }
   }
 
   &__section-icon {
     font-size: 24px;
     color: $secondary;
 
-    &--past { color: $outline; }
+    &--past {
+      color: $outline;
+    }
   }
 
   &__grid {
@@ -86,10 +93,16 @@
     grid-template-columns: 1fr;
     gap: $gutter;
 
-    @include md { grid-template-columns: repeat(2, 1fr); }
-    @include lg { grid-template-columns: repeat(3, 1fr); }
+    @include md {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    @include lg {
+      grid-template-columns: repeat(3, 1fr);
+    }
 
-    &--past { opacity: 0.65; }
+    &--past {
+      opacity: 0.65;
+    }
   }
 
   &__loading {
@@ -117,9 +130,15 @@
     padding-block: 48px;
     color: $on-surface-variant;
 
-    .material-symbols-outlined { font-size: 48px; color: $outline; }
+    .material-symbols-outlined {
+      font-size: 48px;
+      color: $outline;
+    }
 
-    p { font-family: $font-lexend; font-size: $text-body-md; }
+    p {
+      font-family: $font-lexend;
+      font-size: $text-body-md;
+    }
   }
 
   &__empty-link {
@@ -132,12 +151,16 @@
     color: $primary;
     margin-top: 8px;
 
-    .material-symbols-outlined { font-size: 16px; }
+    .material-symbols-outlined {
+      font-size: 16px;
+    }
   }
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .events-photo-grid {
@@ -149,7 +172,9 @@
   border-radius: $radius-lg;
   overflow: hidden;
 
-  @include md { grid-template-columns: repeat(4, 1fr); }
+  @include md {
+    grid-template-columns: repeat(4, 1fr);
+  }
 
   &__item {
     position: relative;
@@ -161,9 +186,13 @@
     cursor: pointer;
 
     @media (hover: hover) and (pointer: fine) {
-      &:hover .events-photo-grid__img { transform: scale(1.06); }
+      &:hover .events-photo-grid__img {
+        transform: scale(1.06);
+      }
     }
-    &:active .events-photo-grid__img { transform: scale(0.97); }
+    &:active .events-photo-grid__img {
+      transform: scale(0.97);
+    }
   }
 
   &__img {
@@ -173,100 +202,6 @@
     display: block;
     transition: transform 300ms $ease-out;
   }
-}
-
-
-.events-lightbox {
-  position: fixed;
-  inset: 0;
-  z-index: 1000;
-  background: rgba(0, 0, 0, 0.92);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 16px;
-  animation: lightbox-in 220ms $ease-out both;
-
-  @starting-style { opacity: 0; }
-
-  &__close {
-    position: absolute;
-    top: 16px;
-    right: 16px;
-    width: 44px;
-    height: 44px;
-    border-radius: $radius-full;
-    border: none;
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(8px);
-    color: #fff;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 150ms $ease-out, transform 150ms $ease-out;
-    z-index: 1001;
-
-    @media (hover: hover) and (pointer: fine) {
-      &:hover { background: rgba(255, 255, 255, 0.25); }
-    }
-    &:active { transform: scale(0.92); }
-
-    .material-symbols-outlined { font-size: 22px; }
-  }
-
-  &__content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
-    max-width: min(480px, 100%);
-    width: 100%;
-    animation: lightbox-content-in 280ms $ease-out both;
-
-    @starting-style { opacity: 0; transform: scale(0.94) translateY(12px); }
-  }
-
-  &__img {
-    width: auto;
-    height: auto;
-    max-width: 100%;
-    max-height: 75dvh;
-    border-radius: $radius-2xl;
-    display: block;
-  }
-
-  &__meta {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    color: rgba(255, 255, 255, 0.75);
-    font-family: $font-lexend;
-    font-size: $text-label-lg;
-  }
-
-  &__date {
-    font-weight: $fw-semibold;
-    color: #fff;
-  }
-
-  &__location {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-
-    .material-symbols-outlined { font-size: 16px; }
-  }
-}
-
-@keyframes lightbox-in {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-
-@keyframes lightbox-content-in {
-  from { opacity: 0; transform: scale(0.94) translateY(12px); }
-  to   { opacity: 1; transform: scale(1) translateY(0); }
 }
 
 .events-cta {
@@ -284,7 +219,9 @@
     gap: 24px;
   }
 
-  &__title { @include headline-lg; }
+  &__title {
+    @include headline-lg;
+  }
 
   &__subtitle {
     @include body-lg;
@@ -302,12 +239,19 @@
     font-weight: $fw-bold;
     font-size: $text-headline-md;
     box-shadow: $shadow-xl;
-    transition: transform 160ms $ease-out, box-shadow 200ms $ease-out;
+    transition:
+      transform 160ms $ease-out,
+      box-shadow 200ms $ease-out;
 
     @media (hover: hover) and (pointer: fine) {
-      &:hover { transform: scale(1.03); box-shadow: $shadow-2xl; }
+      &:hover {
+        transform: scale(1.03);
+        box-shadow: $shadow-2xl;
+      }
     }
 
-    &:active { transform: scale(0.97); }
+    &:active {
+      transform: scale(0.97);
+    }
   }
 }

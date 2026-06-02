@@ -1,5 +1,5 @@
 <header class="navbar" [class.navbar--scrolled]="scrolled()">
-  <nav class="navbar__inner">
+  <nav class="navbar__inner" [attr.aria-label]="i18n.t('nav.ariaPrimary')">
     <a routerLink="/" class="navbar__logo">XEIC RUNNERS</a>
 
     <ul class="navbar__links">
@@ -10,43 +10,27 @@
           [routerLinkActiveOptions]="{ exact: true }"
           class="navbar__link"
         >
-          {{ i18n.t("nav.home") }}
+          {{ i18n.t('nav.home') }}
         </a>
       </li>
       <li>
-        <a
-          routerLink="/fundadors"
-          routerLinkActive="navbar__link--active"
-          class="navbar__link"
-        >
-          {{ i18n.t("nav.founders") }}
+        <a routerLink="/fundadors" routerLinkActive="navbar__link--active" class="navbar__link">
+          {{ i18n.t('nav.founders') }}
         </a>
       </li>
       <li>
-        <a
-          routerLink="/esdeveniments"
-          routerLinkActive="navbar__link--active"
-          class="navbar__link"
-        >
-          {{ i18n.t("nav.events") }}
+        <a routerLink="/esdeveniments" routerLinkActive="navbar__link--active" class="navbar__link">
+          {{ i18n.t('nav.events') }}
         </a>
       </li>
       <li>
-        <a
-          routerLink="/rutes"
-          routerLinkActive="navbar__link--active"
-          class="navbar__link"
-        >
-          {{ i18n.t("nav.routes") }}
+        <a routerLink="/rutes" routerLinkActive="navbar__link--active" class="navbar__link">
+          {{ i18n.t('nav.routes') }}
         </a>
       </li>
       <li>
-        <a
-          routerLink="/comunitat"
-          routerLinkActive="navbar__link--active"
-          class="navbar__link"
-        >
-          {{ i18n.t("nav.community") }}
+        <a routerLink="/comunitat" routerLinkActive="navbar__link--active" class="navbar__link">
+          {{ i18n.t('nav.community') }}
         </a>
       </li>
     </ul>
@@ -55,19 +39,22 @@
       <div class="navbar__lang">
         <button
           class="navbar__lang-toggle"
+          type="button"
+          [attr.aria-label]="i18n.t('nav.ariaLangToggle')"
+          [attr.aria-expanded]="langMenuOpen()"
+          aria-haspopup="menu"
+          aria-controls="navbar-lang-menu"
           (click)="langMenuOpen.set(!langMenuOpen())"
         >
           {{ i18n.langLabel() }}
-          <span class="material-symbols-outlined">expand_more</span>
+          <span class="material-symbols-outlined" aria-hidden="true">expand_more</span>
         </button>
         @if (langMenuOpen()) {
-          <div class="navbar__lang-menu">
+          <div class="navbar__lang-menu" id="navbar-lang-menu" role="menu">
             @for (lang of langs; track lang.code) {
               <button
                 class="navbar__lang-option"
-                [class.navbar__lang-option--active]="
-                  i18n.currentLang() === lang.code
-                "
+                [class.navbar__lang-option--active]="i18n.currentLang() === lang.code"
                 (click)="setLang(lang.code)"
               >
                 {{ lang.label }}
@@ -77,63 +64,46 @@
         }
       </div>
 
-      <a
-        href="https://chat.whatsapp.com/GQj4ET5Bt84IgBLtLKwpwx?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQPOTM2NjE5NzQzMzkyNDU5AAGnkLfEewKCANv5brMZbnOgR5donAQwSYtOzCHXZQGOXv6mbYORq69F0ik71eA_aem_YWdncwBKjk5hjNoEkFPA6kU1K5Xs&brid=YWdncwFIRsqUftDhoI0fTw6tmbFH"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="btn-pill navbar__join"
-      >{{ i18n.t("nav.join") }}</a>
+      <a [href]="whatsappUrl" target="_blank" rel="noopener noreferrer" class="btn-pill navbar__join">{{
+        i18n.t('nav.join')
+      }}</a>
 
       <button
         class="navbar__mobile-toggle"
+        type="button"
+        [attr.aria-label]="i18n.t('nav.ariaMobileToggle')"
+        [attr.aria-expanded]="mobileMenuOpen()"
+        aria-controls="navbar-mobile-menu"
         (click)="mobileMenuOpen.set(!mobileMenuOpen())"
       >
-        <span class="material-symbols-outlined">{{
-          mobileMenuOpen() ? "close" : "menu"
-        }}</span>
+        <span class="material-symbols-outlined" aria-hidden="true">{{ mobileMenuOpen() ? 'close' : 'menu' }}</span>
       </button>
     </div>
   </nav>
 
   @if (mobileMenuOpen()) {
-    <div class="navbar__mobile-menu">
+    <div class="navbar__mobile-menu" id="navbar-mobile-menu">
+      <a routerLink="/" (click)="mobileMenuOpen.set(false)" class="navbar__mobile-link">{{ i18n.t('nav.home') }}</a>
+      <a routerLink="/fundadors" (click)="mobileMenuOpen.set(false)" class="navbar__mobile-link">{{
+        i18n.t('nav.founders')
+      }}</a>
+      <a routerLink="/esdeveniments" (click)="mobileMenuOpen.set(false)" class="navbar__mobile-link">{{
+        i18n.t('nav.events')
+      }}</a>
+      <a routerLink="/rutes" (click)="mobileMenuOpen.set(false)" class="navbar__mobile-link">{{
+        i18n.t('nav.routes')
+      }}</a>
+      <a routerLink="/comunitat" (click)="mobileMenuOpen.set(false)" class="navbar__mobile-link">{{
+        i18n.t('nav.community')
+      }}</a>
       <a
-        routerLink="/"
-        (click)="mobileMenuOpen.set(false)"
-        class="navbar__mobile-link"
-        >{{ i18n.t("nav.home") }}</a
-      >
-      <a
-        routerLink="/fundadors"
-        (click)="mobileMenuOpen.set(false)"
-        class="navbar__mobile-link"
-        >{{ i18n.t("nav.founders") }}</a
-      >
-      <a
-        routerLink="/esdeveniments"
-        (click)="mobileMenuOpen.set(false)"
-        class="navbar__mobile-link"
-        >{{ i18n.t("nav.events") }}</a
-      >
-      <a
-        routerLink="/rutes"
-        (click)="mobileMenuOpen.set(false)"
-        class="navbar__mobile-link"
-        >{{ i18n.t("nav.routes") }}</a
-      >
-      <a
-        routerLink="/comunitat"
-        (click)="mobileMenuOpen.set(false)"
-        class="navbar__mobile-link"
-        >{{ i18n.t("nav.community") }}</a
-      >
-      <a
-        href="https://chat.whatsapp.com/GQj4ET5Bt84IgBLtLKwpwx?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQPOTM2NjE5NzQzMzkyNDU5AAGnkLfEewKCANv5brMZbnOgR5donAQwSYtOzCHXZQGOXv6mbYORq69F0ik71eA_aem_YWdncwBKjk5hjNoEkFPA6kU1K5Xs&brid=YWdncwFIRsqUftDhoI0fTw6tmbFH"
+        [href]="whatsappUrl"
         target="_blank"
         rel="noopener noreferrer"
         class="btn-pill navbar__mobile-join"
         (click)="mobileMenuOpen.set(false)"
-      >{{ i18n.t("nav.join") }}</a>
+        >{{ i18n.t('nav.join') }}</a
+      >
     </div>
   }
 </header>

@@ -5,7 +5,23 @@
     "events": "Events",
     "routes": "Routes",
     "community": "Community",
-    "join": "Join us"
+    "join": "Join us",
+    "ariaPrimary": "Primary navigation",
+    "ariaLangToggle": "Change language",
+    "ariaMobileToggle": "Open menu"
+  },
+  "common": {
+    "close": "Close"
+  },
+  "notifications": {
+    "region": "Notifications"
+  },
+  "errors": {
+    "generic": "Something went wrong. Please try again in a moment.",
+    "strava": "We couldn't reach Strava right now.",
+    "routes": "We couldn't load Strava routes.",
+    "instagram": "We couldn't load the Instagram photos.",
+    "sheet": "We couldn't load the events calendar."
   },
   "home": {
     "hero": {

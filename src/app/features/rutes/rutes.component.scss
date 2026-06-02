@@ -8,7 +8,9 @@
   align-items: flex-end;
   overflow: hidden;
 
-  @include md { height: 384px; }
+  @include md {
+    height: 384px;
+  }
 
   &__overlay {
     position: absolute;
@@ -76,14 +78,16 @@
   border-bottom: 1px solid rgba($outline-variant, 0.2);
   box-shadow: $shadow-sm;
 
-  &__inner { @include container; padding-block: 16px; }
+  &__inner {
+    @include container;
+    padding-block: 16px;
+  }
 
   &__search-row {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    align-items: center;
     gap: 12px;
-
-    @include sm { flex-direction: row; }
   }
 
   &__search {
@@ -111,20 +115,90 @@
     font-size: $text-body-md;
     color: $on-surface;
     outline: none;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
 
     &:focus {
       border-color: $primary;
       box-shadow: 0 0 0 3px rgba($primary, 0.15);
     }
 
-    &::placeholder { color: $on-surface-variant; }
+    &::placeholder {
+      color: $on-surface-variant;
+    }
   }
 
   &__chips {
     display: flex;
     overflow-x: auto;
     gap: 8px;
+  }
+
+  &__toggle {
+    flex-shrink: 0;
+    position: relative;
+    width: 40px;
+    height: 40px;
+    border-radius: $radius-full;
+    border: 1px solid rgba($outline-variant, 0.4);
+    background: $surface-container-high;
+    color: $on-surface-variant;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition:
+      background 150ms $ease-out,
+      color 150ms $ease-out,
+      border-color 150ms $ease-out;
+
+    .material-symbols-outlined {
+      font-size: 20px;
+    }
+
+    &--active {
+      background: $primary-container;
+      color: $on-primary-fixed-variant;
+      border-color: transparent;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      &:hover:not(&--active) {
+        border-color: $primary;
+        color: $primary;
+      }
+    }
+  }
+
+  &__toggle-badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    width: 18px;
+    height: 18px;
+    border-radius: $radius-full;
+    background: $secondary;
+    color: #fff;
+    font-family: $font-lexend;
+    font-size: 10px;
+    font-weight: $fw-bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__advanced {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid rgba($outline-variant, 0.15);
+    animation: filters-in 180ms $ease-out both;
+  }
+
+  &__filter-row {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid rgba($outline-variant, 0.15);
   }
 }
 
@@ -135,7 +209,9 @@
   font-family: $font-lexend;
   font-size: $text-label-lg;
   font-weight: $fw-semibold;
-  transition: border-color 0.2s ease, color 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    color 0.2s ease;
   cursor: pointer;
 
   &--active {
@@ -177,7 +253,9 @@
     @include container;
     padding-block: 24px 112px;
 
-    @include md { padding-bottom: 64px; }
+    @include md {
+      padding-bottom: 64px;
+    }
   }
 
   &__list {
@@ -185,8 +263,12 @@
     grid-template-columns: 1fr;
     gap: $gutter;
 
-    @include md { grid-template-columns: repeat(2, 1fr); }
-    @include lg { grid-template-columns: repeat(3, 1fr); }
+    @include md {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    @include lg {
+      grid-template-columns: repeat(3, 1fr);
+    }
   }
 
   &__empty {
@@ -199,6 +281,10 @@
     color: $outline;
     display: block;
     margin-bottom: 16px;
+
+    &--spin {
+      animation: spin 1.2s linear infinite;
+    }
   }
 
   &__empty-title {
@@ -215,7 +301,10 @@
 }
 
 .rutes-strava-cta {
-  &__inner { @include container; margin-bottom: 48px; }
+  &__inner {
+    @include container;
+    margin-bottom: 48px;
+  }
 
   &__card {
     border-radius: $radius-3xl;
@@ -242,7 +331,9 @@
     object-fit: cover;
   }
 
-  &__title { @include headline-lg; }
+  &__title {
+    @include headline-lg;
+  }
 
   &__text {
     @include body-lg;
@@ -260,42 +351,36 @@
     font-weight: $fw-bold;
     font-size: $text-headline-md;
     box-shadow: $shadow-xl;
-    transition: transform 160ms $ease-out, box-shadow 200ms $ease-out;
+    transition:
+      transform 160ms $ease-out,
+      box-shadow 200ms $ease-out;
 
     @media (hover: hover) and (pointer: fine) {
-      &:hover { transform: scale(1.03); box-shadow: $shadow-2xl; }
+      &:hover {
+        transform: scale(1.03);
+        box-shadow: $shadow-2xl;
+      }
     }
 
-    &:active { transform: scale(0.97); }
+    &:active {
+      transform: scale(0.97);
+    }
   }
 }
 
-.rutes-fab {
-  position: fixed;
-  bottom: 96px;
-  right: 24px;
-  z-index: 40;
-
-  @include md { display: none; }
-
-  &__btn {
-    width: 56px;
-    height: 56px;
-    border-radius: $radius-full;
-    overflow: hidden;
-    box-shadow: $shadow-2xl;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 150ms $ease-out;
-
-    &:active { transform: scale(0.9); }
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
   }
+}
 
-  &__icon {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: $radius-full;
+@keyframes filters-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

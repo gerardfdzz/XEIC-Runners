@@ -11,8 +11,7 @@ export interface SeoPage {
 }
 
 const BASE_URL = 'https://www.xeicrunners.com';
-const DEFAULT_OG_IMAGE =
-  'https://www.xeicrunners.com/assets/images/galeria/foto-xeic.jpg';
+const DEFAULT_OG_IMAGE = 'https://www.xeicrunners.com/assets/images/galeria/foto-xeic.jpg';
 
 @Injectable({ providedIn: 'root' })
 export class SeoService {

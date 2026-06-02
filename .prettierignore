@@ -1,0 +1,9 @@
+dist
+.angular
+node_modules
+out-tsc
+coverage
+package-lock.json
+src/assets
+*.min.*
+.vercel
