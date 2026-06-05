@@ -15,7 +15,7 @@ export class EventsSheetService {
       return of([]);
     }
 
-    return this.http.get(SHEET_CSV_URL, { responseType: 'text' }).pipe(
+    return this.http.get(SHEET_CSV_URL, { responseType: 'text', headers: { 'X-Silent': 'true' } }).pipe(
       map((csv) => this.parseCsv(csv)),
       shareReplay(1),
       catchError((err) => {

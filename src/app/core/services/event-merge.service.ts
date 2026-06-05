@@ -33,7 +33,7 @@ export class EventMergeService {
   stravaToXeicEvent(e: StravaGroupEvent, sheetEvents: XeicEvent[]): XeicEvent {
     const date = new Date(e.upcoming_occurrences[0]);
     const sheetMatch = sheetEvents.find(
-      (s) => s.title.trim().toLowerCase() === e.title.trim().toLowerCase(),
+      (s) => this.normalizeTitle(s.title) === this.normalizeTitle(e.title),
     );
     return {
       id: `strava-${e.id}`,
@@ -74,6 +74,10 @@ export class EventMergeService {
       Hike: 'Senderisme',
     };
     return map[activityType] || activityType || 'Social';
+  }
+
+  private normalizeTitle(s: string): string {
+    return s.normalize('NFC').replace(/\s+/g, ' ').trim().toLowerCase();
   }
 
   private toYmd(d: Date): string {
