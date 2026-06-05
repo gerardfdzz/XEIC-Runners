@@ -1,17 +1,9 @@
-// Shared Instagram (private highlight API) helpers.
-// Both the production handler and the local dev API consume these so the
-// scraping shape stays in one place — if/when Meta breaks the endpoint, this
-// is the only file that needs to change.
-
 export const HIGHLIGHT_IDS = ['18071980868164936'];
 
 export const IG_API_URL = `https://i.instagram.com/api/v1/feed/reels_media/?${HIGHLIGHT_IDS.map(
   (id) => `reel_ids=highlight:${id}`,
 ).join('&')}`;
 
-/** Headers required by Instagram's private highlight endpoint, copied from
- *  what a logged-in mobile Safari sends. The `sessionid` cookie comes from
- *  the INSTAGRAM_SESSION_ID env var and is injected per-request. */
 export function buildInstagramHeaders(sessionId) {
   return {
     'User-Agent':
@@ -30,10 +22,6 @@ export function buildInstagramHeaders(sessionId) {
   };
 }
 
-/**
- * Extracts the displayable items from a `reels_media` response.
- * Pure function, no I/O. Used by both prod and dev handlers.
- */
 export function extractHighlightItems(data) {
   const reelsMap = data?.reels ?? data?.reels_media ?? {};
   let items = [];
@@ -59,9 +47,6 @@ export function extractHighlightItems(data) {
   return items;
 }
 
-/** Whether the Instagram integration is enabled in the current deployment.
- *  Default: enabled. Set INSTAGRAM_ENABLED=false to disable without redeploying
- *  code (e.g. when Meta breaks the private endpoint). */
 export function isInstagramEnabled() {
   const raw = (process.env.INSTAGRAM_ENABLED ?? 'true').toLowerCase().trim();
   return raw !== 'false' && raw !== '0' && raw !== 'off' && raw !== 'no';

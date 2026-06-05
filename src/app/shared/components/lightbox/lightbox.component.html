@@ -1,18 +1,11 @@
-<!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events,@angular-eslint/template/interactive-supports-focus -->
-<div
-  #dialog
-  class="lightbox"
-  role="dialog"
-  aria-modal="true"
-  [attr.aria-labelledby]="labelledBy"
-  (click)="onOverlayClick()"
->
+<div #dialog class="lightbox" role="dialog" aria-modal="true" [attr.aria-labelledby]="labelledBy">
+  <button type="button" class="lightbox__overlay" [attr.aria-label]="i18n.t('common.close')" (click)="close()"></button>
+
   <button #closeBtn class="lightbox__close" type="button" [attr.aria-label]="i18n.t('common.close')" (click)="close()">
     <span class="material-symbols-outlined" aria-hidden="true">close</span>
   </button>
 
-  <!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events,@angular-eslint/template/interactive-supports-focus -->
-  <div class="lightbox__content" (click)="onContentClick($event)">
+  <div class="lightbox__content">
     <h2 [id]="labelledBy" class="visually-hidden">{{ event.title }}</h2>
 
     <img [src]="event.imageUrl" [alt]="event.title" class="lightbox__img" />

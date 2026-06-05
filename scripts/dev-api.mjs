@@ -1,7 +1,3 @@
-// Local dev server that emulates /api/* on http://localhost:3000.
-// Mirrors the production serverless handlers by importing the same helpers
-// from api/_lib/. Caching policy and validation logic are kept in sync.
-
 import { createServer } from 'node:http';
 import { readFileSync, existsSync } from 'node:fs';
 import { resolve } from 'node:path';
@@ -18,7 +14,6 @@ import {
   isInstagramEnabled,
 } from '../api/_lib/instagram.mjs';
 
-// Tiny .env loader; we don't pull dotenv to avoid a runtime dep for dev only.
 const envPath = resolve(process.cwd(), '.env');
 if (existsSync(envPath)) {
   readFileSync(envPath, 'utf-8')
@@ -143,8 +138,6 @@ async function handleRoutes(res) {
 }
 
 async function handleInstagram(res) {
-  // Feature flag mirrors api/instagram.mjs behaviour so disabling IG via
-  // INSTAGRAM_ENABLED=false works locally too.
   if (!isInstagramEnabled()) {
     return sendJson(res, 200, { items: [], disabled: true });
   }

@@ -50,14 +50,6 @@ export class LightboxComponent implements AfterViewInit, OnDestroy {
     this.closed.emit();
   }
 
-  onOverlayClick(): void {
-    this.close();
-  }
-
-  onContentClick(event: MouseEvent): void {
-    event.stopPropagation();
-  }
-
   @HostListener('document:keydown.escape')
   onEscape(): void {
     this.close();
