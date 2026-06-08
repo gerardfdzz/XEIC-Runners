@@ -55,17 +55,17 @@ describe('EventMergeService', () => {
     });
 
     it('falls back to activity_type mapping when title has no keyword', () => {
-      expect(service.mapActivityTag('Run', 'Quedada matinal')).toBe('Cursa');
+      expect(service.mapActivityTag('Run', 'Quedada matinal')).toBe('Entrenament');
       expect(service.mapActivityTag('Walk', 'Quedada')).toBe('Caminada');
       expect(service.mapActivityTag('Hike', 'Quedada')).toBe('Senderisme');
     });
 
-    it('returns the raw activity_type for unmapped values', () => {
-      expect(service.mapActivityTag('Yoga', 'Sessió')).toBe('Yoga');
+    it('returns Entrenament for unmapped activity types', () => {
+      expect(service.mapActivityTag('Yoga', 'Sessió')).toBe('Entrenament');
     });
 
-    it('returns "Social" when nothing matches', () => {
-      expect(service.mapActivityTag('', '')).toBe('Social');
+    it('returns Entrenament when nothing matches', () => {
+      expect(service.mapActivityTag('', '')).toBe('Entrenament');
     });
   });
 

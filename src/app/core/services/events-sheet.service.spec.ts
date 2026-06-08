@@ -54,7 +54,7 @@ describe('EventsSheetService', () => {
     ].join('\n');
 
     service.getEvents().subscribe((events) => {
-      expect(events.map((e) => e.title)).toEqual(['OK']);
+      expect(events.map((e) => e.title)).toEqual(['OK', 'NoImg']);
       done();
     });
 
