@@ -2,8 +2,10 @@
 @use '../../../../styles/mixins' as *;
 
 .navbar {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 50;
   background: rgba($surface, 0.85);
   backdrop-filter: blur(12px);
@@ -41,7 +43,7 @@
     gap: 32px;
     align-items: center;
 
-    @include md {
+    @include lg {
       display: flex;
     }
   }
@@ -143,54 +145,24 @@
 
   &__join {
     display: none;
-    @include md {
+    @include lg {
       display: inline-flex;
     }
   }
 
   &__mobile-toggle {
-    display: flex;
-    color: $on-surface;
-    @include md {
-      display: none;
-    }
+    display: none;
   }
 
   &__mobile-menu {
-    border-top: 1px solid rgba($outline-variant, 0.2);
-    padding: 24px $margin-mobile;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    background: $surface;
-    @include md {
-      display: none;
-    }
+    display: none;
   }
 
   &__mobile-link {
-    display: block;
-    font-family: $font-lexend;
-    font-size: $text-body-lg;
-    font-weight: $fw-semibold;
-    color: $on-surface;
-    padding: 10px 0;
-    transition: color 150ms $ease-out;
-    border-bottom: 1px solid rgba($outline-variant, 0.15);
-
-    @media (hover: hover) and (pointer: fine) {
-      &:hover {
-        color: $primary;
-      }
-    }
-    &:last-of-type {
-      border-bottom: none;
-    }
+    display: none;
   }
 
   &__mobile-join {
-    margin-top: 16px;
-    width: 100%;
-    justify-content: center;
+    display: none;
   }
 }

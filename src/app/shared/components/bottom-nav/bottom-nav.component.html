@@ -1,0 +1,13 @@
+<nav class="bottom-nav" [attr.aria-label]="i18n.t('nav.ariaPrimary')">
+  @for (item of navItems; track item.route) {
+    <a
+      [routerLink]="item.route"
+      routerLinkActive="bottom-nav__item--active"
+      [routerLinkActiveOptions]="{ exact: item.exact }"
+      class="bottom-nav__item"
+    >
+      <span class="material-symbols-outlined bottom-nav__icon" aria-hidden="true">{{ item.icon }}</span>
+      <span class="bottom-nav__label">{{ i18n.t(item.labelKey) }}</span>
+    </a>
+  }
+</nav>
