@@ -43,9 +43,7 @@ export class EventMergeService {
       location: e.address || 'La Sénia',
       type: this.mapActivityType(e.activity_type),
       difficulty: 'Iniciació',
-      tags: sheetMatch?.tags?.length
-        ? sheetMatch.tags
-        : [this.mapActivityTag(e.activity_type, e.title)],
+      tags: sheetMatch?.tags?.length ? sheetMatch.tags : this.buildTags(e.activity_type, e.title),
       imageUrl: sheetMatch?.imageUrl ?? CLUB_IMAGE_URL,
       description: sheetMatch?.description ?? e.description ?? undefined,
     };
@@ -62,6 +60,13 @@ export class EventMergeService {
     return map[activityType] ?? 'social';
   }
 
+  private buildTags(activityType: string, title: string): string[] {
+    if (title.toUpperCase().includes('CACO')) {
+      return ['Entrenament', "CACO's"];
+    }
+    return [this.mapActivityTag(activityType, title)];
+  }
+
   mapActivityTag(activityType: string, title: string): string {
     const t = title.toLowerCase();
     if (t.includes('trail')) return 'Trail';
@@ -69,15 +74,22 @@ export class EventMergeService {
     if (t.includes('caminada') || t.includes('walk')) return 'Caminada';
 
     const map: Record<string, string> = {
-      Run: 'Cursa',
+      Run: 'Entrenament',
+      TrailRun: 'Entrenament',
       Walk: 'Caminada',
       Hike: 'Senderisme',
     };
-    return map[activityType] || activityType || 'Social';
+    return map[activityType] || 'Entrenament';
   }
 
   private normalizeTitle(s: string): string {
-    return s.normalize('NFC').replace(/\s+/g, ' ').trim().toLowerCase();
+    return s
+      .normalize('NFD')
+      .replace(/[̀-ͯ]/g, '')
+      .toLowerCase()
+      .replace(/[^a-z0-9 ]/g, '')
+      .replace(/ +/g, ' ')
+      .trim();
   }
 
   private toYmd(d: Date): string {

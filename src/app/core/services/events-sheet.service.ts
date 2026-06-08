@@ -2,6 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, shareReplay, catchError, of, map } from 'rxjs';
 import { XeicEvent, EventType, EventDifficulty } from '../models/event.model';
+import { CLUB_IMAGE_URL } from '../config';
 
 const SHEET_CSV_URL =
   'https://docs.google.com/spreadsheets/d/e/2PACX-1vR_zumu8Ihv7DIuX7n_BUzxvCpGng5qBTbGDY7rEU1jbAyTJ1COy1d8tZdkZZmLv5znhVtAoe22xJtU/pub?gid=0&single=true&output=csv';
@@ -41,7 +42,7 @@ export class EventsSheetService {
       const cols = this.parseCsvRow(lines[i]);
       const row = Object.fromEntries(headers.map((h, j) => [h, (cols[j] ?? '').trim()]));
 
-      if (!row['title'] || !row['date'] || !row['imageurl']) continue;
+      if (!row['title'] || !row['date']) continue;
 
       const date = this.parseDate(row['date']);
       if (!date) continue;
@@ -64,7 +65,7 @@ export class EventsSheetService {
         type,
         difficulty,
         tags,
-        imageUrl: row['imageurl'],
+        imageUrl: row['imageurl'] || CLUB_IMAGE_URL,
         distance: row['distance'] || undefined,
         elevationGain: row['elevationgain'] || undefined,
         description: row['description'] || undefined,

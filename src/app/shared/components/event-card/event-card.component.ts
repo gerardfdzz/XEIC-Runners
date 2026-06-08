@@ -29,7 +29,11 @@ export class EventCardComponent {
   get imageAspectRatio(): string {
     const w = this.event.imageWidth;
     const h = this.event.imageHeight;
-    return w && h ? `${w} / ${h}` : '9 / 16';
+    return w && h ? `${w} / ${h}` : '4 / 3';
+  }
+
+  get hasCustomImage(): boolean {
+    return !!(this.event.imageWidth && this.event.imageHeight);
   }
 
   monthLabel(date: Date): string {
@@ -46,12 +50,12 @@ export class EventCardComponent {
   }
 
   tagClass(tag: string): string {
-    const primary = ['Xeic!', 'Cursa', 'Trail'];
-    const tertiary = ['Iniciació', 'Mig', 'Muntanya', 'Senderisme', 'Entrenament'];
-    const secondary = ['Asfalt', 'Social', 'Comunitat', 'Caminada'];
+    const primary = ['Cursa', 'Entrenament'];
+    const secondary = ['Social', 'Iniciació', 'Mitja', 'Llarga'];
+    const tertiary = ['Trail', 'Asfalt', 'Mixte'];
     if (primary.includes(tag)) return 'event-tag event-tag--primary';
-    if (tertiary.includes(tag)) return 'event-tag event-tag--tertiary';
     if (secondary.includes(tag)) return 'event-tag event-tag--secondary';
+    if (tertiary.includes(tag)) return 'event-tag event-tag--tertiary';
     return 'event-tag event-tag--default';
   }
 }

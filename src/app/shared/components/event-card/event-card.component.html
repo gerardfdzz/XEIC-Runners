@@ -2,6 +2,7 @@
   <button
     type="button"
     class="event-card__image-wrapper"
+    [class.event-card__image-wrapper--default]="!hasCustomImage"
     [style.aspect-ratio]="imageAspectRatio"
     [attr.aria-label]="event.title"
     (click)="imageClick.emit()"

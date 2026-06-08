@@ -36,6 +36,12 @@
       max-height: none;
       height: 480px;
     }
+
+    &--default {
+      @include md {
+        height: auto;
+      }
+    }
   }
 
   &__image {
