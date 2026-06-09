@@ -151,10 +151,6 @@ ol {
   }
 }
 
-.app-main {
-  padding-top: 65px;
-}
-
 @media (max-width: 1023px) {
   .app-main {
     padding-bottom: calc(64px + env(safe-area-inset-bottom));
