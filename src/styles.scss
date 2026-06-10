@@ -151,12 +151,6 @@ ol {
   }
 }
 
-@media (max-width: 1023px) {
-  .app-main {
-    padding-bottom: calc(64px + env(safe-area-inset-bottom));
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

@@ -3,10 +3,14 @@
 
 .hero {
   position: relative;
-  min-height: 85vh;
+  min-height: auto;
   display: flex;
   align-items: center;
   overflow: hidden;
+
+  @include lg {
+    min-height: 85vh;
+  }
 
   &__bg {
     position: absolute;
@@ -25,10 +29,15 @@
     grid-template-columns: 1fr;
     gap: 48px;
     align-items: center;
-    padding-block: 80px;
+    padding-block: 40px;
 
     @include md {
       grid-template-columns: 1fr 1fr;
+      padding-block: 56px;
+    }
+
+    @include lg {
+      padding-block: 80px;
     }
   }
 
@@ -179,8 +188,16 @@
 }
 
 .founders-preview {
-  padding-block: 96px;
+  padding-block: 56px;
   background: $surface-container-low;
+
+  @include md {
+    padding-block: 72px;
+  }
+
+  @include lg {
+    padding-block: 96px;
+  }
 
   &__inner {
     @include container;
@@ -287,7 +304,15 @@
 }
 
 .events-preview {
-  padding-block: 96px;
+  padding-block: 56px;
+
+  @include md {
+    padding-block: 72px;
+  }
+
+  @include lg {
+    padding-block: 96px;
+  }
 
   &__inner {
     @include container;
@@ -345,19 +370,28 @@
 }
 
 .routes-preview {
-  padding-block: 96px;
+  padding-block: 56px;
   background: $surface-container;
+
+  @include md {
+    padding-block: 72px;
+  }
+
+  @include lg {
+    padding-block: 96px;
+  }
   overflow: hidden;
 
   &__inner {
     @include container;
     display: flex;
     flex-direction: column;
-    gap: 64px;
+    gap: 32px;
     align-items: center;
 
     @include md {
       flex-direction: row;
+      gap: 64px;
     }
   }
 
@@ -525,7 +559,15 @@
 }
 
 .community-preview {
-  padding-block: 96px;
+  padding-block: 56px;
+
+  @include md {
+    padding-block: 72px;
+  }
+
+  @include lg {
+    padding-block: 96px;
+  }
 
   &__inner {
     @include container;
@@ -642,8 +684,16 @@
 }
 
 .home-cta {
-  padding-block: 96px;
+  padding-block: 56px;
   color: $on-primary;
+
+  @include md {
+    padding-block: 72px;
+  }
+
+  @include lg {
+    padding-block: 96px;
+  }
   text-align: center;
   position: relative;
   overflow: hidden;

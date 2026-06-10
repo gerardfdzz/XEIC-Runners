@@ -108,4 +108,13 @@
       color: $secondary;
     }
   }
+
+  &__nav-spacer {
+    display: none;
+
+    @media (max-width: 1023px) {
+      display: block;
+      height: calc(8px + env(safe-area-inset-bottom));
+    }
+  }
 }
