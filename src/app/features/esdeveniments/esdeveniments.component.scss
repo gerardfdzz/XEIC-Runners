@@ -66,19 +66,6 @@
     }
   }
 
-  &__month-title {
-    font-family: $font-lexend;
-    font-size: $text-headline-md;
-    font-weight: $fw-semibold;
-    color: $on-surface-variant;
-    margin-bottom: 20px;
-    margin-top: 40px;
-
-    &:first-of-type {
-      margin-top: 0;
-    }
-  }
-
   &__section-icon {
     font-size: 24px;
     color: $secondary;
@@ -201,6 +188,60 @@
     object-fit: cover;
     display: block;
     transition: transform 300ms $ease-out;
+  }
+}
+
+.events-year-group {
+  margin-top: 48px;
+
+  &:first-child {
+    margin-top: 0;
+  }
+
+  &__title {
+    font-family: $font-lexend;
+    font-size: $text-headline-xl;
+    font-weight: $fw-bold;
+    color: $outline;
+    margin-bottom: 16px;
+    line-height: 1;
+  }
+
+  &__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 24px;
+  }
+}
+
+.events-month-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 16px;
+  border-radius: $radius-full;
+  font-family: $font-lexend;
+  font-size: $text-label-lg;
+  font-weight: $fw-medium;
+  background: $surface-container;
+  color: $on-surface-variant;
+  border: 1.5px solid transparent;
+  transition:
+    background 150ms $ease-out,
+    color 150ms $ease-out,
+    border-color 150ms $ease-out;
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      background: $surface-container-high;
+      color: $on-surface;
+    }
+  }
+
+  &--active {
+    background: rgba($secondary, 0.1);
+    color: $secondary;
+    border-color: rgba($secondary, 0.35);
   }
 }
 

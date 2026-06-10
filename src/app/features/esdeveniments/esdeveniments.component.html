@@ -47,20 +47,35 @@
         {{ i18n.t('events.past') }}
       </h2>
 
-      @for (group of pastByMonth; track group.year + '-' + group.month) {
-        <h3 class="events-list__month-title">
-          {{ monthGroupLabel(group.year, group.month) }}
-        </h3>
-
-        <div class="events-photo-grid">
-          @for (event of group.events; track event.id) {
-            <button
-              class="events-photo-grid__item"
-              (click)="openLightbox(event, false)"
-              [attr.aria-label]="event.title"
-            >
-              <img [src]="event.imageUrl" [alt]="event.title" class="events-photo-grid__img" loading="lazy" />
-            </button>
+      @for (yearGroup of pastByYear; track yearGroup.year) {
+        <div class="events-year-group">
+          <h3 class="events-year-group__title">{{ yearGroup.year }}</h3>
+          <div class="events-year-group__chips">
+            @for (group of yearGroup.months; track group.month) {
+              <button
+                class="events-month-chip"
+                [class.events-month-chip--active]="isMonthExpanded(yearGroup.year, group.month)"
+                (click)="toggleMonth(yearGroup.year, group.month)"
+                [attr.aria-expanded]="isMonthExpanded(yearGroup.year, group.month)"
+              >
+                {{ monthLabel(yearGroup.year, group.month) }}
+              </button>
+            }
+          </div>
+          @for (group of yearGroup.months; track group.month) {
+            @if (isMonthExpanded(yearGroup.year, group.month)) {
+              <div class="events-photo-grid">
+                @for (event of group.events; track event.id) {
+                  <button
+                    class="events-photo-grid__item"
+                    (click)="openLightbox(event, false)"
+                    [attr.aria-label]="event.title"
+                  >
+                    <img [src]="event.imageUrl" [alt]="event.title" class="events-photo-grid__img" loading="lazy" />
+                  </button>
+                }
+              </div>
+            }
           }
         </div>
       }

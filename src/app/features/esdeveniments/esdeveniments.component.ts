@@ -30,12 +30,25 @@ export class EsdevenimentsComponent implements OnInit {
 
   protected readonly whatsappUrl = WHATSAPP_INVITE_URL;
 
-  upcoming: XeicEvent[] = [];
-  past: XeicEvent[] = [];
-  pastByMonth: { year: number; month: number; events: XeicEvent[] }[] = [];
-  loading = true;
-  selectedEvent = signal<XeicEvent | null>(null);
-  showLightboxMeta = false;
+  protected upcoming: XeicEvent[] = [];
+  protected past: XeicEvent[] = [];
+  protected pastByMonth: { year: number; month: number; events: XeicEvent[] }[] = [];
+  protected pastByYear: { year: number; months: { month: number; events: XeicEvent[] }[] }[] = [];
+  protected loading = true;
+  protected selectedEvent = signal<XeicEvent | null>(null);
+  protected showLightboxMeta = false;
+
+  private readonly expandedMonths = signal(new Map<number, number | null>());
+
+  protected isMonthExpanded(year: number, month: number): boolean {
+    return this.expandedMonths().get(year) === month;
+  }
+
+  protected toggleMonth(year: number, month: number): void {
+    const next = new Map(this.expandedMonths());
+    next.set(year, next.get(year) === month ? null : month);
+    this.expandedMonths.set(next);
+  }
 
   openLightbox(event: XeicEvent, showMeta = false): void {
     this.selectedEvent.set(event);
@@ -59,6 +72,13 @@ export class EsdevenimentsComponent implements OnInit {
     const date = new Date(year, month, 1);
     const m = date.toLocaleDateString(locale, { month: 'long' });
     return `${m.charAt(0).toUpperCase()}${m.slice(1)} ${year}`;
+  }
+
+  protected monthLabel(year: number, month: number): string {
+    const locale = this.localeMap[this.i18n.currentLang()] ?? 'ca-ES';
+    const date = new Date(year, month, 1);
+    const m = date.toLocaleDateString(locale, { month: 'long' });
+    return `${m.charAt(0).toUpperCase()}${m.slice(1)}`;
   }
 
   ngOnInit(): void {
@@ -93,7 +113,23 @@ export class EsdevenimentsComponent implements OnInit {
       }
 
       this.pastByMonth = this.groupByMonth(this.past);
+      this.pastByYear = this.groupByYear(this.pastByMonth);
+      if (this.pastByMonth.length > 0) {
+        const first = this.pastByMonth[0];
+        this.expandedMonths.set(new Map([[first.year, first.month]]));
+      }
     });
+  }
+
+  private groupByYear(
+    byMonth: { year: number; month: number; events: XeicEvent[] }[],
+  ): { year: number; months: { month: number; events: XeicEvent[] }[] }[] {
+    const map = new Map<number, { month: number; events: XeicEvent[] }[]>();
+    for (const g of byMonth) {
+      if (!map.has(g.year)) map.set(g.year, []);
+      map.get(g.year)!.push({ month: g.month, events: g.events });
+    }
+    return Array.from(map.entries()).map(([year, months]) => ({ year, months }));
   }
 
   private groupByMonth(
