@@ -92,6 +92,12 @@
     }
   }
 
+  &__upcoming-container {
+    // Reserves space while loading to prevent CLS when content resolves.
+    // 200px covers the tallest static state (empty: icon 48px + text + link + padding).
+    min-height: 200px;
+  }
+
   &__loading {
     display: flex;
     align-items: center;

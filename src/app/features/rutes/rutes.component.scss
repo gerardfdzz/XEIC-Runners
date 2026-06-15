@@ -69,6 +69,89 @@
   }
 }
 
+.rutes-zones {
+  &__inner {
+    @include container;
+    padding-block: 48px 32px;
+  }
+
+  &__header {
+    margin-bottom: 32px;
+    text-align: center;
+  }
+
+  &__title {
+    @include headline-lg;
+    color: $on-surface;
+    margin-bottom: 8px;
+  }
+
+  &__subtitle {
+    @include body-lg;
+    color: $on-surface-variant;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $gutter;
+
+    @include md {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  &__card {
+    background: $surface-container-low;
+    border-radius: $radius-xl;
+    padding: 24px;
+    border: 1px solid rgba($outline-variant, 0.3);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  &__card-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  &__card-icon {
+    font-size: 28px;
+    color: $primary;
+    flex-shrink: 0;
+  }
+
+  &__card-tag {
+    font-family: $font-lexend;
+    font-size: $text-label-sm;
+    font-weight: $fw-semibold;
+    color: $on-primary-container;
+    background: $primary-container;
+    padding: 4px 10px;
+    border-radius: $radius-full;
+  }
+
+  &__card-name {
+    @include headline-md;
+    color: $on-surface;
+  }
+
+  &__card-desc {
+    @include body-lg;
+    color: $on-surface-variant;
+    flex: 1;
+  }
+
+  &__card-hint {
+    font-family: $font-lexend;
+    font-size: $text-label-sm;
+    color: $outline;
+    font-style: italic;
+  }
+}
+
 .rutes-filters {
   position: sticky;
   top: 64px;

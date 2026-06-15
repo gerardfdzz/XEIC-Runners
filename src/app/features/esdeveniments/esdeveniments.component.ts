@@ -1,5 +1,5 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { CommonModule, DatePipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { forkJoin } from 'rxjs';
 import { I18nService } from '../../core/services/i18n.service';
 import { SeoService } from '../../core/services/seo.service';
@@ -16,7 +16,7 @@ import { InstagramItem } from '../../core/models/instagram.model';
 @Component({
   selector: 'app-esdeveniments',
   standalone: true,
-  imports: [CommonModule, DatePipe, EventCardComponent, LightboxComponent],
+  imports: [CommonModule, EventCardComponent, LightboxComponent],
   templateUrl: './esdeveniments.component.html',
   styleUrl: './esdeveniments.component.scss',
 })

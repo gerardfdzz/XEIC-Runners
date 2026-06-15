@@ -18,6 +18,44 @@
   </div>
 </section>
 
+<section class="rutes-zones" aria-label="Zones de running">
+  <div class="rutes-zones__inner">
+    <div class="rutes-zones__header">
+      <h2 class="rutes-zones__title">{{ i18n.t('routes.zones.title') }}</h2>
+      <p class="rutes-zones__subtitle">{{ i18n.t('routes.zones.subtitle') }}</p>
+    </div>
+    <div class="rutes-zones__grid">
+      <article class="rutes-zones__card">
+        <div class="rutes-zones__card-top">
+          <span class="material-symbols-outlined rutes-zones__card-icon">landscape</span>
+          <span class="rutes-zones__card-tag">{{ i18n.t('routes.zones.ports.tag') }}</span>
+        </div>
+        <h3 class="rutes-zones__card-name">{{ i18n.t('routes.zones.ports.name') }}</h3>
+        <p class="rutes-zones__card-desc">{{ i18n.t('routes.zones.ports.desc') }}</p>
+        <span class="rutes-zones__card-hint">{{ i18n.t('routes.zones.ports.hint') }}</span>
+      </article>
+      <article class="rutes-zones__card">
+        <div class="rutes-zones__card-top">
+          <span class="material-symbols-outlined rutes-zones__card-icon">route</span>
+          <span class="rutes-zones__card-tag">{{ i18n.t('routes.zones.pla.tag') }}</span>
+        </div>
+        <h3 class="rutes-zones__card-name">{{ i18n.t('routes.zones.pla.name') }}</h3>
+        <p class="rutes-zones__card-desc">{{ i18n.t('routes.zones.pla.desc') }}</p>
+        <span class="rutes-zones__card-hint">{{ i18n.t('routes.zones.pla.hint') }}</span>
+      </article>
+      <article class="rutes-zones__card">
+        <div class="rutes-zones__card-top">
+          <span class="material-symbols-outlined rutes-zones__card-icon">forest</span>
+          <span class="rutes-zones__card-tag">{{ i18n.t('routes.zones.montsia.tag') }}</span>
+        </div>
+        <h3 class="rutes-zones__card-name">{{ i18n.t('routes.zones.montsia.name') }}</h3>
+        <p class="rutes-zones__card-desc">{{ i18n.t('routes.zones.montsia.desc') }}</p>
+        <span class="rutes-zones__card-hint">{{ i18n.t('routes.zones.montsia.hint') }}</span>
+      </article>
+    </div>
+  </div>
+</section>
+
 <section #filtersAnchor id="rutes-filters-anchor" class="rutes-filters">
   <div class="rutes-filters__inner">
     <div class="rutes-filters__search-row">

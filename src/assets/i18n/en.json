@@ -171,7 +171,29 @@
     "viewOnStrava": "VIEW ON STRAVA",
     "downloadGpx": "Download GPX",
     "interactiveMap": "Explore interactive map",
-    "stravaFollow": "Follow us on Strava"
+    "stravaFollow": "Follow us on Strava",
+    "zones": {
+      "title": "Where to run in La Sénia",
+      "subtitle": "Three zones for every runner: mountain trail, road running and mixed routes",
+      "ports": {
+        "tag": "Mountain trail",
+        "name": "Parc Natural dels Ports",
+        "desc": "The heart of trail running in La Sénia. Iconic routes include the Font del Teix circuit (15 km, +600 m elevation) and the ascent to Caro peak (1,447 m), the highest point in the Ports de Tortosa range. Technical terrain, 360° views and absolute silence.",
+        "hint": "5 – 30 km · +300 – 1,200 m elevation · Trail"
+      },
+      "pla": {
+        "tag": "Road running",
+        "name": "La Sénia Plains",
+        "desc": "Flat, accessible routes starting right from the village. Paths winding through orange groves and ancient olive trees, perfect for high-mileage training or beginners getting into running in La Sénia.",
+        "hint": "5 – 20 km · Low elevation · Road & dirt paths"
+      },
+      "montsia": {
+        "tag": "Mixed",
+        "name": "Serra del Montsià",
+        "desc": "Routes connecting La Sénia to the Montsià coastline. Pine forest trails with views over the Ebro plain and the delta. Perfect for runners who want to mix trail and road in a single training session.",
+        "hint": "10 – 25 km · +400 – 800 m elevation · Mixed"
+      }
+    }
   },
   "events": {
     "badge": "Calendar",
