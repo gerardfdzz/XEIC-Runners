@@ -83,11 +83,11 @@ export class EsdevenimentsComponent implements OnInit {
 
   ngOnInit(): void {
     this.seo.update({
-      title: 'Esdeveniments i Sortides · XEIC RUNNERS',
+      title: 'Sortides i Esdeveniments · Running La Sénia · XEIC RUNNERS',
       description:
-        "Pròxims esdeveniments i sortides de XEIC RUNNERS a La Sénia i les Terres de l'Ebre. Quedades setmanals de running, trail i senderisme obertes a tothom.",
+        "Pròximes sortides per correr a La Sénia amb XEIC RUNNERS. Quedades setmanals de running i trail pels Ports i les Terres de l'Ebre, obertes a tothom.",
       keywords:
-        "esdeveniments running La Sénia, sortides trail Terres de l'Ebre, quedades running XEIC, events running Tarragona, senderisme La Sénia",
+        "sortides running La Sénia, La Sénia Correr, La Sénia Running, correr La Sénia, quedades running La Sénia, trail La Sénia, senderisme La Sénia, running Terres de l'Ebre, events running Tarragona",
       ogImage: 'https://www.xeicrunners.com/assets/images/galeria/foto-xeic.jpg',
     });
 

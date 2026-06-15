@@ -40,11 +40,11 @@ export class ComunitatComponent implements OnInit {
 
   ngOnInit(): void {
     this.seo.update({
-      title: 'Comunitat · XEIC RUNNERS',
+      title: 'Comunitat Running La Sénia · XEIC RUNNERS',
       description:
-        "La comunitat XEIC RUNNERS: runners de La Sénia i les Terres de l'Ebre units per l'esport. Activitats recents, fotos de sortides i connexió amb el nostre club de Strava.",
+        "La comunitat de runners de La Sénia: XEIC RUNNERS units per l'esport i el territori. Segueix les activitats del club de running, fotos de sortides i estadístiques de Strava.",
       keywords:
-        "comunitat runners La Sénia, club Strava XEIC, running social Terres de l'Ebre, Instagram xeicrunners, running club Tarragona",
+        "comunitat running La Sénia, La Sénia Running, runners La Sénia, club running La Sénia, running social Terres de l'Ebre, Strava XEIC Runners, Instagram xeicrunners, running club Tarragona",
       ogImage: 'https://www.xeicrunners.com/assets/images/galeria/foto-xeic.jpg',
     });
 

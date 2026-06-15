@@ -143,8 +143,8 @@
     }
   },
   "routes": {
-    "heroTitle": "Explora nuestras rutas",
-    "heroSubtitle": "De la llanura de la Sénia a los picos dels Ports. Elige tu reto.",
+    "heroTitle": "Rutas de Running y Trail en La Sénia",
+    "heroSubtitle": "De la llanura de La Sénia a los picos de los Ports. Elige tu reto y empieza a correr.",
     "search": "Buscar rutas...",
     "connectedStrava": "Conectado con Strava",
     "loading": "Cargando rutas de Strava...",

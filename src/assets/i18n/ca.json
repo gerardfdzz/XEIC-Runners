@@ -143,8 +143,8 @@
     }
   },
   "routes": {
-    "heroTitle": "Explora les nostres rutes",
-    "heroSubtitle": "De la plana de la Sénia als cims dels Ports. Tria el teu repte.",
+    "heroTitle": "Rutes de Running i Trail a La Sénia",
+    "heroSubtitle": "De la plana de la Sénia als cims dels Ports. Tria el teu repte i comença a córrer.",
     "search": "Cerca rutes...",
     "connectedStrava": "Connectat amb Strava",
     "loading": "Carregant rutes de Strava...",

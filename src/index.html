@@ -13,7 +13,7 @@
     />
     <meta
       name="keywords"
-      content="running La Sénia, club running Terres de l'Ebre, trail running Parc Natural dels Ports, XEIC RUNNERS, running social, club esportiu La Sénia"
+      content="La Sénia Running, La Sénia Correr, correr La Sénia, running La Sénia, club running La Sénia, runners La Sénia, XEIC RUNNERS, club running Terres de l'Ebre, trail running Parc Natural dels Ports, running social La Sénia, club esportiu La Sénia, running Montsià, atletisme La Sénia"
     />
     <meta name="author" content="XEIC RUNNERS" />
     <meta name="theme-color" content="#904d00" />
@@ -23,10 +23,12 @@
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="XEIC RUNNERS" />
     <meta property="og:locale" content="ca_ES" />
+    <meta property="og:locale:alternate" content="es_ES" />
+    <meta property="og:locale:alternate" content="en_GB" />
     <meta property="og:title" content="XEIC RUNNERS · El club de running social de La Sénia" />
     <meta
       property="og:description"
-      content="XEIC RUNNERS és el club de running social de La Sénia i les Terres de l'Ebre. Més de 130 membres, sortides setmanals per muntanya i carretera. Uneix-te!"
+      content="XEIC RUNNERS, el club de running i trail de La Sénia. Correr a La Sénia mai havia estat tan social. Més de 130 membres, sortides setmanals per muntanya i carretera. Uneix-te!"
     />
     <meta property="og:image" content="https://www.xeicrunners.com/assets/images/galeria/foto-xeic.jpg" />
     <meta property="og:image:width" content="1024" />
@@ -65,14 +67,16 @@
         "@context": "https://schema.org",
         "@type": "SportsClub",
         "name": "XEIC RUNNERS",
-        "alternateName": "Xeic Runners",
-        "description": "Club de running social de La Sénia i les Terres de l'Ebre. Sortides setmanals per muntanya i carretera, obert a tothom.",
+        "alternateName": ["Xeic Runners", "Club de Running La Sénia", "La Sénia Running"],
+        "description": "Club de running i trail running social de La Sénia i les Terres de l'Ebre. Sortides setmanals per muntanya i carretera pels Ports i el Montsià, obert a tothom.",
+        "sport": "Running",
         "url": "https://www.xeicrunners.com",
         "logo": "https://www.xeicrunners.com/assets/images/xeicrunners.png",
         "image": "https://www.xeicrunners.com/assets/images/galeria/foto-xeic.jpg",
         "foundingDate": "2025",
         "address": {
           "@type": "PostalAddress",
+          "streetAddress": "La Sénia",
           "addressLocality": "La Sénia",
           "addressRegion": "Tarragona",
           "postalCode": "43560",
@@ -83,6 +87,30 @@
           "latitude": "40.6414",
           "longitude": "0.2889"
         },
+        "areaServed": [
+          {
+            "@type": "City",
+            "name": "La Sénia",
+            "sameAs": "https://www.wikidata.org/wiki/Q1068038"
+          },
+          {
+            "@type": "AdministrativeArea",
+            "name": "Terres de l'Ebre"
+          },
+          {
+            "@type": "AdministrativeArea",
+            "name": "Montsià"
+          },
+          {
+            "@type": "AdministrativeArea",
+            "name": "Tarragona"
+          },
+          {
+            "@type": "Country",
+            "name": "Spain"
+          }
+        ],
+        "knowsAbout": ["running", "trail running", "La Sénia", "Parc Natural dels Ports", "Terres de l'Ebre"],
         "sameAs": ["https://www.instagram.com/xeicrunners/", "https://www.strava.com/clubs/1576309"],
         "contactPoint": {
           "@type": "ContactPoint",
@@ -97,7 +125,17 @@
         "@context": "https://schema.org",
         "@type": "WebSite",
         "name": "XEIC RUNNERS",
-        "url": "https://www.xeicrunners.com"
+        "url": "https://www.xeicrunners.com",
+        "description": "Club de running i trail de La Sénia. La Sénia Running, La Sénia Correr.",
+        "inLanguage": ["ca", "es", "en"],
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": {
+            "@type": "EntryPoint",
+            "urlTemplate": "https://www.xeicrunners.com/?q={search_term_string}"
+          },
+          "query-input": "required name=search_term_string"
+        }
       }
     </script>
   </head>

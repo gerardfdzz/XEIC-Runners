@@ -53,11 +53,11 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.seo.update({
-      title: 'XEIC RUNNERS · El club de running social de La Sénia',
+      title: 'XEIC RUNNERS · Club de Running i Trail a La Sénia',
       description:
-        "XEIC RUNNERS és el club de running de La Sénia i les Terres de l'Ebre. Més de 130 membres, sortides setmanals per muntanya i carretera. Uneix-te ara!",
+        "XEIC RUNNERS, el club de running i trail de La Sénia. Correr a La Sénia mai havia estat tan social: més de 130 membres, sortides setmanals pels Ports i les Terres de l'Ebre. Uneix-te!",
       keywords:
-        "running La Sénia, club running Terres de l'Ebre, trail running Parc Natural dels Ports, XEIC RUNNERS, running social, club esportiu La Sénia, running Tarragona",
+        "La Sénia Running, La Sénia Correr, correr La Sénia, running La Sénia, club running La Sénia, runners La Sénia, XEIC RUNNERS, club running Terres de l'Ebre, running social La Sénia, club esportiu La Sénia, running Montsià",
     });
 
     this.routesService.getRoutes().subscribe((routes) => {

@@ -143,8 +143,8 @@
     }
   },
   "routes": {
-    "heroTitle": "Explore our routes",
-    "heroSubtitle": "From the plains of La Sénia to the peaks of Els Ports. Choose your challenge.",
+    "heroTitle": "Running & Trail Routes in La Sénia",
+    "heroSubtitle": "From the plains of La Sénia to the peaks of Els Ports. Choose your challenge and start running.",
     "search": "Search routes...",
     "connectedStrava": "Connected with Strava",
     "loading": "Loading Strava routes...",

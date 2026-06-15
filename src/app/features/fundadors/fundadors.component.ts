@@ -25,11 +25,11 @@ export class FundadorsComponent implements OnInit {
 
   ngOnInit(): void {
     this.seo.update({
-      title: 'Fundadors · XEIC RUNNERS',
+      title: 'Fundadors · XEIC RUNNERS · Club de Running La Sénia',
       description:
-        "Coneix l'equip fundador de XEIC RUNNERS: quatre amics de La Sénia que van crear el club de running més actiu de les Terres de l'Ebre. La seva història i valors.",
+        "Coneix l'equip fundador de XEIC RUNNERS: quatre amics de La Sénia que van crear el club de running i trail més actiu de les Terres de l'Ebre. La seva història, valors i passió per correr a La Sénia.",
       keywords:
-        'fundadors XEIC RUNNERS, equip XEIC runners, història club running La Sénia, Teo Arasa, running social Terres Ebre',
+        "fundadors XEIC RUNNERS, La Sénia Running, La Sénia Correr, equip club running La Sénia, història running La Sénia, correr La Sénia, running social Terres de l'Ebre",
       ogImage: 'https://www.xeicrunners.com/assets/images/galeria/foto-xeic.jpg',
     });
 
