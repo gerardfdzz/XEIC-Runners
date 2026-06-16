@@ -171,29 +171,7 @@
     "viewOnStrava": "VEURE A STRAVA",
     "downloadGpx": "Descarrega GPX",
     "interactiveMap": "Explora el mapa interactiu",
-    "stravaFollow": "Segueix-nos a Strava",
-    "zones": {
-      "title": "On córrer a La Sénia",
-      "subtitle": "Tres zones per a tots els perfils: trail de muntanya, running per carretera i rutes mixtes",
-      "ports": {
-        "tag": "Trail de muntanya",
-        "name": "Parc Natural dels Ports",
-        "desc": "El cor del trail running a La Sénia. Rutes emblemàtiques com el circuit de la Font del Teix (15 km, D+600 m) o l'ascens al cim del Caro (1.447 m), el punt més alt dels Ports de Tortosa. Terreny tècnic, vistes 360° i silenci absolut.",
-        "hint": "5 – 30 km · D+300 – 1.200 m · Trail"
-      },
-      "pla": {
-        "tag": "Running i asfalte",
-        "name": "Plana de La Sénia",
-        "desc": "Rutes planes i accessibles que surten directament del poble. Camins entre tarongers i oliveres mil·lenàries, perfectes per a entrenaments de quilòmetres o per als que comencen a córrer a La Sénia. Ideals per a sortides nocturnes.",
-        "hint": "5 – 20 km · Poc desnivell · Asfalte i camins"
-      },
-      "montsia": {
-        "tag": "Mixte",
-        "name": "Serra del Montsià",
-        "desc": "Rutes de transició entre La Sénia i la costa del Montsià. Camins entre pinars amb vistes a la plana de l'Ebre i al delta. Perfectes per als qui volen combinar trail i running per carretera en el mateix entrenament.",
-        "hint": "10 – 25 km · D+400 – 800 m · Mixte"
-      }
-    }
+    "stravaFollow": "Segueix-nos a Strava"
   },
   "events": {
     "badge": "Calendari",
