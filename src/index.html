@@ -45,6 +45,22 @@
     />
     <meta name="twitter:image" content="https://www.xeicrunners.com/assets/images/galeria/foto-xeic.jpg" />
 
+    <!-- Critical CSS: reserve bottom-nav space before Angular boots to reduce CLS -->
+    <style>
+      @media (max-width: 1023px) {
+        app-bottom-nav {
+          display: block;
+          position: fixed;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          height: 76px;
+          z-index: 50;
+          pointer-events: none;
+        }
+      }
+    </style>
+
     <link rel="shortcut icon" href="favicon.ico" />
     <link rel="icon" type="image/png" sizes="512x512" href="assets/images/favicon-circle.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png" />
@@ -52,12 +68,23 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
+    <!-- Text fonts: Lexend + Newsreader (no opsz axis — avoids ~3.8 MB variable font file) -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Lexend:wght@500;600;700;800&family=Newsreader:ital,wght@0,400;1,400&display=swap"
+    />
+    <!-- Material Symbols subsetted to only the icons used in this app (~130KB → ~10KB) -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=arrow_forward,bolt,calendar_month,close,directions_run,distance,diversity_3,eco,event,event_busy,expand_more,favorite,format_quote,groups,history,home,landscape,location_on,menu,open_in_new,person,photo_library,route,schedule,search,search_off,straighten,sync,trail_length,tune,upcoming&display=swap"
+    />
+
     <link
       rel="preload"
       as="image"
-      href="assets/images/xeicrunners-1280.webp"
+      href="assets/images/xeicrunners-800.webp"
       type="image/webp"
-      imagesrcset="assets/images/xeicrunners-640.webp 640w, assets/images/xeicrunners-1280.webp 1280w"
+      imagesrcset="assets/images/xeicrunners-640.webp 640w, assets/images/xeicrunners-800.webp 800w, assets/images/xeicrunners-1280.webp 1280w"
       imagesizes="(min-width: 768px) 50vw, 100vw"
       fetchpriority="high"
     />

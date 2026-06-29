@@ -55,7 +55,8 @@
     "events": {
       "title": "Próximas Quedadas",
       "subtitle": "No lo pienses más y ven a la próxima.",
-      "viewAll": "Ver calendario completo"
+      "viewAll": "Ver calendario completo",
+      "noUpcoming": "Próximamente nuevos eventos. ¡Síguenos para estar al día!"
     },
     "routes": {
       "title": "Explora las Rutas",

@@ -55,7 +55,8 @@
     "events": {
       "title": "Upcoming Meetups",
       "subtitle": "Don't think twice and come to the next one.",
-      "viewAll": "View full calendar"
+      "viewAll": "View full calendar",
+      "noUpcoming": "New events coming soon. Follow us to stay in the loop!"
     },
     "routes": {
       "title": "Explore the Routes",

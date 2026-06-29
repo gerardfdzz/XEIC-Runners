@@ -95,6 +95,8 @@
     display: block;
     @include headline-md;
     color: $primary;
+    min-width: 3ch;
+    font-variant-numeric: tabular-nums;
   }
 
   &__stat-label {
@@ -367,6 +369,42 @@
       grid-template-columns: repeat(3, 1fr);
     }
   }
+
+  &__skeleton {
+    border-radius: $radius-2xl;
+    height: 380px;
+    background: $surface-container;
+    animation: skeleton-pulse 1.5s ease-in-out infinite;
+
+    @include md {
+      height: 420px;
+    }
+  }
+
+  &__empty {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 48px 24px;
+    color: $on-surface-variant;
+    text-align: center;
+
+    .material-symbols-outlined {
+      font-size: 48px;
+      opacity: 0.4;
+    }
+
+    p {
+      @include body-lg;
+    }
+  }
+}
+
+@keyframes skeleton-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
 }
 
 .routes-preview {

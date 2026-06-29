@@ -42,7 +42,11 @@
         <picture>
           <source
             type="image/webp"
-            srcset="assets/images/xeicrunners-640.webp 640w, assets/images/xeicrunners-1280.webp 1280w"
+            srcset="
+              assets/images/xeicrunners-640.webp   640w,
+              assets/images/xeicrunners-800.webp   800w,
+              assets/images/xeicrunners-1280.webp 1280w
+            "
             sizes="(min-width: 768px) 50vw, 100vw"
           />
           <img
@@ -52,12 +56,14 @@
             width="640"
             height="640"
             fetchpriority="high"
-            decoding="async"
           />
         </picture>
       </div>
       <div class="hero__strava-card">
-        <img src="assets/images/strava-icon.png" alt="Strava" class="hero__strava-icon" width="512" height="512" />
+        <picture>
+          <source type="image/webp" srcset="assets/images/strava-icon-150.webp" />
+          <img src="assets/images/strava-icon.png" alt="Strava" class="hero__strava-icon" width="150" height="150" />
+        </picture>
         <div>
           <p class="hero__strava-title">
             {{ i18n.t('home.stravaCard.title') }}
@@ -112,43 +118,55 @@
   </div>
 </section>
 
-@if (upcomingEvents().length > 0) {
-  <section class="events-preview">
-    <div class="events-preview__inner">
-      <div class="events-preview__header">
-        <div>
-          <h2 class="events-preview__title">
-            {{ i18n.t('home.events.title') }}
-          </h2>
-          <p class="events-preview__subtitle">
-            {{ i18n.t('home.events.subtitle') }}
-          </p>
-        </div>
-        <a routerLink="/esdeveniments" class="events-preview__link">
-          {{ i18n.t('home.events.viewAll') }}
-          <span class="material-symbols-outlined">arrow_forward</span>
-        </a>
+<section class="events-preview">
+  <div class="events-preview__inner">
+    <div class="events-preview__header">
+      <div>
+        <h2 class="events-preview__title">
+          {{ i18n.t('home.events.title') }}
+        </h2>
+        <p class="events-preview__subtitle">
+          {{ i18n.t('home.events.subtitle') }}
+        </p>
       </div>
-      <div class="events-preview__grid">
+      <a routerLink="/esdeveniments" class="events-preview__link">
+        {{ i18n.t('home.events.viewAll') }}
+        <span class="material-symbols-outlined">arrow_forward</span>
+      </a>
+    </div>
+    <div class="events-preview__grid">
+      @if (eventsLoading()) {
+        <div class="events-preview__skeleton" aria-hidden="true"></div>
+        <div class="events-preview__skeleton" aria-hidden="true"></div>
+        <div class="events-preview__skeleton" aria-hidden="true"></div>
+      } @else if (upcomingEvents().length > 0) {
         @for (event of upcomingEvents(); track event.id) {
           <app-event-card [event]="event" (imageClick)="openLightbox(event)" />
         }
-      </div>
+      } @else {
+        <div class="events-preview__empty">
+          <span class="material-symbols-outlined">calendar_month</span>
+          <p>{{ i18n.t('home.events.noUpcoming') }}</p>
+        </div>
+      }
     </div>
-  </section>
-}
+  </div>
+</section>
 
 <section class="routes-preview">
   <div class="routes-preview__inner">
     <div class="routes-preview__content">
       <div class="routes-preview__heading">
-        <img
-          src="assets/images/strava-icon.png"
-          alt="Strava"
-          class="routes-preview__strava-icon"
-          width="512"
-          height="512"
-        />
+        <picture>
+          <source type="image/webp" srcset="assets/images/strava-icon-150.webp" />
+          <img
+            src="assets/images/strava-icon.png"
+            alt="Strava"
+            class="routes-preview__strava-icon"
+            width="150"
+            height="150"
+          />
+        </picture>
         <h2 class="routes-preview__title">{{ i18n.t('home.routes.title') }}</h2>
       </div>
       <p class="routes-preview__subtitle">
@@ -248,14 +266,26 @@
         </p>
       </div>
       <div class="community-preview__item">
-        <img
-          src="assets/images/galeria/escales-1.jpg"
-          alt="XEIC Runners al Parc Natural dels Ports"
-          class="community-preview__photo"
-          loading="lazy"
-          width="1024"
-          height="683"
-        />
+        <picture>
+          <source
+            type="image/webp"
+            srcset="
+              assets/images/galeria/escales-1-480.webp   480w,
+              assets/images/galeria/escales-1-960.webp   960w,
+              assets/images/galeria/escales-1-1440.webp 1440w
+            "
+            sizes="(min-width: 1024px) 25vw, 50vw"
+          />
+          <img
+            src="assets/images/galeria/escales-1.jpg"
+            alt="XEIC Runners al Parc Natural dels Ports"
+            class="community-preview__photo"
+            loading="lazy"
+            decoding="async"
+            width="1024"
+            height="683"
+          />
+        </picture>
       </div>
       <div class="community-preview__item community-preview__item--stat">
         <p class="community-preview__stat-value">{{ memberCount() }}</p>
@@ -282,6 +312,8 @@
   </div>
 </section>
 
-@if (selectedEvent(); as ev) {
-  <app-lightbox [event]="ev" labelledBy="home-lightbox-title" (closed)="closeLightbox()" />
+@defer (when selectedEvent() !== null) {
+  @if (selectedEvent(); as ev) {
+    <app-lightbox [event]="ev" labelledBy="home-lightbox-title" (closed)="closeLightbox()" />
+  }
 }

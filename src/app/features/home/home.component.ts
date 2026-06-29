@@ -1,5 +1,4 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { forkJoin } from 'rxjs';
 import { I18nService } from '../../core/services/i18n.service';
@@ -17,7 +16,7 @@ import { XeicRoute } from '../../core/models/route.model';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, RouterModule, EventCardComponent, LightboxComponent],
+  imports: [RouterModule, EventCardComponent, LightboxComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
@@ -32,9 +31,10 @@ export class HomeComponent implements OnInit {
   protected readonly whatsappUrl = WHATSAPP_INVITE_URL;
 
   upcomingEvents = signal<XeicEvent[]>([]);
+  eventsLoading = signal(true);
   featuredRoutes = signal<XeicRoute[]>([]);
-  routeCount = signal<string>('...');
-  memberCount = signal<string>('...');
+  routeCount = signal<string>('—');
+  memberCount = signal<string>('—');
   selectedEvent = signal<XeicEvent | null>(null);
 
   openLightbox(event: XeicEvent): void {
@@ -77,6 +77,7 @@ export class HomeComponent implements OnInit {
     }).subscribe(({ groupEvents, sheetEvents }) => {
       const upcoming = this.eventMerge.mergeUpcomingEvents(groupEvents, sheetEvents);
       this.upcomingEvents.set(upcoming.slice(0, 3));
+      this.eventsLoading.set(false);
     });
   }
 }

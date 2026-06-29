@@ -10,14 +10,14 @@ import {
   ViewChild,
   inject,
 } from '@angular/core';
-import { CommonModule, DatePipe } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { I18nService } from '../../../core/services/i18n.service';
 import { XeicEvent } from '../../../core/models/event.model';
 
 @Component({
   selector: 'app-lightbox',
   standalone: true,
-  imports: [CommonModule, DatePipe],
+  imports: [DatePipe],
   templateUrl: './lightbox.component.html',
   styleUrl: './lightbox.component.scss',
 })

@@ -29,6 +29,11 @@ export class I18nService {
     this.loadLanguage(this._lang()).subscribe();
   }
 
+  /** Called by APP_INITIALIZER — resolves before any component renders. */
+  loadInitialLanguage(): Observable<Record<string, unknown>> {
+    return this.loadLanguage(this._lang());
+  }
+
   setLanguage(lang: Language): Observable<void> {
     if (!this.SUPPORTED.includes(lang)) return of(void 0);
     localStorage.setItem(this.STORAGE_KEY, lang);

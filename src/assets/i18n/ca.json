@@ -55,7 +55,8 @@
     "events": {
       "title": "Pròximes Quedades",
       "subtitle": "No t'ho pensis més i vine a la propera.",
-      "viewAll": "Veure calendari complet"
+      "viewAll": "Veure calendari complet",
+      "noUpcoming": "Pròximament nous esdeveniments. Segueix-nos per estar al dia!"
     },
     "routes": {
       "title": "Explora les Rutes",
