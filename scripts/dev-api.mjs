@@ -65,8 +65,14 @@ async function handleStrava(res) {
       }),
     ]);
 
-    if (!clubRes.ok) throw new Error(`Club API: ${clubRes.status}`);
-    if (!activitiesRes.ok) throw new Error(`Activities API: ${activitiesRes.status}`);
+    if (!clubRes.ok) {
+      const body = await clubRes.text();
+      throw new Error(`Club API: ${clubRes.status} — ${body.slice(0, 300)}`);
+    }
+    if (!activitiesRes.ok) {
+      const body = await activitiesRes.text();
+      throw new Error(`Activities API: ${activitiesRes.status} — ${body.slice(0, 300)}`);
+    }
 
     const [club, activities, groupEvents] = await Promise.all([
       clubRes.json(),
