@@ -65,8 +65,6 @@ export class ComunitatComponent implements OnInit {
 
       this.memberCount = `${data.club.member_count}`;
 
-      const totalKm = data.activities.reduce((acc, a) => acc + a.distance / 1000, 0);
-
       this.stats = [
         {
           icon: 'person',
@@ -85,8 +83,8 @@ export class ComunitatComponent implements OnInit {
         },
         {
           icon: 'landscape',
-          value: `${Math.round(totalKm)}km`,
-          labelKey: 'community.stats.recentStrava',
+          value: '400+',
+          labelKey: 'community.stats.kmShared',
         },
       ];
 
