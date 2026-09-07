@@ -71,12 +71,12 @@ async function handleStrava(res) {
     }
     if (!activitiesRes.ok) {
       const body = await activitiesRes.text();
-      throw new Error(`Activities API: ${activitiesRes.status} — ${body.slice(0, 300)}`);
+      console.warn(`⚠️  Activities API: ${activitiesRes.status} — ${body.slice(0, 300)} (continuing with empty activities)`);
     }
 
     const [club, activities, groupEvents] = await Promise.all([
       clubRes.json(),
-      activitiesRes.json(),
+      activitiesRes.ok ? activitiesRes.json() : Promise.resolve([]),
       groupEventsRes.ok ? groupEventsRes.json() : Promise.resolve([]),
     ]);
 
