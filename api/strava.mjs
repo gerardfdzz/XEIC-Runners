@@ -33,7 +33,9 @@ export default async function handler(req, res) {
 
     if (!clubRes.ok) throw new Error(`Club API: ${clubRes.status}`);
     if (!activitiesRes.ok) {
-      console.error(`[api/strava] Activities API: ${activitiesRes.status} — continuing with empty list`);
+      console.error(
+        `[api/strava] Activities API: ${activitiesRes.status} — continuing with empty list`,
+      );
     }
 
     const [club, activities, groupEvents] = await Promise.all([
