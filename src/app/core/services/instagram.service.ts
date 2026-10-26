@@ -8,7 +8,7 @@ export class InstagramService {
   private readonly http = inject(HttpClient);
 
   private readonly data$: Observable<InstagramItem[]> = this.http
-    .get<InstagramHighlightsResponse>('/api/instagram')
+    .get<InstagramHighlightsResponse>('/api/instagram', { headers: { 'X-Silent': 'true' } })
     .pipe(
       map((res) => res.items ?? []),
       shareReplay(1),
