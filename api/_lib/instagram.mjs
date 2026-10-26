@@ -22,8 +22,19 @@ export function buildInstagramHeaders(sessionId) {
   };
 }
 
+function getReelsMap(data) {
+  return data?.reels ?? data?.reels_media ?? {};
+}
+
+// Instagram answers 200 with an empty `reels` map when the session is no longer
+// valid or the highlight no longer exists, so a missing reel must be detected explicitly.
+export function findMissingHighlights(data) {
+  const reelsMap = getReelsMap(data);
+  return HIGHLIGHT_IDS.filter((id) => !reelsMap[`highlight:${id}`]);
+}
+
 export function extractHighlightItems(data) {
-  const reelsMap = data?.reels ?? data?.reels_media ?? {};
+  const reelsMap = getReelsMap(data);
   let items = [];
   for (const id of HIGHLIGHT_IDS) {
     const reel = reelsMap[`highlight:${id}`];

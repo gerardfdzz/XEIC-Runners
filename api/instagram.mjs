@@ -1,7 +1,9 @@
 import {
+  HIGHLIGHT_IDS,
   IG_API_URL,
   buildInstagramHeaders,
   extractHighlightItems,
+  findMissingHighlights,
   isInstagramEnabled,
 } from './_lib/instagram.mjs';
 
@@ -43,6 +45,17 @@ export default async function handler(req, res) {
     }
 
     const data = await igRes.json();
+
+    const missing = findMissingHighlights(data);
+    if (missing.length === HIGHLIGHT_IDS.length) {
+      throw new Error(
+        `Instagram returned no highlights (${missing.join(', ')}): session expired or highlight removed`,
+      );
+    }
+    if (missing.length > 0) {
+      console.warn('[api/instagram] Missing highlights:', missing.join(', '));
+    }
+
     const items = extractHighlightItems(data);
 
     const payload = { items };
@@ -52,6 +65,7 @@ export default async function handler(req, res) {
     return res.status(200).json(payload);
   } catch (err) {
     console.error('[api/instagram]', err.message);
+    res.setHeader('Cache-Control', 'no-store');
     return res.status(500).json({ error: err.message, items: [] });
   }
 }
