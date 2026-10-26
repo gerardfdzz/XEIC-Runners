@@ -1,8 +1,7 @@
 import {
   HIGHLIGHT_IDS,
-  IG_API_URL,
-  buildInstagramHeaders,
   extractHighlightItems,
+  fetchHighlightsData,
   findMissingHighlights,
   isInstagramEnabled,
 } from './_lib/instagram.mjs';
@@ -35,16 +34,7 @@ export default async function handler(req, res) {
     }
     const sessionId = decodeURIComponent(rawSession);
 
-    const igRes = await fetch(IG_API_URL, {
-      headers: buildInstagramHeaders(sessionId),
-    });
-
-    if (!igRes.ok) {
-      const body = await igRes.text();
-      throw new Error(`Instagram responded ${igRes.status}: ${body.slice(0, 300)}`);
-    }
-
-    const data = await igRes.json();
+    const data = await fetchHighlightsData(sessionId);
 
     const missing = findMissingHighlights(data);
     if (missing.length === HIGHLIGHT_IDS.length) {

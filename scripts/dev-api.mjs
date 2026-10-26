@@ -8,9 +8,8 @@ import {
   mapStravaRouteType,
 } from '../api/_lib/strava.mjs';
 import {
-  IG_API_URL,
-  buildInstagramHeaders,
   extractHighlightItems,
+  fetchHighlightsData,
   isInstagramEnabled,
 } from '../api/_lib/instagram.mjs';
 
@@ -160,14 +159,7 @@ async function handleInstagram(res) {
     const sessionId = decodeURIComponent(rawSession);
 
     console.log('📸  Fetching Instagram highlights...');
-    const igRes = await fetch(IG_API_URL, {
-      headers: buildInstagramHeaders(sessionId),
-    });
-    if (!igRes.ok) {
-      const body = await igRes.text();
-      throw new Error(`Instagram HTTP ${igRes.status}: ${body.slice(0, 300)}`);
-    }
-    const data = await igRes.json();
+    const data = await fetchHighlightsData(sessionId);
     const items = extractHighlightItems(data);
 
     _ig = { data: { items }, expiry: Date.now() + IG_TTL };

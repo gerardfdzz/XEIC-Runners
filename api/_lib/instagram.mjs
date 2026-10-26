@@ -1,33 +1,140 @@
 export const HIGHLIGHT_IDS = ['18071980868164936'];
 
-export const IG_API_URL = `https://i.instagram.com/api/v1/feed/reels_media/?${HIGHLIGHT_IDS.map(
-  (id) => `reel_ids=highlight:${id}`,
-).join('&')}`;
+const IG_ORIGIN = 'https://www.instagram.com';
+const IG_APP_ID = '936619743392459';
+const WEB_USER_AGENT =
+  'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36';
 
-export function buildInstagramHeaders(sessionId) {
-  return {
-    'User-Agent':
-      'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1',
-    Cookie: `sessionid=${sessionId}`,
-    'X-IG-App-ID': '936619743392459',
-    Accept: '*/*',
-    'Accept-Language': 'ca-ES,ca;q=0.9,en;q=0.8',
-    'Accept-Encoding': 'gzip, deflate, br',
-    Origin: 'https://www.instagram.com',
-    Referer: 'https://www.instagram.com/',
-    'Sec-Fetch-Mode': 'cors',
-    'Sec-Fetch-Site': 'same-site',
-    'Sec-Fetch-Dest': 'empty',
-    'X-Requested-With': 'XMLHttpRequest',
+// Persisted GraphQL query used by instagram.com to load highlights
+// (PolarisStoriesV3ReelPageGalleryQuery). Instagram rotates these ids: when it
+// changes, override it with INSTAGRAM_HIGHLIGHT_DOC_ID instead of editing code.
+const DEFAULT_HIGHLIGHT_DOC_ID = '29306733562261201';
+
+function getHighlightDocId() {
+  return process.env.INSTAGRAM_HIGHLIGHT_DOC_ID?.trim() || DEFAULT_HIGHLIGHT_DOC_ID;
+}
+
+function matchToken(html, patterns) {
+  for (const re of patterns) {
+    const m = html.match(re);
+    if (m) return m[1];
+  }
+  return null;
+}
+
+function readCookie(res, name) {
+  const cookies = res.headers.getSetCookie?.() ?? [];
+  for (const c of cookies) {
+    const m = c.match(new RegExp(`^${name}=([^;]+)`));
+    if (m) return m[1];
+  }
+  return null;
+}
+
+// The GraphQL endpoint requires the per-session tokens (fb_dtsg, lsd, csrftoken)
+// that instagram.com embeds in its HTML, so a page is loaded first to read them.
+async function fetchWebTokens(sessionId) {
+  const res = await fetch(`${IG_ORIGIN}/`, {
+    headers: {
+      'User-Agent': WEB_USER_AGENT,
+      Cookie: `sessionid=${sessionId}`,
+      Accept: 'text/html',
+      'Accept-Language': 'ca-ES,ca;q=0.9,en;q=0.8',
+    },
+  });
+  if (!res.ok) {
+    throw new Error(`Instagram page responded ${res.status}`);
+  }
+  const html = await res.text();
+
+  const dtsg = matchToken(html, [
+    /"DTSGInitialData",\[\],\{"token":"([^"]+)"/,
+    /"dtsg":\{"token":"([^"]+)"/,
+  ]);
+  const lsd = matchToken(html, [/"LSD",\[\],\{"token":"([^"]+)"/]);
+  const csrf = readCookie(res, 'csrftoken') ?? matchToken(html, [/"csrf_token":"([^"]+)"/]);
+
+  if (!dtsg || !lsd || !csrf) {
+    throw new Error(
+      `Instagram session not accepted (tokens: dtsg=${!!dtsg}, lsd=${!!lsd}, csrf=${!!csrf}): session expired?`,
+    );
+  }
+  return { dtsg, lsd, csrf };
+}
+
+// Adapts the GraphQL connection to the legacy `{ reels: { 'highlight:<id>': reel } }`
+// shape so the extraction helpers below stay unchanged.
+function toReelsMap(connection) {
+  const reels = {};
+  (connection?.edges ?? []).forEach((edge, i) => {
+    const node = edge?.node;
+    if (!node) return;
+    const rawId = String(node.id ?? HIGHLIGHT_IDS[i] ?? '');
+    const key = rawId.startsWith('highlight:') ? rawId : `highlight:${rawId}`;
+    reels[key] = node;
+  });
+  return { reels };
+}
+
+export async function fetchHighlightsData(sessionId) {
+  const { dtsg, lsd, csrf } = await fetchWebTokens(sessionId);
+  const reelIds = HIGHLIGHT_IDS.map((id) => `highlight:${id}`);
+  const variables = {
+    first: 100,
+    initial_reel_id: reelIds[0],
+    reel_ids: reelIds,
+    __relay_internal__pv__PolarisCommunityNoteStoriesLabelEnabledrelayprovider: false,
   };
+
+  const res = await fetch(`${IG_ORIGIN}/graphql/query`, {
+    method: 'POST',
+    headers: {
+      'User-Agent': WEB_USER_AGENT,
+      Cookie: `sessionid=${sessionId}; csrftoken=${csrf}`,
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'X-CSRFToken': csrf,
+      'X-FB-LSD': lsd,
+      'X-IG-App-ID': IG_APP_ID,
+      Accept: '*/*',
+      Origin: IG_ORIGIN,
+      Referer: `${IG_ORIGIN}/stories/highlights/${HIGHLIGHT_IDS[0]}/`,
+    },
+    body: new URLSearchParams({
+      fb_dtsg: dtsg,
+      lsd,
+      doc_id: getHighlightDocId(),
+      variables: JSON.stringify(variables),
+      fb_api_caller_class: 'RelayModern',
+      server_timestamps: 'true',
+    }),
+  });
+
+  const text = await res.text();
+  if (!res.ok) {
+    throw new Error(`Instagram GraphQL responded ${res.status}: ${text.slice(0, 300)}`);
+  }
+
+  let json;
+  try {
+    json = JSON.parse(text.replace(/^for \(;;\);/, ''));
+  } catch {
+    throw new Error(
+      `Instagram GraphQL returned non-JSON (doc_id outdated?): ${text.slice(0, 120)}`,
+    );
+  }
+  if (json.errors?.length) {
+    throw new Error(`Instagram GraphQL error: ${json.errors[0].message}`);
+  }
+
+  return toReelsMap(json.data?.xdt_api__v1__feed__reels_media__connection);
 }
 
 function getReelsMap(data) {
   return data?.reels ?? data?.reels_media ?? {};
 }
 
-// Instagram answers 200 with an empty `reels` map when the session is no longer
-// valid or the highlight no longer exists, so a missing reel must be detected explicitly.
+// Instagram can answer 200 without the requested reel (session no longer valid or
+// highlight removed), so a missing reel must be detected explicitly.
 export function findMissingHighlights(data) {
   const reelsMap = getReelsMap(data);
   return HIGHLIGHT_IDS.filter((id) => !reelsMap[`highlight:${id}`]);

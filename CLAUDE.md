@@ -169,8 +169,9 @@ Nunca commitear `.env` ni imprimir su contenido en logs ni en respuestas al usua
   crítica (servicios, parsers de Strava) plantear añadir specs puntuales.
 - **Caché en memoria de las funciones serverless**: no resiste cold starts ni
   invalidaciones manuales. Aceptable hoy; valorar KV/Edge Cache si el tráfico crece.
-- **Acoplamiento a Instagram no oficial**: `api/instagram.js` usa endpoint interno
-  (`i.instagram.com/api/v1/...`) y `INSTAGRAM_SESSION_ID`. Es frágil ante cambios
+- **Acoplamiento a Instagram no oficial**: `api/instagram.mjs` usa la GraphQL interna
+  de instagram.com (`/graphql/query` + `doc_id`, sobreescribible con
+  `INSTAGRAM_HIGHLIGHT_DOC_ID`) e `INSTAGRAM_SESSION_ID`. Es frágil ante cambios
   de Meta; documentar/aislar para poder sustituirlo por la API oficial si rompe.
 - **i18n por HTTP en runtime**: cada cambio de idioma dispara una request. Acceptable
   por el tamaño actual del JSON; revaluar si crece.

@@ -123,7 +123,9 @@ Route type is inferred from Strava's `type` + `sub_type` fields:
 
 ### Instagram highlights
 
-`api/instagram.js` fetches highlight stories from `@xeicrunners` using Instagram's private API. Requires only a `sessionid` cookie — no official API key.
+`api/instagram.mjs` fetches highlight stories from `@xeicrunners` using Instagram's private web GraphQL API (the same query instagram.com uses). Requires only a `sessionid` cookie — no official API key. On each refresh it loads an Instagram page to read the session tokens (`fb_dtsg`, `lsd`, `csrftoken`) and then calls `/graphql/query`.
+
+If Instagram rotates the query id, the endpoint fails with `doc_id outdated?`. Find the new id in the instagram.com JS bundle (`PolarisStoriesV3ReelPageGalleryQuery_instagramRelayOperation`) and set it as `INSTAGRAM_HIGHLIGHT_DOC_ID` (optional env var, no code change needed).
 
 ```
 GET /api/instagram → { items: [{ id, imageUrl, width, height, takenAt }] }
